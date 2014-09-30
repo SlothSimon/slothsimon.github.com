@@ -1,0 +1,16 @@
+# Site settings
+title: SlothSimon's Skytree
+email: simon_zqm@163.com
+description: > # this means to ignore newlines until "baseurl:"
+  This tree is being built now...waiting...
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://slothsimon.github.com" # the base hostname & protocol for your site
+twitter_username: 
+github_username:  slothsimon
+
+# Build settings
+markdown: kramdown
+
+#Base setting
+baseurl: ""
+encoding: "utf-8"
