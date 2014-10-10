@@ -1,0 +1,51 @@
+---
+layout: post
+title: 首先建立一个个人博客
+date: 2014-10-08
+categories: 网站搭建
+tags: jekyll github django disqus 多说 blog ruby devkit
+---
+为了记录一些编程中的经验和发现，避免重复查找，开个个人博客。第一个挑战就是学习搭建环境，利用jekyll建立博客，这个总结的博文很多就不详细记录了，Github本身也有[相关教程][Github Pages]，官方推的一种程序猿博客搭建方式。
+
+之前也有使用过[django模板][django-template]，类似这样的语法在jekyll中也用到了：
+
+{% highlight Django templates %}
+{% raw %}
+<ul>
+	{% for person in people %}
+		<li>{{person.name}}:{{person.number}}<li>
+	{% endfor %}
+</ul>
+{% endraw %}
+{% endhighlight %}
+
+django中的模板不会马上编译，所以模板中可以嵌套模板，这同jekyll相同。jekyll使用Liquid模板语言，而Liquid则是基于Ruby开发的，对于这二者我尚且不了解。Liquid模板语言和django模板类似，同样有过滤器等等功能。
+
+二者的区别与联系：<br>
+	→django基于数据库，动态，基于python搭建，需要有python基础、html基础和数据库基础<br>
+	→jekyll无需数据库，静态，虽说要懂markdown，其实如果要求不高，直接写文字博客不去学也没关系。<br>
+不过一般来说在github上用jekyll搭建博客的人都有相关基础了吧，没基础的人也不会选择这种博客搭建方式。<br>
+未来希望能加入评论功能，由于jekyll本身不具备这样的功能，所以要引入第三方的评论系统[Disqus][Disqus]，据说这个系统是和Facebook和Twitter整合在一起，[Linbo的博文][Linbo-jekyll]中建议用[多说][duoshuo]，和国内的社交网站结合的比较好。<br>
+然后还有域名，如果真的成为程序猿了拿的第一笔工资就用来买域名好了www.slothsimon.com٩( 'ω' )و
+
+搭建blog的参考文献除了Github本身的教程和[jekyll官网][jekyll]外，中文可以参考：<br>
+[hzmook：使用Jekyll在Github上搭建博客][hzmook]<br>
+[阮一峰：搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门][ruanyifeng]<br>
+[天镶：使用Jekyll在Github上搭建个人博客（博客编写）][skyinlayer]<br>
+[zhenyu：用Jekyll和Pygments配置代码高亮][zhenyu]<br>
+
+[Github Pages]:https://pages.github.com/
+[django-template]:http://djangobook.py3k.cn/chapter04/
+[Disqus]:http://www.disqus.com
+[Linbo-jekyll]:http://linbo.github.io/2013/04/19/blog/
+[duoshuo]:http://www.duoshuo.com
+[hzmook]:http://hzmook.github.io/2012/07/01/use-jekyll-build-blog-on-github.html
+[ruanyifeng]:http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html
+[skyinlayer]:http://segmentfault.com/blog/skyinlayer/1190000000406013
+[zhenyu]:http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/
+[jekyll]:http://jekyllcn.com/
+
+补充
+===============================
+为了在本地运行jekyll，用rubyinstaller安装了ruby环境，配置devkit不小心误操作改变了devkit的路径……找了半天才发现不用卸载devkit，修改ruby中devkit的path即可，但是不知道在哪里改，干脆就直接将ruby卸了重装，然后重新安装了一遍devkit。这样下载rdiscount时就正常了。<br>
+截至{{page.date}}，jekyll似乎已经能很好地兼容中文博客内容，不过还是安装了rdiscount保证分类和标签的中文也能在网址里正常显示。

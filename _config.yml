@@ -9,8 +9,12 @@ twitter_username:
 github_username:  slothsimon
 
 # Build settings
-markdown: kramdown
+markdown: rdiscount
 
 #Base setting
 baseurl: ""
-encoding: "utf-8"
+encoding: UTF-8
+paginate: 5
+
+# code highlight
+highlighter: pygments
