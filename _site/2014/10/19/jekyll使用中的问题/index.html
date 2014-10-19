@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Welcome to Jekyll!</title>
+    <title>jekyll使用中的问题</title>
     <meta name="description" content="This tree is being built now...waiting...
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://slothsimon.github.com/jekyll/update/2014/10/01/welcome-to-jekyll.html">
+    <link rel="canonical" href="http://slothsimon.github.com/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98">
 </head>
 
 
@@ -58,25 +58,59 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Welcome to Jekyll!</h1>
-    <p class="post-meta">Oct 1, 2014</p>
+    <h1 class="post-title">jekyll使用中的问题</h1>
+    <p class="post-meta">Oct 19, 2014</p>
   </header>
 
   <article class="post-content">
-    <p>You’ll find this post in your <code>_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code>jekyll serve --watch</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+    <p>在编辑两篇在10月9日写好的两篇笔记时，调用<code>jekyll server</code>，先后出现了以下问题。</p>
 
-<p>To add new posts, simply add a file in the <code>_posts</code> directory that follows the convention <code>YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<p>1.<code>undefined method 'default_proc'</code></p>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
+<p>Google了半天，才发现原来是博文头信息里，冒号后面必须空一格，否则就会报错，真是_(:3」∠)_</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">&quot;Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">&#39;Tom&#39;</span><span class="p">)</span>
-<span class="c1">#=&gt; prints &#39;Hi, Tom&#39; to STDOUT.</span></code></pre></div>
+<p>错误：</p>
 
+<pre><code>    ---
+    title:lua学习笔记
+    ---
+</code></pre>
 
-<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://github.com/jekyll/jekyll-help">Jekyll’s dedicated Help repository</a>.</p>
+<p>正确：</p>
+
+<pre><code>    ---
+    title: lua学习笔记
+    ---
+</code></pre>
+
+<p>2.<code>warning: cannot close fd before spawn 'which' 不是内部或外部命令，也不是可运行的程序或批处理文件</code></p>
+
+<p>google了一把说是pygments的问题。我之前在<code>_config.yml</code>已经写明了<code>highlighter: pygments</code>，抱着死马当成活马的态度，改成了<code>highlighter: rouge/pygments</code>。结果问题就神秘消失了……但是这样会导致高亮出现问题，代码全是黑色，没有其他颜色。</p>
+
+<p>3.<code>Please add the following to Gemfile to avoid polling for changes:
+require 'rbconfig'
+if RbConfig::CONFIG['target_os'] =~ /mswin|mingw|cygwin/i
+    gem 'wdm', '&gt;=0.1.0'
+end</code></p>
+
+<p>最后在stackoverflow中找到类似问题<a href="http://stackoverflow.com/questions/20459859/ruby-error-cannot-load-such-file-wdm-loaderror">Ruby error: cannot load such file — wdm (LoadError)</a>,只要安装wdm这个模块似乎就可以了。代码如下：</p>
+
+<p><code>gem install wdm</code></p>
+
+<p>4.中文乱码</p>
+
+<p>其实以上问题（包括当前这个）在我写第二篇博文之前都没有发生过，不知道为什么新建了博文后，出现各种各样的问题，而且打开的网页中如果有中文还是乱码。但是我的第一篇博文也是中文，却没有任何显示上的问题，我在想是不是文本编码不同，但是都是 UTF-8编码，不知道问题出在哪里。
+以及发现，原来<code>_post</code>文件夹中的文件名也可以包含中文没问题了。</p>
+
+<p>补充：后来发现可能是format-matter中的内容写错了导致乱码，比如说只有一个分类的应写：</p>
+
+<p><code>category: lua</code></p>
+
+<p>有两个分类应写：</p>
+
+<p><code>categories: [lua, skynet]</code></p>
+
+<p>tags也是同样，不过tags不用改成tag。</p>
 
   </article>
 
