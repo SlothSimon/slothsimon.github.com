@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>createMarkedFile</key>
+	<false/>
+	<key>sheetClusters</key>
+	<array>
+		<array>
+			<string>2014-10-08-firstly-build-a-blog.markdown</string>
+		</array>
+		<array>
+			<string>2014-10-09-lua学习笔记1.markdown</string>
+		</array>
+		<array>
+			<string>2014-10-09-skynet-simpleweb笔记.markdown</string>
+		</array>
+		<array>
+			<string>2014-10-19-jekyll使用中的问题.markdown</string>
+		</array>
+	</array>
+</dict>
+</plist>

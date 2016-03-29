@@ -2,203 +2,142 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SlothSimon&#39;s Skytree</title>
-    <description>This tree is being built now...waiting...
-</description>
-    <link>http://slothsimon.github.com/</link>
-    <atom:link href="http://slothsimon.github.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 19 Oct 2014 17:15:59 +0800</pubDate>
-    <lastBuildDate>Sun, 19 Oct 2014 17:15:59 +0800</lastBuildDate>
-    <generator>Jekyll v2.4.0</generator>
+    <description>一只快如闪电（并不）的程序懒！ | SlothSimon，Freshman in coding | 这里是 @SlothSimon 的栖息林。</description>
+    <link>http://SlothSimon.github.com/</link>
+    <atom:link href="http://SlothSimon.github.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Mon, 28 Mar 2016 23:43:04 +0800</pubDate>
+    <lastBuildDate>Mon, 28 Mar 2016 23:43:04 +0800</lastBuildDate>
+    <generator>Jekyll v3.0.3</generator>
     
       <item>
         <title>jekyll使用中的问题</title>
-        <description>&lt;p&gt;在编辑两篇在10月9日写好的两篇笔记时，调用&lt;code&gt;jekyll server&lt;/code&gt;，先后出现了以下问题。&lt;/p&gt;
+        <description>&lt;p&gt;在编辑两篇在10月9日写好的两篇笔记时，调用&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll server&lt;/code&gt;，先后出现了以下问题。&lt;/p&gt;
 
-&lt;p&gt;1.&lt;code&gt;undefined method &#39;default_proc&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1.&lt;code class=&quot;highlighter-rouge&quot;&gt;undefined method &#39;default_proc&#39;&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Google了半天，才发现原来是博文头信息里，冒号后面必须空一格，否则就会报错，真是_(:3」∠)_&lt;/p&gt;
 
 &lt;p&gt;错误：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;    ---
-    title:lua学习笔记
-    ---
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	---
+	title:lua学习笔记
+	--- 正确：
+
+	---
+	title: lua学习笔记
+	---
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;p&gt;正确：&lt;/p&gt;
+&lt;p&gt;2.&lt;code class=&quot;highlighter-rouge&quot;&gt;warning: cannot close fd before spawn &#39;which&#39; 不是内部或外部命令，也不是可运行的程序或批处理文件&lt;/code&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;    ---
-    title: lua学习笔记
-    ---
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;google了一把说是pygments的问题。我之前在&lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;已经写明了&lt;code class=&quot;highlighter-rouge&quot;&gt;highlighter: pygments&lt;/code&gt;，抱着死马当成活马的态度，改成了&lt;code class=&quot;highlighter-rouge&quot;&gt;highlighter: rouge/pygments&lt;/code&gt;。结果问题就神秘消失了……但是这样会导致高亮出现问题，代码全是黑色，没有其他颜色。&lt;/p&gt;
 
-&lt;p&gt;2.&lt;code&gt;warning: cannot close fd before spawn &#39;which&#39; 不是内部或外部命令，也不是可运行的程序或批处理文件&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;google了一把说是pygments的问题。我之前在&lt;code&gt;_config.yml&lt;/code&gt;已经写明了&lt;code&gt;highlighter: pygments&lt;/code&gt;，抱着死马当成活马的态度，改成了&lt;code&gt;highlighter: rouge/pygments&lt;/code&gt;。结果问题就神秘消失了……但是这样会导致高亮出现问题，代码全是黑色，没有其他颜色。&lt;/p&gt;
-
-&lt;p&gt;3.&lt;code&gt;Please add the following to Gemfile to avoid polling for changes:
+&lt;p&gt;3.&lt;code class=&quot;highlighter-rouge&quot;&gt;Please add the following to Gemfile to avoid polling for changes:
 require &#39;rbconfig&#39;
 if RbConfig::CONFIG[&#39;target_os&#39;] =~ /mswin|mingw|cygwin/i
-    gem &#39;wdm&#39;, &#39;&amp;gt;=0.1.0&#39;
+	gem &#39;wdm&#39;, &#39;&amp;gt;=0.1.0&#39;
 end&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;最后在stackoverflow中找到类似问题&lt;a href=&quot;http://stackoverflow.com/questions/20459859/ruby-error-cannot-load-such-file-wdm-loaderror&quot;&gt;Ruby error: cannot load such file — wdm (LoadError)&lt;/a&gt;,只要安装wdm这个模块似乎就可以了。代码如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;gem install wdm&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gem install wdm&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;4.中文乱码&lt;/p&gt;
 
-&lt;p&gt;其实以上问题（包括当前这个）在我写第二篇博文之前都没有发生过，不知道为什么新建了博文后，出现各种各样的问题，而且打开的网页中如果有中文还是乱码。但是我的第一篇博文也是中文，却没有任何显示上的问题，我在想是不是文本编码不同，但是都是 UTF-8编码，不知道问题出在哪里。
-以及发现，原来&lt;code&gt;_post&lt;/code&gt;文件夹中的文件名也可以包含中文没问题了。&lt;/p&gt;
+&lt;p&gt;其实以上问题（包括当前这个）在我写第二篇博文之前都没有发生过，不知道为什么新建了博文后，出现各种各样的问题，而且打开的网页中如果有中文还是乱码。但是我的第一篇博文也是中文，却没有任何显示上的问题，我在想是不是文本编码不同，但是都是 UTF-8编码，不知道问题出在哪里。&lt;br /&gt;
+以及发现，原来&lt;code class=&quot;highlighter-rouge&quot;&gt;_post&lt;/code&gt;文件夹中的文件名也可以包含中文没问题了。&lt;/p&gt;
 
 &lt;p&gt;补充：后来发现可能是format-matter中的内容写错了导致乱码，比如说只有一个分类的应写：&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;category: lua&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;category: lua&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;有两个分类应写：&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;categories: [lua, skynet]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;categories: [lua, skynet]&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;tags也是同样，不过tags不用改成tag。&lt;/p&gt;
+
 </description>
         <pubDate>Sun, 19 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://slothsimon.github.com/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98</link>
-        <guid isPermaLink="true">http://slothsimon.github.com/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98</guid>
+        <link>http://SlothSimon.github.com/web%20development/2014/10/19/problems-in-using-jekyll/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/web%20development/2014/10/19/problems-in-using-jekyll/</guid>
         
         <category>jekyll</category>
         
         
-        <category>网站搭建</category>
+        <category>web development</category>
         
       </item>
     
       <item>
-        <title>skynet:simpleweb笔记</title>
-        <description>&lt;h1&gt;simpleweb函数追溯&lt;/h1&gt;
+        <title>lua学习杂记</title>
+        <description>&lt;h3 id=&quot;luatableapi&quot;&gt;关于lua中table的两个常用API&lt;/h3&gt;
 
-&lt;p&gt;simpleweb中有一个本地的response函数用以返回客户端传来的request。&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sockethelper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;writefunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;-- if err == sockethelper.socket_error , that means socket closed.&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;skynet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string.format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;fd = %d, %s&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;该response可以在客户端的页面（比如浏览器界面）打印出request内容，也就是纯粹地镜像返回request内容。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/image/simpleweb.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;打印的这些内容是在simpleweb第21行的函数内组织成所要的table格式，然后传递给response。
-response--&gt;httpd.write_response--&gt;(&lt;strong&gt;httpd&lt;/strong&gt; local)writeall--&gt;sockethelper.writefunc（该函数返回一个由fd/id生成的未调用函数..(content)用以在某个具体socket中写入content）--&gt;writebytes--&gt;socket.write--&gt;(前缀全局名实际为socketdriver)driver.send--&gt;socketdriver.so&lt;/p&gt;
-
-&lt;p&gt;关于动态链接库还不懂，具体需要阅读http://blog.sina.com.cn/s/blog_62ef2f1401014r9s.html&lt;/p&gt;
-
-&lt;p&gt;总之目前先认为是一个在屏幕上打印内容的函数吧。也就是所谓浏览器的&quot;print&quot;API
-write_response函数中可以传自定义的bodyfunc()函数用以输出body，还不知道怎么具体应用。总之传过去的内容只能是string, function或者nil，否则会抛出错误。&lt;/p&gt;
-
-&lt;p&gt;writeall()中response的header信息和网页的html信息都是用writefunc输出，但是似乎socketdriver.so中的接口会自动判断哪些是response的header信息哪些是输出到网页页面上的信息。不过在我胡乱给了个table作为header参数时，本来应该在response header中的&quot;content-length: 420&quot;出现在了网页页面上，不知道这算不算bug。&lt;/p&gt;
-
-&lt;p&gt;测试simpleweb时发现每一次刷新或打开页面都会提交两次request，第一次请求的内容是/，也就是用户需要的网页，第二次是favicon.ico。这是由于第一次请求的网页meta标签中没有设定ico，浏览器就会自动提交一个请求网站图标的request。具体见https://cnodejs.org/topic/54056647e84941a5714d65f4&lt;/p&gt;
-
-&lt;p&gt;skynet.newservice --&gt; skynet.call(&quot;.launcher&quot;, &#39;lua&#39;, &#39;LAUNCH&#39;, &#39;snlua&#39;, name, ...)--&gt;skynet.call(addr, typename, ...)--&gt; skynet.core.send(addr, p.id, nil, p.pack(...)) 和 yield_call(service, session)&lt;/p&gt;
-
-&lt;p&gt;接下来找不到skynet.core这个函数库，不明 ；以及这里使用的coroutine.resume和coroutine.yield采用的是云风自己重新写的一个。&lt;/p&gt;
-
-&lt;p&gt;关于这部分函数的说明摘取&lt;a href=&quot;https://github.com/cloudwu/skynet/wiki/LuaAPI&quot;&gt;skynet的wiki&lt;/a&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;&lt;p&gt;skynet.call(address, typename, ...) 这条 API 则不同，它会在内部生成一个唯一 session ，并向 address 提起请求，并阻塞等待对 session 的回应（可以不由 address 回应）。当消息回应后，还会通过之前注册的 unpack 函数解包。表面上看起来，就是发起了一次 RPC ，并阻塞等待回应。&lt;/p&gt;
-
-&lt;p&gt;skynet.newservice(name, ...) 用于启动一个新的 Lua 服务。name 是脚本的名字（不用写 .lua 后缀）。只有被启动的脚本的 start 函数返回后，这个 API 才会返回启动的服务的地址，这是一个阻塞 API 。如果被启动的脚本在初始化环节抛出异常，或在初始化完成前就调用 skynet.exit 退出，｀skynet.newservice` 都会抛出异常。如果被启动的脚本的 start 函数是一个永不结束的循环，那么 newservice 也会被永远阻塞住。&lt;/p&gt;&lt;/blockquote&gt;
-</description>
-        <pubDate>Thu, 09 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://slothsimon.github.com/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0</link>
-        <guid isPermaLink="true">http://slothsimon.github.com/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0</guid>
-        
-        <category>skynet</category>
-        
-        <category>request</category>
-        
-        
-        <category>skynet</category>
-        
-        <category>lua</category>
-        
-      </item>
-    
-      <item>
-        <title>lua学习杂记1</title>
-        <description>&lt;h3&gt;关于lua中table的两个常用API&lt;/h3&gt;
-
-&lt;p&gt;1.&lt;code&gt;table.concat(table, [sep=&quot;&quot;, start=1, end=数组长度])&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1.&lt;code class=&quot;highlighter-rouge&quot;&gt;table.concat(table, [sep=&quot;&quot;, start=1, end=数组长度])&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;类似于python中字符串的join方法，举个例子，比如在lua中&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;a&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;c&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;The concat result:&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;table.concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;The concat result:&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;table.concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
+&lt;p&gt;输出结果同python中这段代码是一样的，都是&lt;code class=&quot;highlighter-rouge&quot;&gt;a;b;c&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;输出结果同python中这段代码是一样的，都是&lt;code&gt;a;b;c&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;a&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;b&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;c&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;;&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;2.&lt;code&gt;table.insert(table, [pos,] value)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2.&lt;code class=&quot;highlighter-rouge&quot;&gt;table.insert(table, [pos,] value)&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;pos默认为数组末尾。&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;h3&gt;lua中的字符串&lt;/h3&gt;
+&lt;h3 id=&quot;lua&quot;&gt;lua中的字符串&lt;/h3&gt;
 
-&lt;p&gt;1.&lt;code&gt;string.format(format, str)&lt;/code&gt;
-类似于C中的printf，用于控制格式。
-2.字符串长度
+&lt;p&gt;1.&lt;code class=&quot;highlighter-rouge&quot;&gt;string.format(format, str)&lt;/code&gt;&lt;br /&gt;
+类似于C中的printf，用于控制格式。&lt;br /&gt;
+2.字符串长度&lt;br /&gt;
 比起Python中还需要用len()函数获得字符长度，lua中意外地可以方便地使用警号来获得字符串长度。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;123&amp;quot;&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;123&quot;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;--output: 123&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;--output: 3&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;--output: 3&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;hr /&gt;
 
-&lt;h3&gt;lua中的coroutine&lt;/h3&gt;
+&lt;h3 id=&quot;luacoroutine&quot;&gt;lua中的coroutine&lt;/h3&gt;
 
 &lt;p&gt;这篇文章&lt;a href=&quot;http://my.oschina.net/wangxuanyihaha/blog/186401&quot;&gt;【深入Lua】理解Lua中最强大的特性-coroutine（协程）&lt;/a&gt;讲得已经很详尽了，而且以云风大神的代码来进行了解释。不过那段代码的运行结果他写错了，在此更正一下。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;foo&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;foo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;co&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;co-body&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;co-body&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;co-body&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;co-body&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.yield&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;co-body&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;end&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;co-body&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;end&quot;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;main&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;main&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;main&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;y&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;main&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;y&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;coroutine.resume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;co&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;实际的运行结果如下：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/image/coroutine.png&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;原博文中错误的是第7行输出，应该为&lt;code&gt;main true 10 end&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;原博文中错误的是第7行输出，应该为&lt;code class=&quot;highlighter-rouge&quot;&gt;main true 10 end&lt;/code&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Thu, 09 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://slothsimon.github.com/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01</link>
-        <guid isPermaLink="true">http://slothsimon.github.com/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01</guid>
+        <link>http://SlothSimon.github.com/lua/2014/10/09/something-about-lua/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/lua/2014/10/09/something-about-lua/</guid>
         
         <category>lua</category>
         
@@ -212,41 +151,100 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
       </item>
     
       <item>
-        <title>首先建立一个个人博客</title>
+        <title>skynet:simpleweb笔记</title>
+        <description>&lt;h1 id=&quot;simpleweb&quot;&gt;simpleweb函数追溯&lt;/h1&gt;
+&lt;p&gt;simpleweb中有一个本地的response函数用以返回客户端传来的request。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-lua&quot; data-lang=&quot;lua&quot;&gt;&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;httpd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sockethelper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;writefunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+		&lt;span class=&quot;c1&quot;&gt;-- if err == sockethelper.socket_error , that means socket closed.&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;skynet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;string.format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;fd = %d, %s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;该response可以在客户端的页面（比如浏览器界面）打印出request内容，也就是纯粹地镜像返回request内容。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/image/simpleweb.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;打印的这些内容是在simpleweb第21行的函数内组织成所要的table格式，然后传递给response。&lt;br /&gt;
+response–&amp;gt;httpd.write_response–&amp;gt;(&lt;strong&gt;httpd&lt;/strong&gt; local)writeall–&amp;gt;sockethelper.writefunc（该函数返回一个由fd/id生成的未调用函数..(content)用以在某个具体socket中写入content）–&amp;gt;writebytes–&amp;gt;socket.write–&amp;gt;(前缀全局名实际为socketdriver)driver.send–&amp;gt;socketdriver.so&lt;/p&gt;
+
+&lt;p&gt;关于动态链接库还不懂，具体需要阅读http://blog.sina.com.cn/s/blog_62ef2f1401014r9s.html&lt;/p&gt;
+
+&lt;p&gt;总之目前先认为是一个在屏幕上打印内容的函数吧。也就是所谓浏览器的”print”API&lt;br /&gt;
+write_response函数中可以传自定义的bodyfunc()函数用以输出body，还不知道怎么具体应用。总之传过去的内容只能是string, function或者nil，否则会抛出错误。&lt;/p&gt;
+
+&lt;p&gt;writeall()中response的header信息和网页的html信息都是用writefunc输出，但是似乎socketdriver.so中的接口会自动判断哪些是response的header信息哪些是输出到网页页面上的信息。不过在我胡乱给了个table作为header参数时，本来应该在response header中的”content-length: 420”出现在了网页页面上，不知道这算不算bug。&lt;/p&gt;
+
+&lt;p&gt;测试simpleweb时发现每一次刷新或打开页面都会提交两次request，第一次请求的内容是/，也就是用户需要的网页，第二次是favicon.ico。这是由于第一次请求的网页meta标签中没有设定ico，浏览器就会自动提交一个请求网站图标的request。具体见https://cnodejs.org/topic/54056647e84941a5714d65f4&lt;/p&gt;
+
+&lt;p&gt;skynet.newservice –&amp;gt; skynet.call(“.launcher”, ‘lua’, ‘LAUNCH’, ‘snlua’, name, …)–&amp;gt;skynet.call(addr, typename, …)–&amp;gt; skynet.core.send(addr, p.id, nil, p.pack(…)) 和 yield_call(service, session)&lt;/p&gt;
+
+&lt;p&gt;接下来找不到skynet.core这个函数库，不明 ；以及这里使用的coroutine.resume和coroutine.yield采用的是云风自己重新写的一个。&lt;/p&gt;
+
+&lt;p&gt;关于这部分函数的说明摘取&lt;a href=&quot;https://github.com/cloudwu/skynet/wiki/LuaAPI&quot;&gt;skynet的wiki&lt;/a&gt;&lt;br /&gt;
+&amp;gt; skynet.call(address, typename, …) 这条 API 则不同，它会在内部生成一个唯一 session ，并向 address 提起请求，并阻塞等待对 session 的回应（可以不由 address 回应）。当消息回应后，还会通过之前注册的 unpack 函数解包。表面上看起来，就是发起了一次 RPC ，并阻塞等待回应。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;skynet.newservice(name, …) 用于启动一个新的 Lua 服务。name 是脚本的名字（不用写 .lua 后缀）。只有被启动的脚本的 start 函数返回后，这个 API 才会返回启动的服务的地址，这是一个阻塞 API 。如果被启动的脚本在初始化环节抛出异常，或在初始化完成前就调用 skynet.exit 退出，｀skynet.newservice` 都会抛出异常。如果被启动的脚本的 start 函数是一个永不结束的循环，那么 newservice 也会被永远阻塞住。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Thu, 09 Oct 2014 00:00:00 +0800</pubDate>
+        <link>http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb-notes/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb-notes/</guid>
+        
+        <category>skynet</category>
+        
+        <category>request</category>
+        
+        
+        <category>skynet</category>
+        
+        <category>lua</category>
+        
+      </item>
+    
+      <item>
+        <title>首先建立个人博客</title>
         <description>&lt;p&gt;为了记录一些编程中的经验和发现，避免重复查找，开个个人博客。第一个挑战就是学习搭建环境，利用jekyll建立博客，这个总结的博文很多就不详细记录了，Github本身也有&lt;a href=&quot;https://pages.github.com/&quot;&gt;相关教程&lt;/a&gt;，官方推的一种程序猿博客搭建方式。&lt;/p&gt;
 
 &lt;p&gt;之前也有使用过&lt;a href=&quot;http://djangobook.py3k.cn/chapter04/&quot;&gt;django模板&lt;/a&gt;，类似这样的语法在jekyll中也用到了：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-django&quot; data-lang=&quot;django&quot;&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{%&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;person&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;people&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;%}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;        &amp;lt;li&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;person.name&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;person.number&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;}}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&amp;lt;li&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;{%&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;endfor&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;%}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;x&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-django&quot; data-lang=&quot;django&quot;&gt;&amp;lt;ul&amp;gt;
+    {% for person in people %}
+        &amp;lt;li&amp;gt;{{person.name}}:{{person.number}}&amp;lt;li&amp;gt;
+    {% endfor %}
+&amp;lt;/ul&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;django中的模板不会马上编译，所以模板中可以嵌套模板，这同jekyll相同。jekyll使用Liquid模板语言，而Liquid则是基于Ruby开发的，对于这二者我尚且不了解。Liquid模板语言和django模板类似，同样有过滤器等等功能。&lt;/p&gt;
 
-&lt;p&gt;二者的区别与联系：&lt;br&gt;
-    →django基于数据库，动态，基于python搭建，需要有python基础、html基础和数据库基础&lt;br&gt;
-    →jekyll无需数据库，静态，虽说要懂markdown，其实如果要求不高，直接写文字博客不去学也没关系。&lt;br&gt;
-不过一般来说在github上用jekyll搭建博客的人都有相关基础了吧，没基础的人也不会选择这种博客搭建方式。&lt;br&gt;
-未来希望能加入评论功能，由于jekyll本身不具备这样的功能，所以要引入第三方的评论系统&lt;a href=&quot;http://www.disqus.com&quot;&gt;Disqus&lt;/a&gt;，据说这个系统是和Facebook和Twitter整合在一起，&lt;a href=&quot;http://linbo.github.io/2013/04/19/blog/&quot;&gt;Linbo的博文&lt;/a&gt;中建议用&lt;a href=&quot;http://www.duoshuo.com&quot;&gt;多说&lt;/a&gt;，和国内的社交网站结合的比较好。&lt;br&gt;
-然后还有域名，如果真的成为程序猿了拿的第一笔工资就用来买域名好了www.slothsimon.com٩( &#39;ω&#39; )و&lt;/p&gt;
+&lt;p&gt;二者的区别与联系：&lt;br /&gt;
+	→django基于数据库，动态，基于python搭建，需要有python基础、html基础和数据库基础&lt;br /&gt;
+	→jekyll无需数据库，静态，虽说要懂markdown，其实如果要求不高，直接写文字博客不去学也没关系。&lt;/p&gt;
 
-&lt;p&gt;搭建blog的参考文献除了Github本身的教程和&lt;a href=&quot;http://jekyllcn.com/&quot;&gt;jekyll官网&lt;/a&gt;外，中文可以参考：&lt;br&gt;
-&lt;a href=&quot;http://hzmook.github.io/2012/07/01/use-jekyll-build-blog-on-github.html&quot;&gt;hzmook：使用Jekyll在Github上搭建博客&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot;&gt;阮一峰：搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;http://segmentfault.com/blog/skyinlayer/1190000000406013&quot;&gt;天镶：使用Jekyll在Github上搭建个人博客（博客编写）&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/&quot;&gt;zhenyu：用Jekyll和Pygments配置代码高亮&lt;/a&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;不过一般来说在github上用jekyll搭建博客的人都有相关基础了吧，没基础的人也不会选择这种博客搭建方式。&lt;br /&gt;
+未来希望能加入评论功能，由于jekyll本身不具备这样的功能，所以要引入第三方的评论系统&lt;a href=&quot;http://www.disqus.com&quot;&gt;Disqus&lt;/a&gt;，据说这个系统是和Facebook和Twitter整合在一起，&lt;a href=&quot;http://linbo.github.io/2013/04/19/blog/&quot;&gt;Linbo的博文&lt;/a&gt;中建议用&lt;a href=&quot;http://www.duoshuo.com&quot;&gt;多说&lt;/a&gt;，和国内的社交网站结合的比较好。&lt;br /&gt;
+然后还有域名，如果真的成为程序猿了拿的第一笔工资就用来买域名好了www.slothsimon.com٩( ‘ω’ )و&lt;/p&gt;
 
-&lt;h1&gt;补充&lt;/h1&gt;
+&lt;p&gt;搭建blog的参考文献除了Github本身的教程和&lt;a href=&quot;http://jekyllcn.com/&quot;&gt;jekyll官网&lt;/a&gt;外，中文可以参考：&lt;br /&gt;
+&lt;a href=&quot;http://hzmook.github.io/2012/07/01/use-jekyll-build-blog-on-github.html&quot;&gt;hzmook：使用Jekyll在Github上搭建博客&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot;&gt;阮一峰：搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://segmentfault.com/blog/skyinlayer/1190000000406013&quot;&gt;天镶：使用Jekyll在Github上搭建个人博客（博客编写）&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/&quot;&gt;zhenyu：用Jekyll和Pygments配置代码高亮&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;为了在本地运行jekyll，用rubyinstaller安装了ruby环境，配置devkit不小心误操作改变了devkit的路径……找了半天才发现不用卸载devkit，修改ruby中devkit的path即可，但是不知道在哪里改，干脆就直接将ruby卸了重装，然后重新安装了一遍devkit。这样下载rdiscount时就正常了。&lt;br&gt;
-截至2014-10-08 00:00:00 +0800，jekyll似乎已经能很好地兼容中文博客内容，不过还是安装了rdiscount保证分类和标签的中文也能在网址里正常显示。&lt;/p&gt;
+&lt;h1 id=&quot;section&quot;&gt;补充&lt;/h1&gt;
+&lt;p&gt;为了在本地运行jekyll，用rubyinstaller安装了ruby环境，配置devkit不小心误操作改变了devkit的路径……找了半天才发现不用卸载devkit，修改ruby中devkit的path即可，但是不知道在哪里改，干脆就直接将ruby卸了重装，然后重新安装了一遍devkit。这样下载rdiscount时就正常了。&lt;/p&gt;
+
+&lt;p&gt;截至2014-10-08 00:00:00 +0800，jekyll似乎已经能很好地兼容中文博客内容，不过还是安装了rdiscount保证分类和标签的中文也能在网址里正常显示。&lt;/p&gt;
+
+&lt;p&gt;（更新于2016.3.28）主题使用了&lt;a href=&quot;https://github.com/Huxpro/huxpro.github.io&quot;&gt;Hux的模版&lt;/a&gt;，非常简约大方。&lt;/p&gt;
+
 </description>
         <pubDate>Wed, 08 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://slothsimon.github.com/2014/10/08/%E9%A6%96%E5%85%88%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2</link>
-        <guid isPermaLink="true">http://slothsimon.github.com/2014/10/08/%E9%A6%96%E5%85%88%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2</guid>
+        <link>http://SlothSimon.github.com/web%20development/2014/10/08/firstly-build-a-blog/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/web%20development/2014/10/08/firstly-build-a-blog/</guid>
         
         <category>jekyll</category>
         
@@ -265,7 +263,7 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
         <category>devkit</category>
         
         
-        <category>网站搭建</category>
+        <category>web development</category>
         
       </item>
     
