@@ -5,7 +5,7 @@ date: 2014-10-09
 category: lua
 tags: [lua, table, coroutine]
 ---
-### 关于lua中table的两个常用API ###
+### 关于lua中table的两个常用API
 
 
 1.`table.concat(table, [sep="", start=1, end=数组长度])` 
@@ -26,9 +26,9 @@ print ";".join(tb)
 pos默认为数组末尾。
 
 
-----------
+---- 
 
-### lua中的字符串 ###
+### lua中的字符串
 
 1.`string.format(format, str)`
 类似于C中的printf，用于控制格式。
@@ -41,24 +41,24 @@ print(#a) --output: 3
 {% endhighlight %}
 
 
-----------
+---- 
 
-### lua中的coroutine ###
+### lua中的coroutine
 
-这篇文章[【深入Lua】理解Lua中最强大的特性-coroutine（协程）][coroutine]讲得已经很详尽了，而且以云风大神的代码来进行了解释。不过那段代码的运行结果他写错了，在此更正一下。
+这篇文章[【深入Lua】理解Lua中最强大的特性-coroutine（协程）][1]讲得已经很详尽了，而且以云风大神的代码来进行了解释。不过那段代码的运行结果他写错了，在此更正一下。
 {% highlight lua %}
 function foo(a)
-    print("foo", a)
-    return coroutine.yield(2 * a)
+	print("foo", a)
+	return coroutine.yield(2 * a)
 end
 
 co = coroutine.create(function ( a, b )
-    print("co-body", a, b)
-    local r = foo(a + 1)
-    print("co-body", r)
-    local r, s = coroutine.yield(a + b, a - b)
-    print("co-body", r, s)
-    return b, "end"
+	print("co-body", a, b)
+	local r = foo(a + 1)
+	print("co-body", r)
+	local r, s = coroutine.yield(a + b, a - b)
+	print("co-body", r, s)
+	return b, "end"
 end)
 
 print("main", coroutine.resume(co, 1, 10))
@@ -72,4 +72,4 @@ print("main", coroutine.resume(co, "x", "y"))
 
 原博文中错误的是第7行输出，应该为`main true 10 end`
 
-[coroutine]:http://my.oschina.net/wangxuanyihaha/blog/186401
+[1]:	http://my.oschina.net/wangxuanyihaha/blog/186401

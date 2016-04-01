@@ -10,9 +10,9 @@
     <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>lua学习杂记 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+    <title>lua学习杂记1 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
 
-    <link rel="canonical" href="http://SlothSimon.github.com/lua/2014/10/09/something-about-lua/">
+    <link rel="canonical" href="http://SlothSimon.github.com/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,7 +147,7 @@
                         <a class="tag" href="/tags/#coroutine" title="coroutine">coroutine</a>
                         
                     </div>
-                    <h1>lua学习杂记</h1>
+                    <h1>lua学习杂记1</h1>
                     
                     
                     <h2 class="subheading"></h2>
@@ -208,17 +208,17 @@
 <p>这篇文章<a href="http://my.oschina.net/wangxuanyihaha/blog/186401">【深入Lua】理解Lua中最强大的特性-coroutine（协程）</a>讲得已经很详尽了，而且以云风大神的代码来进行了解释。不过那段代码的运行结果他写错了，在此更正一下。</p>
 
 <figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">function</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"foo"</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">coroutine.yield</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">"foo"</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nb">coroutine.yield</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="n">co</span> <span class="o">=</span> <span class="nb">coroutine.create</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">r</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">coroutine.yield</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"end"</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">r</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">coroutine.yield</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"end"</span>
 <span class="k">end</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"main"</span><span class="p">,</span> <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -242,12 +242,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/skynet/lua/2014/10/09/skynet-simpleweb-notes/" data-toggle="tooltip" data-placement="top" title="skynet:simpleweb笔记">&larr; Previous Post</a>
+                        <a href="/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/08/%E9%A6%96%E5%85%88%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-toggle="tooltip" data-placement="top" title="首先建立一个个人博客">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/web%20development/2014/10/19/problems-in-using-jekyll/" data-toggle="tooltip" data-placement="top" title="jekyll使用中的问题">Next Post &rarr;</a>
+                        <a href="/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="skynet:simpleweb笔记">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -257,9 +257,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/lua/2014/10/09/something-about-lua"
-                        data-title="lua学习杂记"
-                        data-url="http://SlothSimon.github.com/lua/2014/10/09/something-about-lua/" >
+                        data-thread-key="/lua/2014/10/09/lua学习笔记"
+                        data-title="lua学习杂记1"
+                        data-url="http://SlothSimon.github.com/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
