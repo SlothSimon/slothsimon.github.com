@@ -1,6 +1,6 @@
 ---
 layout: post
-title: lua学习杂记1
+title: lua学习杂记
 date: 2014-10-09
 category: lua
 tags: [lua, table, coroutine]

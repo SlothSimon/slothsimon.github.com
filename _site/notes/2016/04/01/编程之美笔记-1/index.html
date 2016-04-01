@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="一只快如闪电（并不）的程序懒！ | SlothSimon，Freshman in coding | 这里是 @SlothSimon 的栖息林。">
+    <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>编程之美笔记 1 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+
+    <link rel="canonical" href="http://SlothSimon.github.com/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SlothSimon's Skytree</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之美" title="编程之美">编程之美</a>
+                        
+                        <a class="tag" href="/tags/#CPU" title="CPU">CPU</a>
+                        
+                    </div>
+                    <h1>编程之美笔记 1</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by SlothSimon's Skytree on April 1, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="cpu">1.1 让CPU占用率曲线听你指挥</h1>
+<p><em>Note:对于不懂的东西，先了解概念或定义，再考虑操纵它。</em></p>
+
+<h2 id="definition">Definition:</h2>
+<ul>
+  <li>CPU占用率（CPU Usage），在任务管理器的一个刷新周期内，CPU忙的时间和刷新周期总时间的比率，＝BusyTime/TotalTime</li>
+</ul>
+
+<h2 id="trial">Trial:</h2>
+<p>文中使用的是Windows系统，由于自己的电脑是Mac，便想试试Mac下的效果。<br />
+<img src="/img/in-post/activity-monitor.png" alt="" /><br />
+要获得图中的两个小窗口，点击上方菜单栏中“窗口-&gt;CPU使用率”和“窗口-&gt;CPU历史记录”。<br />
+在Mac中编译C++文件要用到g++，系统自带，编译后生成一个a.out的文件。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ g++ 50%CPU.cpp
+$ ./a.out
+</code></pre>
+</div>
+
+<h3 id="trial-1">Trial-1:死循环</h3>
+<p>活动监视器里a.out的CPU占用率确实达到了100%，但是下边显示的每个核（还是每个CPU）的利用率并未达到100%，而是两个柱形各达到了约50%。</p>
+
+<h3 id="trial-250">Trial-2:50%占用率</h3>
+<p>CPU配置是2.5GHz Intel Core i7，按照书中每秒执行两条汇编的估算方式，循环次数应为1＊10^9，然后休息1000ms。实际编写为1＊10^7，休息10ms。<br />
+结果CPU占用率为0～1%。<br />
+设定循环次数为5＊10^8，休息1ms，a.out的CPU占用率总算达到了50%，但是一直在40%～60%之间波动，不知道这是什么原因，难道是系统缘故？每秒执行汇编的速度会变动？监视器更新频率设定为1s/2s/5s都差不多。</p>
+
+<h3 id="trial-3cpu">Trial-3:指定CPU</h3>
+<p>Windows中的函数都用不了，如<code class="highlighter-rouge">GetProcessorInfo()</code>、<code class="highlighter-rouge">SetThreadAffinityMask()</code>等。Google了Mac下CPU调度的相关函数也是寥寥，不过最终还是找到了<code class="highlighter-rouge">thread_policy_set()</code>这个官方API。<br />
+代码如下：</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">int</span> <span class="n">core</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">thread_port_t</span> <span class="n">mach_thread</span> <span class="o">=</span> <span class="n">pthread_mach_thread_np</span><span class="p">(</span><span class="n">pthread_self</span><span class="p">());</span>
+<span class="n">thread_affinity_policy_data_t</span> <span class="n">policy</span> <span class="o">=</span> <span class="p">{</span> <span class="n">core</span> <span class="p">};</span>
+<span class="n">thread_policy_set</span><span class="p">(</span><span class="n">mach_thread1</span><span class="p">,</span> <span class="n">THREAD_AFFINITY_POLICY</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">thread_policy_t</span><span class="p">)</span><span class="o">&amp;</span><span class="n">policy</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span></code></pre></figure>
+
+<p>但是并没有效果，即使是死循环也是分配到多个CPU上……猜测是函数的参数不对或者不是用这个函数。对系统调度的知识匮乏，只能等大牛解答或者以后再试了。</p>
+
+<h1 id="section">1.2 中国象棋将帅问题</h1>
+<p><em>Note:感觉在面试的时候，要把“一个变量”的要求问清楚，数组算一个变量嘛？结构体算一个变量嘛？字符串算一个变量嘛？输出的形式问清楚，用数字坐标表示？用象棋坐标表示？</em></p>
+
+<p>自己思考后看了第一个解答不敢相信竟然要这么复杂。直到看到后面，才知道给的第一个解过于复杂了倒像是在炫技，其实简洁最美，高手只用简单的BYTE类型（自己试了下，Mac上报错BYTE显示未定义，使用整型也可以）和寥寥数行代码搞定了，列出来欣赏下：</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="n">BYTE</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">81</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">--</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">9</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">9</span> <span class="o">%</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">continue</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"A = %d, B = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">9</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">9</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>C/C++原生的变量只有void, int, short, long, float, double和char。<br />
+猜测作者详细介绍第一种方法即是为了介绍知识也是为了铺垫后面简洁的答案吧。<br />
+第三个解法的效率高在减少了81次取模和81次除的运算？</p>
+
+<h1 id="section-1">1.3 一摞烙饼的排序</h1>
+<p>搜索剪枝问题，如果要发Paper估计就是如何计算更小／更大的上下界，或者其他的剪枝方法（盖茨大牛唯一一篇论文）。</p>
+
+<h2 id="section-2">扩展问题:</h2>
+<ol>
+  <li>感觉有点像二分之后各自排序，待仔细研究吧。</li>
+  <li>翻到最上面后，根据情况不翻或多翻一次吧，但是这样是最优的吗……</li>
+  <li>概率问题1/2，不是很懂为什么要问这个问题。</li>
+  <li>把翻转数替换为翻转烙饼的总个数，然后计算上下边界＋剪枝</li>
+  <li>……为难菜鸡这种问题真的合适吗？那我只能找规律猜是16了。</li>
+</ol>
+
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="jekyll使用中的问题">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/notes/2016/04/01/编程之美笔记-1"
+                        data-title="编程之美笔记 1"
+                        data-url="http://SlothSimon.github.com/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#jekyll" title="jekyll" rel="2">
+                                    jekyll
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'There_is_no_simon';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/SlothSimon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/SlothSimon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; SlothSimon's Skytree 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

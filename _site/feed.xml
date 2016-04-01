@@ -5,61 +5,90 @@
     <description>一只快如闪电（并不）的程序懒！ | SlothSimon，Freshman in coding | 这里是 @SlothSimon 的栖息林。</description>
     <link>http://SlothSimon.github.com/</link>
     <atom:link href="http://SlothSimon.github.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 01 Apr 2016 21:59:25 +0800</pubDate>
-    <lastBuildDate>Fri, 01 Apr 2016 21:59:25 +0800</lastBuildDate>
+    <pubDate>Fri, 01 Apr 2016 22:45:46 +0800</pubDate>
+    <lastBuildDate>Fri, 01 Apr 2016 22:45:46 +0800</lastBuildDate>
     <generator>Jekyll v3.0.3</generator>
     
       <item>
         <title>编程之美笔记 1</title>
-        <description>
-&lt;hr /&gt;
-&lt;p&gt;layout: post&lt;br /&gt;
-title: 编程之美笔记 1&lt;br /&gt;
-date: 2016-04-01&lt;br /&gt;
-category: Notes&lt;br /&gt;
-tags: [编程之美, CPU]&lt;br /&gt;
-—&lt;br /&gt;
-# 1.1 让CPU占用率曲线听你指挥&lt;br /&gt;
-&lt;em&gt;Note:对于不懂的东西，先了解概念或定义，再考虑操纵它。&lt;/em&gt;&lt;br /&gt;
-## Definition:&lt;br /&gt;
-- CPU占用率（CPU Usage），在任务管理器的一个刷新周期内，CPU忙的时间和刷新周期总时间的比率，＝BusyTime/TotalTime&lt;br /&gt;
-## Trial:&lt;br /&gt;
-文中使用的是Windows系统，由于自己的电脑是Mac，便想试试Mac下的效果。&lt;br /&gt;
+        <description>&lt;h1 id=&quot;cpu&quot;&gt;1.1 让CPU占用率曲线听你指挥&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;Note:对于不懂的东西，先了解概念或定义，再考虑操纵它。&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;definition&quot;&gt;Definition:&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;CPU占用率（CPU Usage），在任务管理器的一个刷新周期内，CPU忙的时间和刷新周期总时间的比率，＝BusyTime/TotalTime&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;trial&quot;&gt;Trial:&lt;/h2&gt;
+&lt;p&gt;文中使用的是Windows系统，由于自己的电脑是Mac，便想试试Mac下的效果。&lt;br /&gt;
 &lt;img src=&quot;/img/in-post/activity-monitor.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
 要获得图中的两个小窗口，点击上方菜单栏中“窗口-&amp;gt;CPU使用率”和“窗口-&amp;gt;CPU历史记录”。&lt;br /&gt;
-在Mac中编译C++文件要用到g++，系统自带，编译后生成一个a.out的文件。&lt;br /&gt;
-	$ g++ 50%CPU.cpp&lt;br /&gt;
-	$ ./a.out&lt;br /&gt;
-### Trial-1:死循环&lt;br /&gt;
-活动监视器里a.out的CPU占用率确实达到了100%，但是下边显示的每个核（还是每个CPU）的利用率并未达到100%，而是两个柱形各达到了约50%。&lt;br /&gt;
-### Trial-2:50%占用率&lt;br /&gt;
-CPU配置是2.5GHz Intel Core i7，按照书中每秒执行两条汇编的估算方式，循环次数应为1＊10^9，然后休息1000ms。实际编写为1＊10^7，休息10ms。&lt;br /&gt;
-结果CPU占用率为0～1%。&lt;br /&gt;
-设定循环次数为5＊10^8，休息1ms，a.out的CPU占用率总算达到了50%，但是一直在40%～60%之间波动，不知道这是什么原因，难道是系统缘故？每秒执行汇编的速度会变动？监视器更新频率设定为1s/2s/5s都差不多。&lt;br /&gt;
-### Trial-3:指定CPU&lt;br /&gt;
-Windows中的函数都用不了，如&lt;code class=&quot;highlighter-rouge&quot;&gt;GetProcessorInfo()&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;SetThreadAffinityMask()&lt;/code&gt;等。Google了Mac下CPU调度的相关函数也是寥寥，不过最终还是找到了&lt;code class=&quot;highlighter-rouge&quot;&gt;thread_policy_set()&lt;/code&gt;这个官方API。&lt;br /&gt;
-代码如下：&lt;br /&gt;
-&amp;lt;code class=”C++”&amp;gt;&lt;br /&gt;
-	int core = 1;&lt;br /&gt;
-	thread_port_t mach_thread = pthread_mach_thread_np(pthread_self());&lt;/p&gt;
+在Mac中编译C++文件要用到g++，系统自带，编译后生成一个a.out的文件。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;thread_affinity_policy_data_t policy = { core };
-thread_policy_set(mach_thread1, THREAD_AFFINITY_POLICY,
-                    (thread_policy_t)&amp;amp;policy, 1); \&amp;lt;/code\&amp;gt; 但是并没有效果，即使是死循环也是分配到多个CPU上……猜测是函数的参数不对或者不是用这个函数。对系统调度的知识匮乏，只能等大牛解答或者以后再试了。 # 1.2 中国象棋将帅问题 _Note:感觉在面试的时候，要把“一个变量”的要求问清楚，数组算一个变量嘛？结构体算一个变量嘛？字符串算一个变量嘛？输出的形式问清楚，用数字坐标表示？用象棋坐标表示？_ 自己思考后看了第一个解答不敢相信竟然要这么复杂。直到看到后面，才知道给的第一个解过于复杂了倒像是在炫技，其实简洁最美，高手只用简单的BYTE类型（自己试了下，Mac上报错BYTE显示未定义，使用整型也可以）和寥寥数行代码搞定了，列出来欣赏下： \&amp;lt;code class=&quot;C++&quot;\&amp;gt;
-BYTE i = 81;
-while(i—){
-    if (i / 9 % 3 == i % 9 % 3)
-        continue;
-    printf(&quot;A = %d, B = %d\n&quot;, i / 9 + 1, i % 9 + 1);
-} \&amp;lt;/code\&amp;gt; C/C++原生的变量只有void, int, short, long, float, double和char。 猜测作者详细介绍第一种方法即是为了介绍知识也是为了铺垫后面简洁的答案吧。 第三个解法的效率高在减少了81次取模和81次除的运算？ # 1.3 一摞烙饼的排序 搜索剪枝问题，如果要发Paper估计就是如何计算更小／更大的上下界，或者其他的剪枝方法（盖茨大牛唯一一篇论文）。 ## 扩展问题: 1. 感觉有点像二分之后各自排序，待仔细研究吧。 2. 翻到最上面后，根据情况不翻或多翻一次吧，但是这样是最优的吗…… 3. 概率问题1/2，不是很懂为什么要问这个问题。 4. 把翻转数替换为翻转烙饼的总个数，然后计算上下边界＋剪枝 5. ……为难菜鸡这种问题真的合适吗？那我只能找规律猜是16了。
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ g++ 50%CPU.cpp
+$ ./a.out
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+&lt;h3 id=&quot;trial-1&quot;&gt;Trial-1:死循环&lt;/h3&gt;
+&lt;p&gt;活动监视器里a.out的CPU占用率确实达到了100%，但是下边显示的每个核（还是每个CPU）的利用率并未达到100%，而是两个柱形各达到了约50%。&lt;/p&gt;
+
+&lt;h3 id=&quot;trial-250&quot;&gt;Trial-2:50%占用率&lt;/h3&gt;
+&lt;p&gt;CPU配置是2.5GHz Intel Core i7，按照书中每秒执行两条汇编的估算方式，循环次数应为1＊10^9，然后休息1000ms。实际编写为1＊10^7，休息10ms。&lt;br /&gt;
+结果CPU占用率为0～1%。&lt;br /&gt;
+设定循环次数为5＊10^8，休息1ms，a.out的CPU占用率总算达到了50%，但是一直在40%～60%之间波动，不知道这是什么原因，难道是系统缘故？每秒执行汇编的速度会变动？监视器更新频率设定为1s/2s/5s都差不多。&lt;/p&gt;
+
+&lt;h3 id=&quot;trial-3cpu&quot;&gt;Trial-3:指定CPU&lt;/h3&gt;
+&lt;p&gt;Windows中的函数都用不了，如&lt;code class=&quot;highlighter-rouge&quot;&gt;GetProcessorInfo()&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;SetThreadAffinityMask()&lt;/code&gt;等。Google了Mac下CPU调度的相关函数也是寥寥，不过最终还是找到了&lt;code class=&quot;highlighter-rouge&quot;&gt;thread_policy_set()&lt;/code&gt;这个官方API。&lt;br /&gt;
+代码如下：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c--&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;core&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;thread_port_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mach_thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pthread_mach_thread_np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pthread_self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;thread_affinity_policy_data_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;core&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;thread_policy_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mach_thread1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;THREAD_AFFINITY_POLICY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thread_policy_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;policy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;但是并没有效果，即使是死循环也是分配到多个CPU上……猜测是函数的参数不对或者不是用这个函数。对系统调度的知识匮乏，只能等大牛解答或者以后再试了。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;1.2 中国象棋将帅问题&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;Note:感觉在面试的时候，要把“一个变量”的要求问清楚，数组算一个变量嘛？结构体算一个变量嘛？字符串算一个变量嘛？输出的形式问清楚，用数字坐标表示？用象棋坐标表示？&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;自己思考后看了第一个解答不敢相信竟然要这么复杂。直到看到后面，才知道给的第一个解过于复杂了倒像是在炫技，其实简洁最美，高手只用简单的BYTE类型（自己试了下，Mac上报错BYTE显示未定义，使用整型也可以）和寥寥数行代码搞定了，列出来欣赏下：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c--&quot; data-lang=&quot;c++&quot;&gt;&lt;span class=&quot;n&quot;&gt;BYTE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;81&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A = %d, B = %d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;C/C++原生的变量只有void, int, short, long, float, double和char。&lt;br /&gt;
+猜测作者详细介绍第一种方法即是为了介绍知识也是为了铺垫后面简洁的答案吧。&lt;br /&gt;
+第三个解法的效率高在减少了81次取模和81次除的运算？&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;1.3 一摞烙饼的排序&lt;/h1&gt;
+&lt;p&gt;搜索剪枝问题，如果要发Paper估计就是如何计算更小／更大的上下界，或者其他的剪枝方法（盖茨大牛唯一一篇论文）。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;扩展问题:&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;感觉有点像二分之后各自排序，待仔细研究吧。&lt;/li&gt;
+  &lt;li&gt;翻到最上面后，根据情况不翻或多翻一次吧，但是这样是最优的吗……&lt;/li&gt;
+  &lt;li&gt;概率问题1/2，不是很懂为什么要问这个问题。&lt;/li&gt;
+  &lt;li&gt;把翻转数替换为翻转烙饼的总个数，然后计算上下边界＋剪枝&lt;/li&gt;
+  &lt;li&gt;……为难菜鸡这种问题真的合适吗？那我只能找规律猜是16了。&lt;/li&gt;
+&lt;/ol&gt;
+
 </description>
         <pubDate>Fri, 01 Apr 2016 00:00:00 +0800</pubDate>
-        <link>http://SlothSimon.github.com/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/</link>
-        <guid isPermaLink="true">http://SlothSimon.github.com/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/</guid>
+        <link>http://SlothSimon.github.com/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/</guid>
         
+        <category>编程之美</category>
+        
+        <category>CPU</category>
+        
+        
+        <category>Notes</category>
         
       </item>
     
@@ -181,7 +210,7 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
       </item>
     
       <item>
-        <title>lua学习杂记1</title>
+        <title>lua学习杂记</title>
         <description>&lt;h3 id=&quot;luatableapi&quot;&gt;关于lua中table的两个常用API&lt;/h3&gt;
 
 &lt;p&gt;1.&lt;code class=&quot;highlighter-rouge&quot;&gt;table.concat(table, [sep=&quot;&quot;, start=1, end=数组长度])&lt;/code&gt;&lt;/p&gt;
