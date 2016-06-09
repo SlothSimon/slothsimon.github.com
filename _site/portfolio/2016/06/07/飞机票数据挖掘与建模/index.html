@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<!-- mathjax config similar to math.stackexchange --> 
+<script type="text/x-mathjax-config"> 
+MathJax.Hub.Config({ 
+    jax: ["input/TeX", "output/HTML-CSS"], 
+    tex2jax: { 
+        inlineMath: [ ['$', '$'] ], 
+        displayMath: [ ['$$', '$$']], 
+        processEscapes: true, 
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }, 
+    messageStyle: "none", 
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] } 
+}); 
+</script>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="一只快如闪电（并不）的程序懒！ | SlothSimon，Freshman in coding | 这里是 @SlothSimon 的栖息林。">
+    <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>SRT项目：飞机票数据挖掘与建模 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+
+    <link rel="canonical" href="http://SlothSimon.github.com/portfolio/2016/06/07/%E9%A3%9E%E6%9C%BA%E7%A5%A8%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%BB%BA%E6%A8%A1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SlothSimon's Skytree</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#portfolio" title="portfolio">portfolio</a>
+                        
+                        <a class="tag" href="/tags/#python" title="python">python</a>
+                        
+                        <a class="tag" href="/tags/#spider" title="spider">spider</a>
+                        
+                        <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
+                        
+                    </div>
+                    <h1>SRT项目：飞机票数据挖掘与建模</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by SlothSimon's Skytree on June 7, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<ul id="hello">
+  <li><a href="#section" id="hello-section">简介</a></li>
+  <li><a href="#section-1" id="hello-section-1">技术实现</a>    <ul>
+      <li><a href="#section-2" id="hello-section-2">爬虫</a>        <ul>
+          <li><a href="#request" id="hello-request">Request</a></li>
+          <li><a href="#section-3" id="hello-section-3">代理</a></li>
+          <li><a href="#section-4" id="hello-section-4">与数据库的对接</a></li>
+          <li><a href="#section-5" id="hello-section-5">多线程</a></li>
+        </ul>
+      </li>
+      <li><a href="#section-6" id="hello-section-6">数据库</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-7" id="hello-section-7">数据</a>    <ul>
+      <li><a href="#summary" id="hello-summary">Summary</a></li>
+      <li><a href="#section-8" id="hello-section-8">预处理</a></li>
+      <li><a href="#section-9" id="hello-section-9">可视化</a></li>
+      <li><a href="#pattern" id="hello-pattern">Pattern</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-10" id="hello-section-10">决策树</a>    <ul>
+      <li><a href="#section-11" id="hello-section-11">特征集</a></li>
+      <li><a href="#section-12" id="hello-section-12">预测效果</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-13" id="hello-section-13">不足&amp;疑问</a></li>
+</ul>
+
+<h1 id="section">简介</h1>
+<p>2013-2014年参与的校内SRT项目，抓取11个热门城市未来90天起飞的机票价格，以此来建模预测飞机票价格的变化。</p>
+
+<h1 id="section-1">技术实现</h1>
+
+<hr />
+
+<h2 id="section-2">爬虫</h2>
+
+<ul>
+  <li>语言：Python2.7</li>
+  <li>抓取对象：www.ceair.com 东方航空官方网站</li>
+</ul>
+
+<p>当时刚刚自学了Python，本想用Google开发的Scrapy框架，但是发现对于网页的获取加载等等原理都不明白，还不如自己从头学起写一个爬虫。因此使用的都是Python2.7自带的库，如utllib等。</p>
+
+<h3 id="request">Request</h3>
+<p>模拟浏览器Get和Post的过程使用的是Chrome浏览器自带的“检查”功能，其中的“Network”部分可以查看所有的Get和Post，包括参数、Headers、Cookies等等。<br />
+代码重写或者更改过很多次，最后的读取网页部分变成了这样：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># 城市中文名</span>
+<span class="n">deptcdtxt</span> <span class="o">=</span> <span class="n">dept</span>
+<span class="n">arrcdtxt</span> <span class="o">=</span> <span class="n">arr</span>
+
+<span class="c"># 获取城市代码</span>
+<span class="n">dept</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">get_cd</span><span class="p">(</span><span class="n">dept</span><span class="p">)</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">get_cd</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
+<span class="c"># 获取机场代码</span>
+<span class="n">deptcitycode</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">get_citycode</span><span class="p">(</span><span class="n">deptcdtxt</span><span class="p">)</span>
+<span class="n">arrcitycode</span> <span class="o">=</span> <span class="n">city</span><span class="o">.</span><span class="n">get_citycode</span><span class="p">(</span><span class="n">arrcdtxt</span><span class="p">)</span>
+
+<span class="c"># Post参数（出发城市，到达城市）&amp;Headers</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'http://easternmiles.ceair.com/booking/flight-search!doFlightSearch.shtml?rand=0.4091873385477811'</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="s">'searchCond'</span><span class="p">:</span><span class="s">'{"segmentList":[{"deptCdTxt":"DEPT-TXT","deptCd":"DEPT","deptNation":"CN","deptRegion":"CN","deptCityCode":"DEPT-CITYCODE","arrCd":"ARR","arrCdTxt":"ARR-TXT","arrNation":"CN","arrRegion":"CN","arrCityCode":"ARR-CITYCODE","deptDt":"DATE"}],"tripType":"OW","adtCount":"1","chdCount":"0","infCount":"0","currency":"CNY","sortType":"t"}'</span><span class="p">}</span>
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'DEPT-TXT'</span><span class="p">,</span> <span class="n">deptcdtxt</span><span class="p">)</span>
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'ARR-TXT'</span><span class="p">,</span> <span class="n">arrcdtxt</span><span class="p">)</span>
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'DEPT-CITYCODE'</span><span class="p">,</span> <span class="n">deptcitycode</span><span class="p">)</span>
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'ARR-CITYCODE'</span><span class="p">,</span> <span class="n">arrcitycode</span><span class="p">)</span>
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'DEPT'</span><span class="p">,</span> <span class="n">dept</span><span class="o">+</span><span class="s">'#'</span><span class="p">)</span>
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'ARR'</span><span class="p">,</span> <span class="n">arr</span><span class="o">+</span><span class="s">'#'</span><span class="p">)</span>
+
+
+<span class="n">referer</span> <span class="o">=</span> <span class="s">'http://easternmiles.ceair.com/flight/'</span><span class="o">+</span><span class="n">dept</span><span class="o">+</span><span class="s">'-'</span><span class="o">+</span><span class="n">arr</span><span class="o">+</span><span class="s">'-DATE_CNY.html'</span>
+<span class="n">save</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">save</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'User-Agent'</span><span class="p">:</span><span class="s">'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36'</span><span class="p">,</span>
+           <span class="s">'X-Requested-With'</span><span class="p">:</span><span class="s">'XMLHttpRequest'</span><span class="p">,</span>
+           <span class="s">'host'</span><span class="p">:</span><span class="s">'easternmiles.ceair.com'</span><span class="p">,</span>
+           <span class="s">'Connection'</span><span class="p">:</span><span class="s">'keep-alive'</span><span class="p">,</span>
+           <span class="s">'Origin'</span><span class="p">:</span><span class="s">'http://easternmiles.ceair.com'</span><span class="p">}</span>
+
+<span class="kn">import</span> <span class="nn">cookielib</span>
+<span class="n">cookie</span> <span class="o">=</span> <span class="n">cookielib</span><span class="o">.</span><span class="n">CookieJar</span><span class="p">()</span>
+<span class="n">ck</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">HTTPCookieProcessor</span><span class="p">(</span><span class="n">cookie</span><span class="p">)</span>
+
+<span class="c"># 代理</span>
+<span class="n">proxy_id</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span><span class="s">'http'</span><span class="p">:</span> <span class="n">proxy</span><span class="p">[</span><span class="n">proxy_id</span><span class="p">]}</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">ProxyHandler</span><span class="p">(</span><span class="n">proxies</span><span class="p">)</span>
+<span class="n">opener</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">ck</span><span class="p">,</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">HTTPHandler</span><span class="p">)</span>
+
+<span class="c"># 修改起飞日期</span>
+<span class="n">date</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d'</span><span class="p">,</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">+</span><span class="n">sta</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">))</span>
+<span class="n">date2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y</span><span class="si">%</span><span class="s">m</span><span class="si">%</span><span class="s">d'</span><span class="p">,</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">+</span><span class="n">sta</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">))</span>        
+
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">save</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span>
+<span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s">'searchCond'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'DATE'</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">))</span>
+<span class="n">headers</span><span class="p">[</span><span class="s">'Referer'</span><span class="p">]</span> <span class="o">=</span> <span class="n">referer</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'DATE'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">date2</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span>
+
+<span class="c"># 读取网页</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">opener</span><span class="o">.</span><span class="nb">open</span><span class="p">(</span><span class="n">req</span><span class="p">)</span></code></pre></figure>
+
+<p>设置Headers、Cookie处理、代理和sleep都是为了防止被反爬虫机制给检测出来，但是依然会时不时被屏蔽，非常影响抓取的连续性和稳定性，因此又试着加上了容错提高鲁棒性。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">err</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">err</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">err</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c">#对values进行url编码</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="c">#建立一个request类型的对象</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="c">#response为post后返回的内容</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">opener</span><span class="o">.</span><span class="nb">open</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+        <span class="c">#获取response成功后将err标志改为-1</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        
+    <span class="k">except</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">,</span><span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'HTTPError:'</span><span class="p">,</span><span class="n">e</span><span class="o">.</span><span class="n">code</span>
+        <span class="c">#writeErr(e.read(),'HTTPError:'+e.code,date,dept,arr)</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">err</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">continue</span>
+    <span class="k">except</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">URLError</span><span class="p">,</span><span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'URLError,please check the net.</span><span class="se">\n</span><span class="s">'</span>
+        <span class="k">print</span> <span class="n">e</span><span class="o">.</span><span class="n">reason</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">err</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">continue</span>
+    <span class="k">except</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">err</span>
+        <span class="k">print</span> <span class="s">"Error, it is possible that the computer doesn't connect to the Internet.</span><span class="se">\n</span><span class="s">"</span>
+        <span class="n">writeErr</span><span class="p">(</span><span class="s">'无'</span><span class="p">,</span><span class="s">'打开网页失败'</span><span class="p">,</span><span class="n">date</span><span class="p">,</span><span class="n">dept</span><span class="p">,</span><span class="n">arr</span><span class="p">)</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">err</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">continue</span>
+    
+<span class="c">#如果是因为两次尝试都失败而跳出循环则跳过这个起飞日期的爬取</span>
+<span class="k">if</span> <span class="n">err</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">continue</span>
+
+
+<span class="c">#读取为string类型</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">response</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">opener</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c">#去掉影响json解析的字符</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="n">temp</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">'{'</span><span class="p">):]</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c">#对json格式的数据进行解析</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'json解析失败！'</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="n">writeErr</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="s">'json解析失败'</span><span class="p">,</span><span class="n">date</span><span class="p">,</span><span class="n">dept</span><span class="p">,</span><span class="n">arr</span><span class="p">)</span>
+    <span class="k">continue</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c">#剔除没有航班的航线</span>
+    <span class="c">#print values</span>
+    <span class="c">#print temp</span>
+    <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="s">'adtNum'</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+        
+        <span class="c">#提取所需信息</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="s">'tripItemList'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">'airRoutingList'</span><span class="p">])):</span>
+            <span class="c">#某一航班</span>
+            <span class="n">site</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="s">'tripItemList'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">'airRoutingList'</span><span class="p">][</span><span class="n">a</span><span class="p">]</span>
+            <span class="c">#预加入出发与到达城市</span>
+            <span class="n">flight</span><span class="o">=</span><span class="p">[</span><span class="n">dept</span><span class="p">,</span><span class="n">arr</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">site</span><span class="p">[</span><span class="s">'priceDisp'</span><span class="p">][</span><span class="s">'lowest'</span><span class="p">]:</span>
+            <span class="c">#选择有票价的航班抓取</span>
+                <span class="c">#航班号</span>
+                <span class="n">flight</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">[</span><span class="s">'flightList'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">'flightNo'</span><span class="p">])</span>
+                <span class="c">#机型</span>
+                <span class="n">flight</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">[</span><span class="s">'flightList'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">'acfamily'</span><span class="p">])</span>
+                <span class="c">#出发日期</span>
+                <span class="n">flight</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">[</span><span class="s">'flightList'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">'deptTime'</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+                <span class="c">#出发时间</span>
+                <span class="n">flight</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">[</span><span class="s">'flightList'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">'deptTime'</span><span class="p">][</span><span class="mi">11</span><span class="p">:])</span>
+                <span class="c">#最低价格</span>
+                <span class="n">flight</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site</span><span class="p">[</span><span class="s">'priceDisp'</span><span class="p">][</span><span class="s">'lowest'</span><span class="p">])</span>                        
+                <span class="c">#抓取日期    </span>
+                <span class="n">flight</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d'</span><span class="p">,</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())))</span>
+                <span class="n">flight</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">flight</span><span class="p">)</span>
+                <span class="n">flights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">flight</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">'没能抓取</span><span class="si">%</span><span class="s">s从</span><span class="si">%</span><span class="s">s至</span><span class="si">%</span><span class="s">s的机票信息</span><span class="se">\n</span><span class="s">'</span><span class="o">%</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">dept</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+        <span class="k">continue</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">'提取信息失败！'</span>
+    <span class="n">writeErr</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span><span class="s">'提取信息失败'</span><span class="p">,</span><span class="n">date</span><span class="p">,</span><span class="n">dept</span><span class="p">,</span><span class="n">arr</span><span class="p">)</span>
+    <span class="k">continue</span></code></pre></figure>
+
+<p>爬虫的主体部分算完成了。</p>
+
+<h3 id="section-3">代理</h3>
+
+<p>防止被屏蔽重要的一点是代理，代理也可以从网上的免费代理网站爬取存到文件中，在爬虫运行时，读取到内存中随时取用。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">getproxy</span><span class="p">():</span>
+    <span class="s">""" 获取代理 """</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'proxy.txt'</span><span class="p">,</span><span class="s">'r'</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">p</span>
+
+<span class="n">proxy</span> <span class="o">=</span> <span class="n">getproxy</span><span class="p">()</span></code></pre></figure>
+
+<p>抓代理用的爬虫是从网上找的现成轮子，免得自己造了。因为不是自己的代码，不在此列出，但在github里面还是找得到的。</p>
+
+<h3 id="section-4">与数据库的对接</h3>
+<p>数据库用的是MySQL，因此需要下个MySQLdb的Python库来进行数据库操作。这方面没什么花头，按文档写即可。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">MySQLdb</span>
+
+<span class="k">def</span> <span class="nf">opendb</span><span class="p">(</span><span class="n">db_name</span><span class="p">):</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">'root'</span><span class="p">,</span><span class="n">passwd</span><span class="o">=</span><span class="s">'root'</span><span class="p">,</span><span class="n">db</span><span class="o">=</span><span class="n">db_name</span><span class="p">,</span><span class="n">charset</span><span class="o">=</span><span class="s">"utf8"</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">'set interactive_timeout=24*3600'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">conn</span><span class="p">,</span><span class="n">cursor</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">closedb</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">cursor</span><span class="p">):</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">insertTomysql</span><span class="p">(</span><span class="n">flights</span><span class="p">):</span>
+    <span class="s">"""
+    用以插入mysql数据库
+    flights = [(出发城市，到达城市，航班号，机型，出发日期，出发时间，价格，抓取日期)*n]
+    """</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">'root'</span><span class="p">,</span><span class="n">passwd</span><span class="o">=</span><span class="s">'root'</span><span class="p">,</span><span class="n">db</span><span class="o">=</span><span class="s">'ceair'</span><span class="p">,</span><span class="n">charset</span><span class="o">=</span><span class="s">"utf8"</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>      
+        <span class="k">for</span> <span class="n">flight</span> <span class="ow">in</span> <span class="n">flights</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">'insert ignore into city (flight,deptcity,arrcity) values (</span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s)'</span><span class="p">,[</span><span class="n">flight</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">flight</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">flight</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">'insert ignore into departure (flight, type, deptDate, deptTime) values (</span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s)'</span><span class="p">,</span><span class="n">flight</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">'select id from departure where flight = </span><span class="si">%</span><span class="s">s and deptdate = </span><span class="si">%</span><span class="s">s'</span><span class="p">,[</span><span class="n">flight</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">flight</span><span class="p">[</span><span class="mi">4</span><span class="p">]])</span>
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">'insert ignore into `fetch` (price,fetchdate,deptID) values (</span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s)'</span><span class="p">,[</span><span class="n">flight</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">flight</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="nb">id</span><span class="p">])</span>
+                
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">'没有成功写入：'</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span><span class="n">flight</span>
+                <span class="n">db_err</span><span class="p">(</span><span class="n">flight</span><span class="p">)</span>
+    
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">'成功写入数据库。'</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span><span class="n">e</span><span class="p">:</span>
+        <span class="c">#错误回滚</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">rollback</span>
+        <span class="k">for</span> <span class="n">flight</span> <span class="ow">in</span> <span class="n">flights</span><span class="p">:</span>
+            <span class="n">db_err</span><span class="p">(</span><span class="n">flight</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">"Error </span><span class="si">%</span><span class="s">d: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+<span class="k">def</span> <span class="nf">db_err</span><span class="p">(</span><span class="n">err_record</span><span class="p">):</span>
+    <span class="n">today</span> <span class="o">=</span>  <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d'</span><span class="p">,</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'db_err_'</span><span class="o">+</span><span class="n">today</span><span class="o">+</span><span class="s">'.txt'</span><span class="p">,</span><span class="s">'a'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">err_record</span><span class="p">:</span>
+        <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s">' '</span><span class="p">)</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></figure>
+
+<h3 id="section-5">多线程</h3>
+
+<p>考虑到要抓取11个城市之间的航班，也就是110个航线，1500+的航班，采用多线程是势在必行的。</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">ceair_thread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dept</span><span class="p">,</span><span class="n">arr</span><span class="p">,</span><span class="n">sta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ran</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dept</span> <span class="o">=</span> <span class="n">dept</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sta</span> <span class="o">=</span> <span class="n">sta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ran</span> <span class="o">=</span> <span class="n">ran</span>
+
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="p">()</span>
+		<span class="n">flights</span> <span class="o">=</span> <span class="n">ceair_spider</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dept</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">sta</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ran</span><span class="p">)</span>
+		<span class="k">print</span> <span class="s">'线程</span><span class="si">%</span><span class="s">s--&gt;</span><span class="si">%</span><span class="s">s用时</span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">'</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dept</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">,</span> <span class="n">clock</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="p">)</span></code></pre></figure>
+
+<p>先建立线程类，然后创建调用多个线程：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">ceair_spider</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">clock</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">insertToDB</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">clock</span><span class="p">()</span>
+    <span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'ceair_log2.txt'</span><span class="p">,</span><span class="s">'a'</span><span class="p">)</span>
+    <span class="n">today</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m-</span><span class="si">%</span><span class="s">d </span><span class="si">%</span><span class="s">H </span><span class="si">%</span><span class="s">M </span><span class="si">%</span><span class="s">S'</span><span class="p">,</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">s the spider has been started.</span><span class="se">\n</span><span class="s">'</span> <span class="o">%</span> <span class="n">today</span><span class="p">)</span>
+    <span class="c">#hot_city = ['上海','北京']</span>
+    <span class="n">hot_city</span><span class="o">=</span><span class="p">[</span><span class="s">'上海'</span><span class="p">,</span><span class="s">'北京'</span><span class="p">,</span><span class="s">'昆明'</span><span class="p">,</span><span class="s">'西安'</span><span class="p">,</span><span class="s">'广州'</span><span class="p">,</span><span class="s">'成都'</span><span class="p">,</span><span class="s">'杭州'</span><span class="p">,</span><span class="s">'青岛'</span><span class="p">,</span><span class="s">'深圳'</span><span class="p">,</span><span class="s">'太原'</span><span class="p">,</span><span class="s">'长沙'</span><span class="p">]</span>
+    <span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c">#打开数据库</span>
+    <span class="c">#conn, cursor = opendb('ceair')</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">hot_city</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hot_city</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+                <span class="n">new_thread</span> <span class="o">=</span> <span class="n">ceair_thread</span><span class="p">(</span><span class="n">hot_city</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">hot_city</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span><span class="c">#conn,cursor,0,90)</span>
+                <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_thread</span><span class="p">)</span>
+    <span class="c"># new_thread = ceair_thread(hot_city[0],hot_city[1], 0, 10)#conn,cursor,0,90)</span>
+    <span class="c"># threads.append(new_thread)</span>
+
+    <span class="k">for</span> <span class="n">athread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+        <span class="n">athread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">athread</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+        <span class="n">athread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+        
+    <span class="n">used_time</span> <span class="o">=</span> <span class="n">clock</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">'总用时'</span><span class="p">,</span> <span class="n">used_time</span>
+    <span class="c">#关闭数据库</span>
+    <span class="c">#closedb(conn, cursor)</span>
+    
+    <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'Finished. Time used:</span><span class="si">%</span><span class="s">s</span><span class="se">\n</span><span class="s">'</span> <span class="o">%</span> <span class="n">used_time</span><span class="p">)</span>
+    <span class="n">fout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">used_time</span> <span class="o">&lt;=</span> <span class="mi">86400</span><span class="p">:</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">86400</span><span class="o">-</span><span class="n">used_time</span><span class="p">)</span></code></pre></figure>
+
+<hr />
+
+<h2 id="section-6">数据库</h2>
+<p>对于新手，老老实实先从关系型数据库学起，专业课上学的不是极复杂的Oracle就是极鸡肋的Access，都不合适实际个人研究用。而MySQL是免费又稳定更新的关系型数据库软件，还有大量文档，用来练手再合适不过。<br />
+理论上要按学的三大范式来设计，不过实际涉及到效率就不可能严格要求了，好在我们要存的数据并不复杂，E-R图如下：<br />
+<img src="/img/in-post/portfolio/ermodel.png" alt="image-1" /><br />
+city存储航线信息，departure存储航班信息，fetch存储价格信息，具体的存储格式如下：<br />
+city：<br />
+<img src="/img/in-post/portfolio/city.png" alt="image-2" /><br />
+departure：<br />
+<img src="/img/in-post/portfolio/departure.png" alt="image-3" /><br />
+fetch：<br />
+<img src="/img/in-post/portfolio/fetch.png" alt="image-4" /></p>
+
+<hr />
+
+<h1 id="section-7">数据</h1>
+
+<h2 id="summary">Summary</h2>
+<ul>
+  <li>来源：东方航空官方网站</li>
+  <li>抓取时间跨度：2013/12~2014/5/25，每一天抓取未来90天起飞的航班价格</li>
+  <li>城市范围：北京、上海、昆明、西安、广州、成都、杭州、青岛、深圳、太原、长沙</li>
+  <li>数据规模：1556个航班，237504个出发信息，总数据量7739641条</li>
+</ul>
+
+<h2 id="section-8">预处理</h2>
+<ol>
+  <li><strong>空缺值</strong>：由于数据是从网络上爬取，有时会有数据缺失。比如由于某一天没有爬取而导致对应这一天购买所有的航班数据都缺失了。<br />
+处理方法：以合理的方式填充这些数据。用后一天爬取的数据填补空缺的数据。如果连续5天的数据都缺失，我们只能考虑将所有含缺失的相关数据全部删掉不用。</li>
+  <li><strong>噪声</strong>：在我们爬取到的数据中，可能会存在一些异常的噪声点。比如有时当经济舱机票售完后，我们爬到的就会是头等舱的机票价格，要显著高于普通机票价格。如果直接用来做分析，显然会得到错误的规律与结论。<br />
+处理方法：以标准经济舱价格替换这些数据。</li>
+  <li><strong>不一致</strong>：在我们的数据中，没有明显的不一致现象。</li>
+  <li><strong>集成</strong>：我们收集到的数据的各项属性中显然有一些是相关的，比如提前预定的天数就可以由预定日期与出发日期得到，而除了一些特殊情况，飞机的机型基本上可以由航班号确定。<br />
+处理方法：对数据进行相关性分析，将相关性高的数据项进行集成，以减少数据的维度。</li>
+  <li><strong>概化</strong>:在我们收集到的数据中，或有一些过于详细的信息。比如飞机的起飞时间是精确到秒的。事实上，我们显然不需要这么精确的数据，因为这样不仅工作量会变大且更复杂，还可能会得不到正确的结论。因此我们需要对数据进行概化。<br />
+处理方法：按起飞时间是否为深夜清晨，将起飞事件处理为0，1变量。</li>
+</ol>
+
+<h2 id="section-9">可视化</h2>
+<p>为了方便查看数据变化，利用Python的两个开源库wx和matplotlib来做了UI。<br />
+<img src="/img/in-post/portfolio/UI.png" alt="UI" /><br />
+可以根据选择,在图上画出多条价格曲线，鼠标移动时可以高亮相应的曲线并在下方显示为几月几日出发的航班。可作图类型有无差分价格曲线、一阶差分价格曲线和二阶差分价格曲线，本来想要尝试3D显示，但是并不理想而且效率较低，故而放弃了这个功能。<br />
+横坐标的显示默认为订票日期，也可以选择为距离起飞的天数。</p>
+
+<h2 id="pattern">Pattern</h2>
+<p>利用这个作图程序，我们观察了MU5120（北京至上海）五月起飞的所有航班：<br />
+<img src="/img/in-post/portfolio/pattern_1.png" alt="p1" /><br />
+可以大体猜想分为三类:<br />
+1. 最上一簇，价格基本保持不变<br />
+2. 中间一簇，早期低价，中期上升到800~900元 <br />
+3. 最下一族，基本处于低价，在最后几天升高<br />
+为了确认猜想，进一步分日期绘图，得到以下曲线：<br />
+<img src="/img/in-post/portfolio/pattern_2.png" alt="p2" /><br />
+可以看出，基本保持低价的航班基本都是周六或周一起飞，5月1日与5月2日虽然不是周六或周一，但考虑其为劳动节放假，所以与周六或周一具有相同的模式。 而中期增高的航班均为周二或周日。</p>
+
+<p>而观察MU5120周三至周五的所有航班，发现也具有同样的模式，且为我们之前猜想的第一类曲线。<br />
+<img src="/img/in-post/portfolio/pattern_3.png" alt="p3" /><br />
+由此可见，周几对于航班价格的变化确实有影响。 接下来一步思考的便是，是否其他的航班也有类似的规律呢?<br />
+于是就针对Figure 1中的曲线类型，寻找类似的航班。<br />
+<img src="/img/in-post/portfolio/pattern_4.png" alt="p4" /><br />
+发现对于北京到上海的航班，如果不是深夜或者早晨出发，基本上所有周五起飞的航班都具有这样的模式。不知道是否可以认为，北京到上海周五的航班舱位一向紧缺，所以价格基本是维持原价。<br />
+而在这个探索的过程中，也可以认为航班起飞的时间点也是影响价格变化曲线的一个重要因素。</p>
+
+<hr />
+
+<h1 id="section-10">决策树</h1>
+
+<h2 id="section-11">特征集</h2>
+<p>所谓决策树，最简单的理解就是很多个嵌套的if-else语句，其形象化的表示如下：<br />
+<img src="/img/in-post/portfolio/decision_tree.png" alt="decision_tree" /><br />
+决策树在每个结点都有一个判断条件，然后根据判断的结果走向不同的分支，最后到达叶子结点，根据叶子结点存储的结果来给出预测结果。判断条件越早出现，其重要性便越高。所以决策树非常便于我们理解各个因素的意义和重要性。</p>
+
+<p>Figure 2展示了我们的决策树可能的样子，当然实际的决策树远远要庞大许多，而非示例的 这么简洁。</p>
+
+<p>选择每个结点分类的标准可以分为两类，一类是信息熵，另一类是基尼不纯度。<br />
+香农定义的一个事件的信息量为：$I(X)=log_2(\frac{1}{p(x)})$，而如果X有n个随机事件，那么信息熵便是这n个事件的概率关于信息量的加权平均。熵越大，集合或者系统越混乱。</p>
+
+<p>而基尼不纯度则是一个随机事件变成它的对立事件的概率，譬如一个随机事件Y，$P(Y=0)=0.1$，$P(Y=1)=0.9$，那么基尼不纯度就为$P(Y=0)(1-P(Y=0))+P(Y=1)(1-P(Y=1))=0.18$ 。不纯度越高，集合或系统越混乱。</p>
+
+<p>而我们的结点的选择是要使分类后的子集混乱程度降低，变得有序。在我们的决策树中选择了基尼不纯度作为分类标准。</p>
+
+<p>而根据前面做的准备工作，我们设定特征集为：<br />
+<img src="/img/in-post/portfolio/metrics.png" alt="metrics" /><br />
+决策变量则是“buy”和“wait”。</p>
+
+<h2 id="section-12">预测效果</h2>
+<p>鉴于过大的数据量可能会运行较长的时间，我们先对一个航班尝试了训练测试，选择的训 集和测试集在订票日期上相互独立。<br />
+<img src="/img/in-post/portfolio/example_1.png" alt="example1" /><br />
+可以看出正确率相当高，但这个正确率是否是偶然还是稳定的还未可知。我们进行了下一步的测试。<br />
+<img src="/img/in-post/portfolio/example_2.png" alt="example2" /><br />
+可以发现比较稳定的应该是70%以上这样的正确率。但这只是对MU271这个航班而言,为此我们选取了另外一个航班进行测试。<br />
+<img src="/img/in-post/portfolio/example_3.png" alt="example3" /><br />
+在这张结果汇总表里可以看到，对于MU5120的测试结果差别很大，低到50%多，高到有79%。显然同样的算法对于不同航班的效果不同，为了抹平这样的差距，我们尝试用十个航班混合的数据进行训练测试。<br />
+<img src="/img/in-post/portfolio/example_4.png" alt="example4" /><br />
+对于混合后的数据，预测的正确率显然比较稳定地维持在75%上下了。而观察错误的情况，“应当等却买了”的情况高于“应当买却没买”，这说明我们的算法对于未来更低价的出现可能性估计是比较保守。</p>
+
+<hr />
+
+<h1 id="section-13">不足&amp;疑问</h1>
+<ol>
+  <li>
+    <p>无法用大规模数据建树。<br />
+由于决策树的算法使用的是开源包，而本身决策树最佳结点的选择就是遍历，这导致算法对于大数据的适用性很差。</p>
+  </li>
+  <li>
+    <p>仅尝试了基尼不纯度作为分类标准。<br />
+在以上的探索中，决策树构建仅使用了基尼不纯度，并未尝试信息熵来测试效果并和基尼不纯度进行对比。而且除了这两种之外，也未来得及考虑自己写分类标准函数的可能算法。</p>
+  </li>
+  <li>
+    <p>对于用户使用来说，什么样的训练集最合适?</p>
+  </li>
+  <li>
+    <p>只能预测买或不买，无法预测价格。</p>
+  </li>
+</ol>
+
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/" data-toggle="tooltip" data-placement="top" title="编程之美笔记 1">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/portfolio/2016/06/07/飞机票数据挖掘与建模"
+                        data-title="SRT项目：飞机票数据挖掘与建模"
+                        data-url="http://SlothSimon.github.com/portfolio/2016/06/07/%E9%A3%9E%E6%9C%BA%E7%A5%A8%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%BB%BA%E6%A8%A1/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#jekyll" title="jekyll" rel="2">
+                                    jekyll
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'There_is_no_simon';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/SlothSimon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/SlothSimon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; SlothSimon's Skytree 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

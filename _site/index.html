@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<!-- mathjax config similar to math.stackexchange --> 
+<script type="text/x-mathjax-config"> 
+MathJax.Hub.Config({ 
+    jax: ["input/TeX", "output/HTML-CSS"], 
+    tex2jax: { 
+        inlineMath: [ ['$', '$'] ], 
+        displayMath: [ ['$$', '$$']], 
+        processEscapes: true, 
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }, 
+    messageStyle: "none", 
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] } 
+}); 
+</script>
 
 <head>
     <meta charset="utf-8">
@@ -83,6 +97,10 @@
                     </li>
                     
                     <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
                         <a href="/tags/">Tags</a>
                     </li>
                     
@@ -153,6 +171,42 @@
                 post-container
             ">
     			
+<div class="post-preview">
+    <a href="/portfolio/2016/06/07/%E9%A3%9E%E6%9C%BA%E7%A5%A8%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%BB%BA%E6%A8%A1/">
+        <h2 class="post-title">
+            SRT项目：飞机票数据挖掘与建模
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  简介
+  技术实现    
+      爬虫        
+          Request
+          代理
+          与数据库的对接
+          多线程
+        
+      
+      数据库
+    
+  
+  数据    
+      Summary
+      预处理
+      可视化
+      Pattern
+    
+  
+ ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by SlothSimon's Skytree on June 7, 2016
+    </p>
+</div>
+<hr>
+
 <div class="post-preview">
     <a href="/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/">
         <h2 class="post-title">
@@ -305,6 +359,14 @@ print("The concat result:"..table.concat(tb, ";"))
                                 <a href="/tags/#jekyll" title="jekyll" rel="2">
                                     jekyll
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             
