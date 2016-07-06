@@ -20,7 +20,7 @@ MathJax.Hub.Config({
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="一只快如闪电（并不）的程序懒！ | SlothSimon，Freshman in coding | 这里是 @SlothSimon 的栖息林。">
+    <meta name="description" content="一只快如闪电（并不）的程序懒！ | SlothSimon，freshman in coding | 这里是 @SlothSimon 的栖息林。">
     <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
@@ -166,6 +166,8 @@ MathJax.Hub.Config({
                         
                         <a class="tag" href="/tags/#mysql" title="mysql">mysql</a>
                         
+                        <a class="tag" href="/tags/#决策树" title="决策树">决策树</a>
+                        
                     </div>
                     <h1>SRT项目：飞机票数据挖掘与建模</h1>
                     
@@ -219,7 +221,8 @@ MathJax.Hub.Config({
 </ul>
 
 <h1 id="section">简介</h1>
-<p>2013-2014年参与的校内SRT项目，抓取11个热门城市未来90天起飞的机票价格，以此来建模预测飞机票价格的变化。</p>
+<p>2013-2014年参与的校内SRT项目，抓取11个热门城市未来90天起飞的机票价格，以此来建模预测飞机票价格的变化。<br />
+<a href="https://github.com/SlothSimon/AirSpider">|Github项目传送门|</a></p>
 
 <h1 id="section-1">技术实现</h1>
 
@@ -523,14 +526,14 @@ MathJax.Hub.Config({
 <h2 id="section-6">数据库</h2>
 <p>对于新手，老老实实先从关系型数据库学起，专业课上学的不是极复杂的Oracle就是极鸡肋的Access，都不合适实际个人研究用。而MySQL是免费又稳定更新的关系型数据库软件，还有大量文档，用来练手再合适不过。<br />
 理论上要按学的三大范式来设计，不过实际涉及到效率就不可能严格要求了，好在我们要存的数据并不复杂，E-R图如下：<br />
-<img src="/img/in-post/portfolio/ermodel.png" alt="image-1" /><br />
+<img src="/img/in-post/portfolio/airspider/ermodel.png" alt="image-1" /><br />
 city存储航线信息，departure存储航班信息，fetch存储价格信息，具体的存储格式如下：<br />
 city：<br />
-<img src="/img/in-post/portfolio/city.png" alt="image-2" /><br />
+<img src="/img/in-post/portfolio/airspider/city.png" alt="image-2" /><br />
 departure：<br />
-<img src="/img/in-post/portfolio/departure.png" alt="image-3" /><br />
+<img src="/img/in-post/portfolio/airspider/departure.png" alt="image-3" /><br />
 fetch：<br />
-<img src="/img/in-post/portfolio/fetch.png" alt="image-4" /></p>
+<img src="/img/in-post/portfolio/airspider/fetch.png" alt="image-4" /></p>
 
 <hr />
 
@@ -559,26 +562,26 @@ fetch：<br />
 
 <h2 id="section-9">可视化</h2>
 <p>为了方便查看数据变化，利用Python的两个开源库wx和matplotlib来做了UI。<br />
-<img src="/img/in-post/portfolio/UI.png" alt="UI" /><br />
+<img src="/img/in-post/portfolio/airspider/UI.png" alt="UI" /><br />
 可以根据选择,在图上画出多条价格曲线，鼠标移动时可以高亮相应的曲线并在下方显示为几月几日出发的航班。可作图类型有无差分价格曲线、一阶差分价格曲线和二阶差分价格曲线，本来想要尝试3D显示，但是并不理想而且效率较低，故而放弃了这个功能。<br />
 横坐标的显示默认为订票日期，也可以选择为距离起飞的天数。</p>
 
 <h2 id="pattern">Pattern</h2>
 <p>利用这个作图程序，我们观察了MU5120（北京至上海）五月起飞的所有航班：<br />
-<img src="/img/in-post/portfolio/pattern_1.png" alt="p1" /><br />
+<img src="/img/in-post/portfolio/airspider/pattern_1.png" alt="p1" /><br />
 可以大体猜想分为三类:<br />
 1. 最上一簇，价格基本保持不变<br />
 2. 中间一簇，早期低价，中期上升到800~900元 <br />
 3. 最下一族，基本处于低价，在最后几天升高<br />
 为了确认猜想，进一步分日期绘图，得到以下曲线：<br />
-<img src="/img/in-post/portfolio/pattern_2.png" alt="p2" /><br />
+<img src="/img/in-post/portfolio/airspider/pattern_2.png" alt="p2" /><br />
 可以看出，基本保持低价的航班基本都是周六或周一起飞，5月1日与5月2日虽然不是周六或周一，但考虑其为劳动节放假，所以与周六或周一具有相同的模式。 而中期增高的航班均为周二或周日。</p>
 
 <p>而观察MU5120周三至周五的所有航班，发现也具有同样的模式，且为我们之前猜想的第一类曲线。<br />
-<img src="/img/in-post/portfolio/pattern_3.png" alt="p3" /><br />
+<img src="/img/in-post/portfolio/airspider/pattern_3.png" alt="p3" /><br />
 由此可见，周几对于航班价格的变化确实有影响。 接下来一步思考的便是，是否其他的航班也有类似的规律呢?<br />
 于是就针对Figure 1中的曲线类型，寻找类似的航班。<br />
-<img src="/img/in-post/portfolio/pattern_4.png" alt="p4" /><br />
+<img src="/img/in-post/portfolio/airspider/pattern_4.png" alt="p4" /><br />
 发现对于北京到上海的航班，如果不是深夜或者早晨出发，基本上所有周五起飞的航班都具有这样的模式。不知道是否可以认为，北京到上海周五的航班舱位一向紧缺，所以价格基本是维持原价。<br />
 而在这个探索的过程中，也可以认为航班起飞的时间点也是影响价格变化曲线的一个重要因素。</p>
 
@@ -588,7 +591,7 @@ fetch：<br />
 
 <h2 id="section-11">特征集</h2>
 <p>所谓决策树，最简单的理解就是很多个嵌套的if-else语句，其形象化的表示如下：<br />
-<img src="/img/in-post/portfolio/decision_tree.png" alt="decision_tree" /><br />
+<img src="/img/in-post/portfolio/airspider/decision_tree.png" alt="decision_tree" /><br />
 决策树在每个结点都有一个判断条件，然后根据判断的结果走向不同的分支，最后到达叶子结点，根据叶子结点存储的结果来给出预测结果。判断条件越早出现，其重要性便越高。所以决策树非常便于我们理解各个因素的意义和重要性。</p>
 
 <p>Figure 2展示了我们的决策树可能的样子，当然实际的决策树远远要庞大许多，而非示例的 这么简洁。</p>
@@ -601,18 +604,18 @@ fetch：<br />
 <p>而我们的结点的选择是要使分类后的子集混乱程度降低，变得有序。在我们的决策树中选择了基尼不纯度作为分类标准。</p>
 
 <p>而根据前面做的准备工作，我们设定特征集为：<br />
-<img src="/img/in-post/portfolio/metrics.png" alt="metrics" /><br />
+<img src="/img/in-post/portfolio/airspider/metrics.png" alt="metrics" /><br />
 决策变量则是“buy”和“wait”。</p>
 
 <h2 id="section-12">预测效果</h2>
 <p>鉴于过大的数据量可能会运行较长的时间，我们先对一个航班尝试了训练测试，选择的训 集和测试集在订票日期上相互独立。<br />
-<img src="/img/in-post/portfolio/example_1.png" alt="example1" /><br />
+<img src="/img/in-post/portfolio/airspider/example_1.png" alt="example1" /><br />
 可以看出正确率相当高，但这个正确率是否是偶然还是稳定的还未可知。我们进行了下一步的测试。<br />
-<img src="/img/in-post/portfolio/example_2.png" alt="example2" /><br />
+<img src="/img/in-post/portfolio/airspider/example_2.png" alt="example2" /><br />
 可以发现比较稳定的应该是70%以上这样的正确率。但这只是对MU271这个航班而言,为此我们选取了另外一个航班进行测试。<br />
-<img src="/img/in-post/portfolio/example_3.png" alt="example3" /><br />
+<img src="/img/in-post/portfolio/airspider/example_3.png" alt="example3" /><br />
 在这张结果汇总表里可以看到，对于MU5120的测试结果差别很大，低到50%多，高到有79%。显然同样的算法对于不同航班的效果不同，为了抹平这样的差距，我们尝试用十个航班混合的数据进行训练测试。<br />
-<img src="/img/in-post/portfolio/example_4.png" alt="example4" /><br />
+<img src="/img/in-post/portfolio/airspider/example_4.png" alt="example4" /><br />
 对于混合后的数据，预测的正确率显然比较稳定地维持在75%上下了。而观察错误的情况，“应当等却买了”的情况高于“应当买却没买”，这说明我们的算法对于未来更低价的出现可能性估计是比较保守。</p>
 
 <hr />
@@ -649,6 +652,10 @@ fetch：<br />
                     </li>
                     
                     
+                    <li class="next">
+                        <a href="/portfolio/2016/07/06/%E4%BC%AA%E9%80%A0%E5%BE%AE%E5%8D%9A%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%AD%A6%E5%AE%9E%E9%AA%8C/" data-toggle="tooltip" data-placement="top" title="毕业设计：模拟微博推送的行为学实验">Next Post &rarr;</a>
+                    </li>
+                    
                 </ul>
 
 
@@ -682,9 +689,15 @@ fetch：<br />
                     <div class="tags">
         				
                             
-                				<a href="/tags/#jekyll" title="jekyll" rel="2">
-                                    jekyll
-                                </a>
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
                             
         				
                             

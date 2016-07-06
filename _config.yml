@@ -3,7 +3,7 @@ title: SlothSimon's Skytree
 SEOTitle: 树懒Simon的天空树 | SlothSimon's Skytree
 header-img: img/home-bg.jpg
 email: simon_zqm@163.com
-description: "一只快如闪电（并不）的程序懒！ | SlothSimon，Freshman in coding | 这里是 @SlothSimon 的栖息林。"
+description: "一只快如闪电（并不）的程序懒！ | SlothSimon，freshman in coding | 这里是 @SlothSimon 的栖息林。"
 keyword: "SlothSimon, 树懒Simon, Simon"
 url: "http://SlothSimon.github.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
@@ -68,14 +68,14 @@ duoshuo_share: false                     # set to false if you want to use Comme
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Whatever......I am......very......lazy......everyday."
+sidebar-about-description: "一只快如闪电（并不）的程序懒！ | SlothSimon，freshman in coding | 这里是 @SlothSimon 的栖息林。"
 sidebar-avatar: /img/avatar-simon.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
 # Featured Tags
 featured-tags: true                     # whether or not using Feature-Tags
-featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+featured-condition-size: 5              # A tag will be featured if the size of it is more than this condition value
 
 
 
