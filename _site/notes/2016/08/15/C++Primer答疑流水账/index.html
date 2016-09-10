@@ -24,9 +24,9 @@ MathJax.Hub.Config({
     <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>skynet:simpleweb笔记 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+    <title>C++Primer答疑流水账 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
 
-    <link rel="canonical" href="http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/">
+    <link rel="canonical" href="http://SlothSimon.github.com/notes/2016/08/15/C++Primer%E7%AD%94%E7%96%91%E6%B5%81%E6%B0%B4%E8%B4%A6/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -158,17 +158,17 @@ MathJax.Hub.Config({
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#skynet" title="skynet">skynet</a>
+                        <a class="tag" href="/tags/#c++" title="c++">c++</a>
                         
-                        <a class="tag" href="/tags/#request" title="request">request</a>
+                        <a class="tag" href="/tags/#c++primer" title="c++primer">c++primer</a>
                         
                     </div>
-                    <h1>skynet:simpleweb笔记</h1>
+                    <h1>C++Primer答疑流水账</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by SlothSimon's Skytree on October 9, 2014</span>
+                    <span class="meta">Posted by SlothSimon's Skytree on August 15, 2016</span>
                 </div>
             </div>
         </div>
@@ -186,44 +186,160 @@ MathJax.Hub.Config({
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="simpleweb">simpleweb函数追溯</h1>
-<p>simpleweb中有一个本地的response函数用以返回客户端传来的request。</p>
+				<p>推荐两个C++Primer阅读辅助资料（or社区）</p>
 
-<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">response</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-	<span class="kd">local</span> <span class="n">ok</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">httpd</span><span class="p">.</span><span class="n">write_response</span><span class="p">(</span><span class="n">sockethelper</span><span class="p">.</span><span class="n">writefunc</span><span class="p">(</span><span class="n">id</span><span class="p">),</span> <span class="o">...</span><span class="p">)</span>
-	<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="k">then</span>
-		<span class="c1">-- if err == sockethelper.socket_error , that means socket closed.</span>
-		<span class="n">skynet</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="nb">string.format</span><span class="p">(</span><span class="s2">"fd = %d, %s"</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">err</span><span class="p">))</span>
-	<span class="k">end</span>
-<span class="k">end</span></code></pre></figure>
+<ul>
+  <li>
+    <p><a href="https://github.com/ReadingLab/Discussion-for-Cpp">Discussion-for-Cpp</a>: 关于C++Primer的一些疑问可以提到这里，一般当天或者隔天就会有解答。</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pezy/CppPrimer/">CppPrimer</a>: C++Primer第五版的答案，正确性比网上散乱的blog靠谱多了，也有详尽的解释，如果有不懂的也可以发issue提问。和上面的社区是同一群组织者。</p>
+  </li>
+</ul>
 
-<p>该response可以在客户端的页面（比如浏览器界面）打印出request内容，也就是纯粹地镜像返回request内容。</p>
+<h1 id="chap-12">chap 1&amp;2</h1>
 
-<p><img src="/assets/image/simpleweb.png" /></p>
+<h3 id="wordword-sizebytebit">1. 字（word）、字长（word size）、字节（byte）、比特（bit）</h3>
 
-<p>打印的这些内容是在simpleweb第21行的函数内组织成所要的table格式，然后传递给response。<br />
-response–&gt;httpd.write_response–&gt;(<strong>httpd</strong> local)writeall–&gt;sockethelper.writefunc（该函数返回一个由fd/id生成的未调用函数..(content)用以在某个具体socket中写入content）–&gt;writebytes–&gt;socket.write–&gt;(前缀全局名实际为socketdriver)driver.send–&gt;socketdriver.so</p>
+<ul>
+  <li>比特(bit)：计算机以比特序列存储数据，每个比特非0即1。（电路的晶体管？？）</li>
+  <li>字节(byte)：可寻址的最小内存块</li>
+  <li>字(word)：存储的基本单位</li>
+  <li>字长(word size)：CPU一次操作（一个时钟周期）可以处理的二进制比特数（0或1），1字长 ＝ 1 bit。大多数计算机以2的整数次幂个比特座位块来处理内存。字长≠地址总线宽度≠数据总线宽度</li>
+</ul>
 
-<p>关于动态链接库还不懂，具体需要阅读http://blog.sina.com.cn/s/blog_62ef2f1401014r9s.html</p>
+<p>Q：为什么没有24位的计算机？<br />
+在知乎评论里看到的疑问，查了资料思索良久得出一个自己的答案：<br />
+A：最初CPU造出来时用的晶体管只有通断两种状态，因此寄存器都是2的n次方，而寄存器一次最大能处理多少数据就决定了CPU一次操作可以处理的字长。据说以后会有三态的量子计算机，但也是3的n次方。而24位不是任何整数的n次方，除非有一个东西可以稳定表达24种状态，否则估计永远不会有24位的计算机吧。可以参考这个问答：<a href="https://www.zhihu.com/question/19658049">为什么计算机没有 3 位、5 位或者 6 位等？ - 中央处理器 (CPU)</a></p>
 
-<p>总之目前先认为是一个在屏幕上打印内容的函数吧。也就是所谓浏览器的”print”API<br />
-write_response函数中可以传自定义的bodyfunc()函数用以输出body，还不知道怎么具体应用。总之传过去的内容只能是string, function或者nil，否则会抛出错误。</p>
+<h1 id="chap-3">chap 3</h1>
 
-<p>writeall()中response的header信息和网页的html信息都是用writefunc输出，但是似乎socketdriver.so中的接口会自动判断哪些是response的header信息哪些是输出到网页页面上的信息。不过在我胡乱给了个table作为header参数时，本来应该在response header中的”content-length: 420”出现在了网页页面上，不知道这算不算bug。</p>
+<h3 id="section">1. “类型直接实现到计算机硬件中”</h3>
 
-<p>测试simpleweb时发现每一次刷新或打开页面都会提交两次request，第一次请求的内容是/，也就是用户需要的网页，第二次是favicon.ico。这是由于第一次请求的网页meta标签中没有设定ico，浏览器就会自动提交一个请求网站图标的request。具体见https://cnodejs.org/topic/54056647e84941a5714d65f4</p>
-
-<p>skynet.newservice –&gt; skynet.call(“.launcher”, ‘lua’, ‘LAUNCH’, ‘snlua’, name, …)–&gt;skynet.call(addr, typename, …)–&gt; skynet.core.send(addr, p.id, nil, p.pack(…)) 和 yield_call(service, session)</p>
-
-<p>接下来找不到skynet.core这个函数库，不明 ；以及这里使用的coroutine.resume和coroutine.yield采用的是云风自己重新写的一个。</p>
-
-<p>关于这部分函数的说明摘取<a href="https://github.com/cloudwu/skynet/wiki/LuaAPI">skynet的wiki</a><br />
-&gt; skynet.call(address, typename, …) 这条 API 则不同，它会在内部生成一个唯一 session ，并向 address 提起请求，并阻塞等待对 session 的回应（可以不由 address 回应）。当消息回应后，还会通过之前注册的 unpack 函数解包。表面上看起来，就是发起了一次 RPC ，并阻塞等待回应。</p>
+<p>在3.1节开头前，书中一段话是这么陈述的：</p>
 
 <blockquote>
-  <p>skynet.newservice(name, …) 用于启动一个新的 Lua 服务。name 是脚本的名字（不用写 .lua 后缀）。只有被启动的脚本的 start 函数返回后，这个 API 才会返回启动的服务的地址，这是一个阻塞 API 。如果被启动的脚本在初始化环节抛出异常，或在初始化完成前就调用 skynet.exit 退出，｀skynet.newservice` 都会抛出异常。如果被启动的脚本的 start 函数是一个永不结束的循环，那么 newservice 也会被永远阻塞住。</p>
+  <p>第2章介绍的内置类型是由C++语言直接定义的。这些类型，比如数字和字符，体现了大多数计算机硬件本身具备的能力。标准库定义了另外一组具有更高级性质的类型，它们尚未直接实现到计算机硬件中。</p>
 </blockquote>
 
+<p>@pezy大大认为翻译不严谨，给出了原文如下：</p>
+
+<blockquote>
+  <p>These types represent facilities present in <strong>most</strong> computer hardware, such as numbers or characters. The standard library defines a number of additional types of a higher-level nature that computer hardware <strong>usually</strong> does not implement directly.</p>
+</blockquote>
+
+<p>与中文翻译的区别是加粗的两个副词。</p>
+
+<p>内置类型之所以可以直接到大多数硬件，是因为大多数硬件编码本身就有基本类型，例如CPU里面有ALU（整型运算器）、FPU（浮点运算器）。而更高级的类型，理论上是可以实现到硬件中，但是会降低性能，性价比太低。</p>
+
+<p><a href="https://github.com/ReadingLab/Discussion-for-Cpp/issues/65">相关issue传送门</a></p>
+
+<h1 id="chap-4">chap 4</h1>
+
+<h3 id="section-1">2. 强制类型转换</h3>
+
+<p>ex4.37中需要将C中的类型转换变化成C++标准的强制类型转换。其中，给出的标准答案如下：</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pc</span><span class="p">;</span> <span class="kt">void</span> <span class="o">*</span><span class="n">pv</span><span class="p">;</span>
+<span class="n">i</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="n">pc</span><span class="p">);</span>   <span class="c1">// i = static_cast&lt;int&gt;(*pc);
+</span><span class="n">pc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">pv</span><span class="p">;</span> <span class="o">//</span> <span class="n">pc</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pv</span><span class="p">);</span></code></pre></figure>
+
+<p>Q：对于pc到i的转换，为什么不用reinterpret_cast呢？不是和原文reinterpret_cast的例子差不多吗？<br />
+A：原文的例子是地址之间的转换，转换前后都是指针；而i = int(<em>pc)不是pc到i的转换，而是</em>pc到i的转换，是值的转换，自然是用static_cast。</p>
+
+<p>Q：为什么pv到pc不用static_cast？不是和原文static_cast的例子差不多吗？<br />
+A：原文的例子是指<strong>void还原成double</strong>，也就是说编程的人有百分百的把握这个void<em>类型是从double</em>转换来的，此处的static_cast是<strong>还原</strong>；而pv与pc的转换中，我们完全不清楚pv原来是什么，这是一种有风险的<strong>强制转换</strong>，不是<strong>还原</strong>，所以用reinterpret_cast。</p>
+
+<p><a href="https://github.com/pezy/CppPrimer/issues/67">相关issue传送门</a></p>
+
+<p>＃ chap 5</p>
+
+<h3 id="section-2">3. 初始化</h3>
+
+<p>5.3节给了一个switch内部的变量定义的例子，如下：</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">case</span> <span class="nb">true</span><span class="p">:</span>
+    <span class="n">string</span> <span class="n">file_name</span><span class="p">;</span>    <span class="c1">//  错误：控制流绕过一个隐式初始化的变量
+</span>    <span class="kt">int</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">jval</span><span class="p">;</span>    <span class="c1">//  正确：因为jval没有初始化
+</span>    <span class="k">break</span><span class="p">;</span>
+<span class="k">case</span> <span class="nb">false</span><span class="p">:</span>
+    <span class="n">jval</span> <span class="o">=</span> <span class="n">next_num</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">file_name</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        <span class="o">//</span> <span class="p">...</span></code></pre></figure>
+
+<p>对于file_name和jval为什么一个会隐式初始化而另一个不会感到很困惑。<br />
+得到pezy大大提示，重读2.2节的默认初始化小节算是稍微有点理解了。</p>
+
+<p>内置类型在函数体外会被默认初始化，但是在函数体内并不会，于是就会“未初始化”、“未定义的”，可能是任何值，即使在mac上输出是0，也不代表这个变量的值是合法的。</p>
+
+<p>class type是否会隐式初始化，取决于该类的设计（14、15章会细讲）。而string允许隐式初始化，所以在这个switch里面，jval不会出错，file_name会出错。</p>
+
+<p><a href="https://github.com/ReadingLab/Discussion-for-Cpp/issues/66">相关issue传送门</a></p>
+
+<p>另外，值初始化算默认初始化的一种。</p>
+
+<h1 id="chap-7">chap 7</h1>
+
+<h3 id="section-3">4. 聚合类和字面值常量类的作用？</h3>
+
+<p>节7.5.5和7.5.6介绍了什么是聚合类和字面值常量类。另外ex8.12中答案说我们这里需要聚合类，为什么需要聚合类却没有讲。</p>
+
+<blockquote>
+  <p>不是需要聚合类, 是因为聚合类就可以满足需求了. 聚合类的优势就是 simple, 直接反映数据结构, 清晰. 尤其面对非面向对象的场景, 聚合类就太常见了. 并非任何情况都需要封装, 继承和多态的.</p>
+</blockquote>
+
+<p>应用场景就是平时为了方便省力用多了这种类，于是统一取名叫聚合类吧。而字面值常量类则是因为类内初始化static数据成员条件过于苛刻，于是导致了这种类的诞生。</p>
+
+<p><a href="https://github.com/ReadingLab/Discussion-for-Cpp/issues/67">相关issue传送门</a></p>
+
+<h3 id="section-4">5. 类内静态成员的定义</h3>
+
+<p>7.6节静态成员的类内初始化</p>
+
+<blockquote>
+  <p>如果某个静态成员的应用场景仅限于编译器可以替换它的值的情况，则一个初始化的const或constexpr static不需要分别定义。相反，如果我们将它用于值不能替换的场景中，则该成员必须有一条定义语句。<br />
+例如，如果period的唯一用途就是定义daily_tbl的维度，则不需要在Account外面专门定义period。此时，如果我们忽略了这条定义，那么对程序非常微小的改动也可能造成编译错误，因为程序找不到该成员的定义语句。举个例子，当需要把Account::period传递给一个接受const int&amp;的函数时，必须定义period。</p>
+</blockquote>
+
+<p>Q：感觉表达的意思有点不对，period已经在类内定义过了，无论什么情况都不能在类外再定义，文中的意思应该是指在类外声明吧？<br />
+A：</p>
+
+<blockquote>
+  <p>这并不是一次又一次定义的问题, 而是, 定义是否分离的问题.这段话要表达的是, 如果period 就是内部用, 那么定义就用不着分离了, 类内的初始化就足够了. 但如果你需要在类外用这个, 就会出现编译错误了.<br />
+但很糟糕的是, 书上给的这个例子不是很好, integer 类型在 In-Class 初始化 static 成员中本身就是个特殊的存在.</p>
+</blockquote>
+
+<p>举的例子在相关issue的链接中。</p>
+
+<p><a href="https://github.com/ReadingLab/Discussion-for-Cpp/issues/67">相关issue传送门</a></p>
+
+<h3 id="vector">6. 为什么静态vector应在类外初始化？</h3>
+
+<p>ex7.58中答案表示，“we may not specify an in-class initializer inside parentheses.”，然后vector<double> vec在类外初始化了，为什么？
+A：</double></p>
+
+<blockquote>
+  <p>vector 既不是 const int, 又不是 constexpr literal type, 它怎么可以类内初始化?</p>
+</blockquote>
+
+<p><a href="https://github.com/ReadingLab/Discussion-for-Cpp/issues/67">相关issue传送门</a></p>
+
+<h1 id="chap-9">chap 9</h1>
+
+<h3 id="section-5">7. 为什么链表的额外内存开销大？</h3>
+<p>节9.1<br />
+因为链表的每个节点有一个额外的成员变量，指向下一个节点的指针（和指向上一个节点的指针），所以带来额外的内存开销。可研读数据结构了解细节。</p>
+
+<h3 id="x11">8. 为什么位与判断奇偶时，右边使用十六进制的0x1而不直接用十进制的1？</h3>
+<p>ex 9.20</p>
+
+<blockquote>
+  <p>为了更清晰的表明这是利用 bit 的手段来判断奇偶数. (为了让代码更清晰, 明确).<br />
+原理详见 <a href="http://stackoverflow.com/a/5700927/1155235">How do I check if an integer is even or odd using bitwise operators</a></p>
+</blockquote>
+
+<p><a href="https://github.com/ReadingLab/Discussion-for-Cpp/issues/67">相关issue传送门</a></p>
 
 
                 <hr>
@@ -234,13 +350,9 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="lua学习杂记">&larr; Previous Post</a>
+                        <a href="/portfolio/2016/07/17/%E5%AE%9E%E4%B9%A0%E5%85%AC%E5%8F%B8%E7%9A%84%E6%89%8B%E6%B8%B8/" data-toggle="tooltip" data-placement="top" title="实习参与的手游：悟空别走开">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="jekyll使用中的问题">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
@@ -249,9 +361,9 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/skynet/lua/2014/10/09/skynet-simpleweb笔记"
-                        data-title="skynet:simpleweb笔记"
-                        data-url="http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/" >
+                        data-thread-key="/notes/2016/08/15/C++Primer答疑流水账"
+                        data-title="C++Primer答疑流水账"
+                        data-url="http://SlothSimon.github.com/notes/2016/08/15/C++Primer%E7%AD%94%E7%96%91%E6%B5%81%E6%B0%B4%E8%B4%A6/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
