@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<!-- mathjax config similar to math.stackexchange --> 
+<script type="text/x-mathjax-config"> 
+MathJax.Hub.Config({ 
+    jax: ["input/TeX", "output/HTML-CSS"], 
+    tex2jax: { 
+        inlineMath: [ ['$', '$'] ], 
+        displayMath: [ ['$$', '$$']], 
+        processEscapes: true, 
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }, 
+    messageStyle: "none", 
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] } 
+}); 
+</script>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="一只快如闪电（并不）的程序懒！ | SlothSimon，freshman in coding | 这里是 @SlothSimon 的栖息林。">
+    <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Sunny Doll 开发日志 1 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+
+    <link rel="canonical" href="http://SlothSimon.github.com/notes/2016/09/13/Sunny-Doll-%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SlothSimon's Skytree</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                        
+                        <a class="tag" href="/tags/#cocos2d" title="cocos2d">cocos2d</a>
+                        
+                    </div>
+                    <h1>Sunny Doll 开发日志 1</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by SlothSimon's Skytree on September 13, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h1 id="sunny-doll">Sunny Doll</h1>
+
+<p>个人对解谜推理游戏很喜欢，在开发前正好玩了Limbo，因此萌生了做一款简单的横版解谜过关游戏的想法。<br />
+初步的构想是：</p>
+
+<ul>
+  <li>通过控制天晴或天雨来过关</li>
+  <li>轻松休闲</li>
+  <li>无死亡</li>
+  <li>大约5个关卡的Demo</li>
+  <li>少量演出</li>
+  <li>无文字</li>
+</ul>
+
+<p>游戏性上可能并不那么好玩有趣，但是考虑到只是练手之作，也不作太好高骛远的设计了。没有金刚钻不揽瓷器活。</p>
+
+<h1 id="section">进度演示</h1>
+<p>演示下目前完成的部分：<br />
+<img src="/img/in-post/portfolio/sunnydoll/20160914progress.gif" alt="进度演示" width="70%" /></p>
+
+<h1 id="section-1">引擎</h1>
+
+<ul>
+  <li>Cocos2d-x: C++, Lua, JS…</li>
+  <li>CocosCreator: JS</li>
+  <li>Unity3D: C#</li>
+  <li>RPG maker and other similar softwares: 不需要太多编程</li>
+</ul>
+
+<p>曾用过Unity3D做吃豆人，结果因为墙壁卡死bug调不出来而卡了很久，毕竟是非开源，虽然可以提高开发效率，但是不适合自己的使用习惯，学习软件操作也与学习游戏开发的目的不完全一致。等积累了足够经验或许可以试试Unity3D，在B站上曾经看过一个UP主的游戏开发日志系列视频，可以看到用熟了后是一款利器。<br />
+CocosCreator是CocosStudio太监之后推出一款开发工具，鉴于Cocos的各种前者之鉴和与Unity3D相同的原因，弃用。<br />
+RPG maker做起游戏来肯定比前三者容易，但不是跨平台且局限性较大，即使可以跨平台也不如前三者做的成熟。</p>
+
+<p>最后也有正在学习C++的缘故，因此使用Cocos2d-x。不过事物都有两面性，因为开源可以方便地了解引擎内部细节和修改调试，但也因为历史遗留原因导致有很多问题，例如频繁地版本更替和大规模的修改，使得很多博文或是参考资料的参考价值有限。</p>
+
+<p><strong>P.S. 对于3.x版本，有些2.x参考资料的代码通过去掉cc前缀也可以参考。</strong></p>
+
+<h1 id="section-2">晴雨系统</h1>
+
+<p><img src="/img/in-post/portfolio/sunnydoll/button.gif" alt="一阵一阵雨" width="20%" /></p>
+
+<p>Cocos2d-x有封装好的Menu/Button/Animation/Action/Particle Sys，因此读文档读源代码，没有特别费神的地方。<br />
+<strong>Particle Sys</strong>提供了雨、雪、火焰等等的特效，通过修改参数来达到不同的效果，例如让屏幕上下雨很容易，但是从晴天到雨天和从雨天到晴天的过渡，如果不修改参数会显得非常突兀。为了达到<font color="red">“渐渐下起了雨”</font>和<font color="red">“雨渐渐变小了”</font>这样的效果，启用了每1秒更新的scheduler。</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="kt">void</span> <span class="n">GameScene</span><span class="o">::</span><span class="n">updateWeather</span><span class="p">(</span><span class="kt">float</span> <span class="n">dt</span><span class="p">){</span>
+    <span class="c1">// 强制类型转换为粒子系统
+</span>
+    <span class="n">ParticleSystem</span><span class="o">*</span> <span class="n">rain</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">ParticleSystem</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">getChildByName</span><span class="p">(</span><span class="s">"rain"</span><span class="p">));</span>
+    <span class="n">log</span><span class="p">(</span><span class="s">"Rain EmissionRate: %f"</span><span class="p">,</span> <span class="n">rain</span><span class="o">-&gt;</span><span class="n">getEmissionRate</span><span class="p">());</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">weather</span> <span class="o">==</span> <span class="n">WEATHER_SUNNY</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rain</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">rain</span><span class="o">-&gt;</span><span class="n">getEmissionRate</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">)){</span>
+            <span class="n">rain</span><span class="o">-&gt;</span><span class="n">setEmissionRate</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+            <span class="n">rain</span><span class="o">-&gt;</span><span class="n">setLife</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">rain</span><span class="o">-&gt;</span><span class="n">setEmissionRate</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">rain</span><span class="o">-&gt;</span><span class="n">setSpeed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">unschedule</span><span class="p">(</span><span class="n">schedule_selector</span><span class="p">(</span><span class="n">GameScene</span><span class="o">::</span><span class="n">updateWeather</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rain</span><span class="o">-&gt;</span><span class="n">getEmissionRate</span><span class="p">()</span> <span class="o">!=</span> <span class="mf">400.0</span><span class="n">f</span><span class="p">){</span>
+            <span class="n">rain</span><span class="o">-&gt;</span><span class="n">setEmissionRate</span><span class="p">(</span><span class="n">rain</span><span class="o">-&gt;</span><span class="n">getEmissionRate</span><span class="p">()</span> <span class="o">+</span> <span class="mi">100</span><span class="p">);</span>
+            <span class="n">rain</span><span class="o">-&gt;</span><span class="n">setLife</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+            <span class="n">rain</span><span class="o">-&gt;</span><span class="n">setSpeed</span><span class="p">(</span><span class="mi">300</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">unschedule</span><span class="p">(</span><span class="n">schedule_selector</span><span class="p">(</span><span class="n">GameScene</span><span class="o">::</span><span class="n">updateWeather</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><strong>EmissionRate</strong>是指每秒发射多少粒子，等同于<strong>TotalParticles／Life</strong>，总粒子数除以单个粒子的生命周期。Speed则顾名思义。<br />
+这段代码的意思是在晴天变雨天时，每秒发射粒子数递增至400，且粒子速度为300。于是雨滴渐渐变多。<font color="red">而设置Life为1秒是避免出现雨一阵一阵的bug，若生命周期太长会导致雨滴滑出画面后依然存在，而由于总粒子数不变于是不会生成新的粒子，于是旧雨滴全部出画面而新雨滴还未出现</font>，如下图：<br />
+<img src="/img/in-post/portfolio/sunnydoll/rain.gif" alt="一阵一阵雨" width="70%" /><br />
+总之为了达到自然的动画效果，是需要对参数调试选出合适的结果。</p>
+
+<p><strong>P.S. 按钮的回调函数可以直接使用Lamda函数</strong></p>
+
+<h1 id="section-3">音乐音效</h1>
+<p>Cocos2d的音乐音效都是通过<strong>SimpleAudioEngine</strong>类的一个共享实例来管理的，可以设置<strong>一个背景音乐</strong>和<strong>多个音效</strong>，分别调节音量和暂停播放。多个音效可以分别暂停、播放，但是无法分别调节音量，<font color="red">所有音效的音量统一变化</font>。<br />
+由于没有接触过太多别的游戏开发引擎，不知道其他引擎是否可以对多个音效分别调节音量。</p>
+
+<p>前面提到过，我需要<font color="red">“渐渐下起了雨”</font>和<font color="red">“雨渐渐变小了”</font>的效果，下雨的音效也是同样，但是我并未找到适用的函数，如果用schdueler一秒一秒变化也非常突兀，很明显可以听出音量的阶梯。在查找资料后发现有位外国友人实现了这个功能，<font color="red">利用action对背景音乐进行了FadeIn和FadeOut</font>。修改一下后可以直接使用到音效上。<strong><a href="https://github.com/joni-mikkola/cocos2d-x-tutorials">Github项目传送门»</a></strong></p>
+
+<h1 id="section-4">帧动画</h1>
+<p>Cocos2d提供的动画有两种，一个是<strong>帧动画</strong>，和Flash一样，另一个是<strong>骨骼动画</strong>，就像皮影戏的纸片人。<br />
+我需要给主角做一个走路的动画在移动时运行，考虑到游戏比较简单也没有换装或者战斗要素，直接用帧动画即可。如何自制帧动画，可以参考这个10分钟的视频学习：<strong><a href="http://doyoudo.com/p/5001208.html">《逐帧动画》</a></strong>。<br />
+<img src="/img/in-post/portfolio/sunnydoll/walk.gif" alt="人物走动" width="20%" /></p>
+
+<p>在各个要素加上帧动画可以使游戏画面细腻生动起来，不过工作量也是大，考虑未来加入，如木头在水中上下浮动、水面波光粼粼、下雨后物体表面潮湿等等。</p>
+
+<h1 id="section-5">地图</h1>
+<p>说老实话，地图是最头疼的部分，因为地图上有很多元素，要把所有元素生成并放置到准确的位置，给予准确的层级，虽然可以做到但是未免繁琐，难道要对每一关做一个plist或xml记录各个元素的坐标、大小、层级吗？<br />
+想到之前实习时对界面元素定位的经验，直觉这是个下下策，工作量太大，可维护性也差。而且美工的工作量也大。<br />
+好在官方文档中也提到了一款现成的工具<strong>Tiled Map Editor</strong>，一般适用于像战略游戏或者RPG的平面地图，不过也可以用作横版，只要有素材的话。中文网站的素材网站虽然有，但是实在连差强人意都做不到，推荐一个国外的素材网站<strong><a href="http://opengameart.org">Open Game Art</a></strong>，都是基于不同的共享协议的素材，有合法的使用权。这个网站除了图片素材外，也有音乐素材，可以根据不同的需要搜索，如下图：<br />
+<img src="/img/in-post/portfolio/sunnydoll/opengameart.png" alt="opengameart" width="100%" /></p>
+
+<p>Tiled Map Editor的生成结果可以通用于其他引擎，本身提供的功能也很多，比如<strong>图块动画编辑器</strong>、<strong>图块碰撞编辑器</strong>、<strong>基本图层</strong>、<strong>对象层</strong>、<strong>图像图层</strong>等。不过Cocos2d对其的支持有很多限制条件，比如<font color="red">每个图层只能使用来自同一个瓦片素材组的图块；不载入不可见的图层；不支持图块动画、图块碰撞和图像图层</font>。<br />
+瓦片素材组除了下载网上的资源外，也可以自己绘制后导入编辑器。</p>
+
+<p>Tiled Map Editor用<strong>键值对</strong>存储所有属性是一个非常实用的功能，比如我可以将每个关卡的初始天气、主角的初始位置作为属性存储在TMX地图文件中，编程时直接读值生成即可，将关卡细节与代码分割开来。<br />
+<img src="/img/in-post/portfolio/sunnydoll/map.png" alt="地图" width="100%" /></p>
+
+<p>由于TMXTiledMap内的坐标和实际坐标有不一致的地方，因此我在自定义属性中保存坐标时都是用的<strong>瓦片坐标</strong>，如“左数第三块瓦片，下数第四块瓦片”的(3,4)。在程序中，先设置好scale因子，然后计算每块瓦片占多少像素，最后乘以瓦片坐标得出实际坐标。</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// 将地图拉伸到和屏幕一样宽度，保持长宽比
+</span>
+<span class="n">tileMap</span><span class="o">-&gt;</span><span class="n">setScale</span><span class="p">(</span><span class="n">visibleSize</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="p">(</span><span class="n">tileMap</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span><span class="p">));</span> 
+<span class="c1">// 瓦片设置的是正方形，因此用width即可
+</span>
+<span class="kt">float</span> <span class="n">pixelPerTile</span> <span class="o">=</span> <span class="n">tileMap</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">().</span><span class="n">width</span><span class="o">/</span><span class="n">tileMap</span><span class="o">-&gt;</span><span class="n">getMapSize</span><span class="p">().</span><span class="n">width</span><span class="p">;</span> </code></pre></figure>
+
+<h1 id="section-6">主角与地图元素的互动</h1>
+<p><img src="/img/in-post/portfolio/sunnydoll/sign.png" alt="对话框" width="20%" /><br />
+目的是当玩家点击木板时，若主角离得很远，在主角头上显示思考气泡表示需要走近；若主角离的近，木板上显示对话气泡。其实设置个木板并非是游戏需要，只是想试验下如何实现互动。<br />
+在Tiled Map Editor中，新建一个图层放置对话气泡（如果cocos2d支持图像图层可以简化一点工作）。然后在木板位置建对象，自定义属性设置要显示的图层名称。</p>
+
+<p>在编程时设置触摸事件时出了点问题，点击屏幕任何一处都会弹出对话框同时主角在原地不再响应触摸事件进行走动。后来发现是<strong>因为触摸屏幕会按图层顺序顺序触发所有触摸回调函数，即使注册事件时的对象图层不是同一个</strong>。<font color="red">于是通过控制返回true或false还有setSwallowTouches来判断主角是否需要走动</font>。<br />
+setSwallowTouches的目的是吞噬下层图层的触摸回调函数，<font color="red">“true不向下触摸，简单点来说，比如有两个sprite，A和B，A在上B在下（位置重叠），触摸A的时候，B不会受到影响；反之false，向下传递触摸，触摸A也等于触摸了B”</font>。</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="k">auto</span> <span class="n">touchLayerListener</span> <span class="o">=</span> <span class="n">EventListenerTouchOneByOne</span><span class="o">::</span><span class="n">create</span><span class="p">();</span>
+<span class="n">touchLayerListener</span><span class="o">-&gt;</span><span class="n">setSwallowTouches</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="n">touchLayerListener</span><span class="o">-&gt;</span><span class="n">onTouchBegan</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">](</span><span class="n">Touch</span><span class="o">*</span> <span class="n">touch</span><span class="p">,</span> <span class="n">Event</span><span class="o">*</span> <span class="n">event</span><span class="p">){</span>
+    <span class="n">Vec2</span> <span class="n">locationInNode</span> <span class="o">=</span> <span class="n">touchLayer</span><span class="o">-&gt;</span><span class="n">convertToNodeSpace</span><span class="p">(</span><span class="n">touch</span><span class="o">-&gt;</span><span class="n">getLocation</span><span class="p">());</span>
+    <span class="n">Size</span> <span class="n">s</span> <span class="o">=</span> <span class="n">touchLayer</span><span class="o">-&gt;</span><span class="n">getContentSize</span><span class="p">();</span>
+    <span class="n">Rect</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">height</span><span class="p">);</span>
+    <span class="c1">//判断触摸区域是否在目标上
+</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rect</span><span class="p">.</span><span class="n">containsPoint</span><span class="p">(</span><span class="n">locationInNode</span><span class="p">)){</span>
+
+        <span class="c1">// 判断交互对象和主角的距离
+</span>
+        <span class="k">auto</span> <span class="n">doll</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">GameRole</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">getChildByName</span><span class="p">(</span><span class="s">"doll"</span><span class="p">));</span>
+        <span class="k">auto</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">doll</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">().</span><span class="n">distance</span><span class="p">(</span><span class="n">touchLayer</span><span class="o">-&gt;</span><span class="n">getPosition</span><span class="p">());</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dist</span> <span class="o">&lt;=</span> <span class="n">INTERACTION_RANGE</span><span class="p">){</span>
+            <span class="n">targetLayer</span><span class="o">-&gt;</span><span class="n">stopAllActions</span><span class="p">();</span>
+            <span class="n">targetLayer</span><span class="o">-&gt;</span><span class="n">runAction</span><span class="p">(</span><span class="n">Sequence</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">Show</span><span class="o">::</span><span class="n">create</span><span class="p">(),</span>
+                                                    <span class="n">DelayTime</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                                                    <span class="n">Hide</span><span class="o">::</span><span class="n">create</span><span class="p">(),</span>
+                                                    <span class="nb">NULL</span><span class="p">));</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">log</span><span class="p">(</span><span class="s">"doll think walk"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>    <span class="c1">// return true 会使其他listener失效
+</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>       <span class="c1">// return false 会继续执行其他listener
+</span>
+<span class="p">};</span>
+<span class="n">_eventDispatcher</span><span class="o">-&gt;</span><span class="n">addEventListenerWithSceneGraphPriority</span><span class="p">(</span><span class="n">touchLayerListener</span><span class="p">,</span> <span class="n">touchLayer</span><span class="p">);</span></code></pre></figure>
+
+<h1 id="section-7">物理系统和碰撞</h1>
+
+<h3 id="section-8">刚体类型</h3>
+<p>Cocos2d封装的物理系统是基于chipmunk编写的，其中刚体分为两种，一种是<strong>实体</strong>，另一种是<strong>边框(Edge)</strong>，根据需要使用。主角在碰到边框时可以越过边框，尝试了一些方法但没能成功使主角被挡在边框之内。边框的主要作用可能是<strong>触发事件</strong>，看到有人模仿flappy bird时利用边框触发加分。我也不例外，将其用作关卡切换的触发。</p>
+
+<h3 id="section-9">多边形刚体</h3>
+<p>这种刚体理论上应该很符合使用者的需求，生成不规则的障碍物等，但是有一个致命的弱点，<font color="red">生成的形状不能是凹形状</font>。据说是硬伤，很困惑为什么会存在这样的硬伤。一般处理方法是手动或算法分割凹形状为凸形状、三角形等。</p>
+
+<h3 id="section-10">刚体移动</h3>
+<p>最初人物的移动我是通过Action里的MoveTo来实现，但是当主角有上下的移动（例如上下坡），MoveTo显得不太适合，于是给Scene加上物理系统。此时，<font color="red">MoveTo会导致主角会穿进刚体里然后被弹出来</font>，这显然不是想要的效果，尝试使用contact监听事件来处理这种穿越，但是没有什么效果，于是修改为<font color="red">控制主角刚体的速度来控制移动而非MoveTo</font>。</p>
+
+<p>但即使控制刚体速度依然有不完美的地方，譬如上下坡时应当沿坡运动，然而瞬间加上的速度是<strong>水平</strong>的，于是导致点击移动时主角呈<strong>抛物线下降</strong>。如何实现速度方向随坡度的变化而变化呢？<br />
+退一步讲，忽略这个问题不看，主角也无法站立在坡道上，因为会受重力影响下滑。若给坡道设置摩擦为1（取值范围为0～1），则主角可以站立在坡道上，但是上坡时基本不能动弹。<font color="red">考虑给上下坡设置不同的摩擦系数</font>。</p>
+
+<h3 id="bitmask">碰撞受bitmask影响</h3>
+<p>刚体在<strong>static状态(不受物理系统影响)下可以互相重叠</strong>，dynamic状态（受物理系统影响）下希望实现重叠的话得靠三种bitmask的设置：</p>
+
+<ul>
+  <li><strong>CategoryBitmask</strong>: 类别 位掩码，默认为0xFFFFFFFF，表示该刚体属于某个类别。和其他刚体的CollisionBitmask作与运算。</li>
+  <li><strong>CollisionBitmask</strong>: 碰撞 位掩码，默认为0xFFFFFFFF，表示该刚体是否可以被其他刚体碰撞。和其他刚体的CategoryBitmask作与运算。</li>
+  <li><strong>ContactTestBitmask</strong>: 触发监听事件 位掩码，默认为0x00000000，表示碰撞时是否触发监听事件。和其他刚体的ContactTestBitmask作与运算。</li>
+</ul>
+
+<p>当刚体A和刚体B即将发生碰撞时，系统会通过二者的CategoryBitmask和CollisionBitmask的<strong>与（&amp;）</strong>来判断是否发生碰撞，与结果为0不碰撞，与结果为1发生碰撞。发生碰撞反应可以是双向的，也可以是单方面的，也就是说存在<font color="red">A被B碰撞改变了速度和方向，但是B的速度和方向并不受碰撞影响</font>的情况。</p>
+
+<p>对于掩码设置成什么值可能比较迷惑，举个例子，当我希望我的两个人物互相走动时不要发生碰撞而是重叠而过，那么就设置人物A和B的CategoryBitmask为<strong>0x00000001</strong>，CollisionBitmask为<strong>0xFFFFFFFE</strong>。无论是A碰撞B或者B碰撞A，其二进制<strong>与</strong>结果都是0，于是A和B之间永远不会发生碰撞。而A、B几乎会被所有其他刚体（障碍物、敌人等等）碰撞，因为CollisionBitmask的二进制仅有一位不是1。</p>
+
+<p><a href="http://blog.csdn.net/tonny_guan/article/details/39584055">碰撞BitMask参考博文»</a></p>
+
+<h3 id="restitution-bug">Restitution Bug?</h3>
+<p><strong>Restitution</strong>是指刚体的弹性，取值0～1，0代表无弹性。但即使把两个刚体的Restitution都设置为0，依然会发生下图的弹跳。<br />
+<img src="/img/in-post/portfolio/sunnydoll/bounce.gif" alt="弹跳bug" width="20%" /></p>
+
+<h1 id="section-11">状态机</h1>
+<p>在设计第二关的时候，发现很难处理主角位于土坑时下雨的情况。最初希望主角会自己跑到附近的土坡上避开漫上来的水，但是如果用水作为刚体推动主角移动很不自然，效果也不理想，若是考虑写一个自动寻路的方法似乎杀鸡用牛刀，不划算。到后来甚至犹豫是否要改掉主角不会死亡的设定，但最后有了个折衷的办法——<strong>增加一个设定：主角被水淹没不知所措，无法移动</strong>。</p>
+
+<p>确定主角遇水会无法动弹后，思考要对GameRole类做的修改后突然想到Unity3D和Anylogic的<font color="red">状态机功能</font>，顿时觉得就是它了！思考了几天怎么实现突然才发现为什么不搜索一下cocos2d支不支持状态机呢？一查果然支持……然而仔细一看，是quick-cocos2d才有而且到了3.x似乎没有了。<br />
+看来还得自己实现。</p>
+
+<h1 id="section-12">关卡切换</h1>
+<p>关卡切换一般是两种方法，<strong>切换Layer</strong>或者<strong>切换Scene</strong>。切换Scene用于Scene之间关联性不大的情况，所以最初想实现切换Layer来切换关卡。</p>
+
+<p>结果发现<font color="red">在回调函数中切换Layer（新建Layer和Layer中的元素）导致刚体的坐标随机偏移</font>，调试许久无果只能放弃，改用切换Scene后顿时神清气爽。</p>
+
+<p>只是背景音乐会从头开始播放，为了保证播放的连续性，在背景音乐的初始化中加入是否正在播放的判断。</p>
+
+<h1 id="section-13">接下来的工作</h1>
+
+<ol>
+  <li>GameRole设置状态机，包括走路、站立、思考、被水淹没不知所措、对话</li>
+  <li>设计关卡</li>
+  <li>人物在坡道上移动时存在的Bug</li>
+</ol>
+
+
+
+                <hr>
+
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/notes/2016/08/15/C++Primer%E7%AD%94%E7%96%91%E6%B5%81%E6%B0%B4%E8%B4%A6/" data-toggle="tooltip" data-placement="top" title="C++Primer答疑流水账">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/notes/2016/09/13/Sunny-Doll-开发日志-1"
+                        data-title="Sunny Doll 开发日志 1"
+                        data-url="http://SlothSimon.github.com/notes/2016/09/13/Sunny-Doll-%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-1/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'There_is_no_simon';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: 
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/SlothSimon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/SlothSimon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; SlothSimon's Skytree 2016
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

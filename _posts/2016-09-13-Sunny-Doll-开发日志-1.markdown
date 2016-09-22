@@ -1,0 +1,210 @@
+---
+layout: post
+title: Sunny Doll 开发日志 1
+date: 2016-09-13
+category: Notes
+tags: [C++, cocos2d]
+---
+
+# Sunny Doll
+
+个人对解谜推理游戏很喜欢，在开发前正好玩了Limbo，因此萌生了做一款简单的横版解谜过关游戏的想法。
+初步的构想是：
+
+- 通过控制天晴或天雨来过关
+- 轻松休闲
+- 无死亡
+- 大约5个关卡的Demo
+- 少量演出
+- 无文字
+
+游戏性上可能并不那么好玩有趣，但是考虑到只是练手之作，也不作太好高骛远的设计了。没有金刚钻不揽瓷器活。
+
+# 进度演示
+演示下目前完成的部分：
+<img src="/img/in-post/portfolio/sunnydoll/20160914progress.gif" alt="进度演示" width="70%" />
+
+# 引擎
+
+- Cocos2d-x: C++, Lua, JS...
+- CocosCreator: JS
+- Unity3D: C#
+- RPG maker and other similar softwares: 不需要太多编程
+
+曾用过Unity3D做吃豆人，结果因为墙壁卡死bug调不出来而卡了很久，毕竟是非开源，虽然可以提高开发效率，但是不适合自己的使用习惯，学习软件操作也与学习游戏开发的目的不完全一致。等积累了足够经验或许可以试试Unity3D，在B站上曾经看过一个UP主的游戏开发日志系列视频，可以看到用熟了后是一款利器。
+CocosCreator是CocosStudio太监之后推出一款开发工具，鉴于Cocos的各种前者之鉴和与Unity3D相同的原因，弃用。
+RPG maker做起游戏来肯定比前三者容易，但不是跨平台且局限性较大，即使可以跨平台也不如前三者做的成熟。
+
+最后也有正在学习C++的缘故，因此使用Cocos2d-x。不过事物都有两面性，因为开源可以方便地了解引擎内部细节和修改调试，但也因为历史遗留原因导致有很多问题，例如频繁地版本更替和大规模的修改，使得很多博文或是参考资料的参考价值有限。
+
+**P.S. 对于3.x版本，有些2.x参考资料的代码通过去掉cc前缀也可以参考。**
+
+# 晴雨系统
+
+<img src="/img/in-post/portfolio/sunnydoll/button.gif" alt="一阵一阵雨" width="20%" />
+
+Cocos2d-x有封装好的Menu/Button/Animation/Action/Particle Sys，因此读文档读源代码，没有特别费神的地方。
+**Particle Sys**提供了雨、雪、火焰等等的特效，通过修改参数来达到不同的效果，例如让屏幕上下雨很容易，但是从晴天到雨天和从雨天到晴天的过渡，如果不修改参数会显得非常突兀。为了达到<font color='red'>“渐渐下起了雨”</font>和<font color='red'>“雨渐渐变小了”</font>这样的效果，启用了每1秒更新的scheduler。
+{% highlight c++ %}
+void GameScene::updateWeather(float dt){
+    // 强制类型转换为粒子系统
+
+    ParticleSystem* rain = static_cast<ParticleSystem*>(this->getChildByName("rain"));
+    log("Rain EmissionRate: %f", rain->getEmissionRate());
+    if (weather == WEATHER_SUNNY){
+        if (rain && (rain->getEmissionRate() > 200)){
+            rain->setEmissionRate(200);
+            rain->setLife(3);
+        }
+        else{
+            rain->setEmissionRate(0);
+            rain->setSpeed(0);
+            unschedule(schedule_selector(GameScene::updateWeather));
+        }
+    }
+    else {
+        if (rain->getEmissionRate() != 400.0f){
+            rain->setEmissionRate(rain->getEmissionRate() + 100);
+            rain->setLife(1);
+            rain->setSpeed(300);
+        }else{
+            unschedule(schedule_selector(GameScene::updateWeather));
+        }
+    }
+}
+{% endhighlight %}
+**EmissionRate**是指每秒发射多少粒子，等同于**TotalParticles／Life**，总粒子数除以单个粒子的生命周期。Speed则顾名思义。
+这段代码的意思是在晴天变雨天时，每秒发射粒子数递增至400，且粒子速度为300。于是雨滴渐渐变多。<font color='red'>而设置Life为1秒是避免出现雨一阵一阵的bug，若生命周期太长会导致雨滴滑出画面后依然存在，而由于总粒子数不变于是不会生成新的粒子，于是旧雨滴全部出画面而新雨滴还未出现</font>，如下图：
+<img src="/img/in-post/portfolio/sunnydoll/rain.gif" alt="一阵一阵雨" width="70%" />
+总之为了达到自然的动画效果，是需要对参数调试选出合适的结果。
+
+**P.S. 按钮的回调函数可以直接使用Lamda函数**
+
+# 音乐音效
+Cocos2d的音乐音效都是通过**SimpleAudioEngine**类的一个共享实例来管理的，可以设置**一个背景音乐**和**多个音效**，分别调节音量和暂停播放。多个音效可以分别暂停、播放，但是无法分别调节音量，<font color='red'>所有音效的音量统一变化</font>。
+由于没有接触过太多别的游戏开发引擎，不知道其他引擎是否可以对多个音效分别调节音量。
+
+前面提到过，我需要<font color='red'>“渐渐下起了雨”</font>和<font color='red'>“雨渐渐变小了”</font>的效果，下雨的音效也是同样，但是我并未找到适用的函数，如果用schdueler一秒一秒变化也非常突兀，很明显可以听出音量的阶梯。在查找资料后发现有位外国友人实现了这个功能，<font color='red'>利用action对背景音乐进行了FadeIn和FadeOut</font>。修改一下后可以直接使用到音效上。**[Github项目传送门>>](https://github.com/joni-mikkola/cocos2d-x-tutorials)**
+
+# 帧动画
+Cocos2d提供的动画有两种，一个是**帧动画**，和Flash一样，另一个是**骨骼动画**，就像皮影戏的纸片人。
+我需要给主角做一个走路的动画在移动时运行，考虑到游戏比较简单也没有换装或者战斗要素，直接用帧动画即可。如何自制帧动画，可以参考这个10分钟的视频学习：**[《逐帧动画》](http://doyoudo.com/p/5001208.html)**。
+<img src="/img/in-post/portfolio/sunnydoll/walk.gif" alt="人物走动" width="20%" />
+
+在各个要素加上帧动画可以使游戏画面细腻生动起来，不过工作量也是大，考虑未来加入，如木头在水中上下浮动、水面波光粼粼、下雨后物体表面潮湿等等。
+
+# 地图
+说老实话，地图是最头疼的部分，因为地图上有很多元素，要把所有元素生成并放置到准确的位置，给予准确的层级，虽然可以做到但是未免繁琐，难道要对每一关做一个plist或xml记录各个元素的坐标、大小、层级吗？
+想到之前实习时对界面元素定位的经验，直觉这是个下下策，工作量太大，可维护性也差。而且美工的工作量也大。
+好在官方文档中也提到了一款现成的工具**Tiled Map Editor**，一般适用于像战略游戏或者RPG的平面地图，不过也可以用作横版，只要有素材的话。中文网站的素材网站虽然有，但是实在连差强人意都做不到，推荐一个国外的素材网站**[Open Game Art](http://opengameart.org)**，都是基于不同的共享协议的素材，有合法的使用权。这个网站除了图片素材外，也有音乐素材，可以根据不同的需要搜索，如下图：
+<img src="/img/in-post/portfolio/sunnydoll/opengameart.png" alt="opengameart" width="100%" />
+
+Tiled Map Editor的生成结果可以通用于其他引擎，本身提供的功能也很多，比如**图块动画编辑器**、**图块碰撞编辑器**、**基本图层**、**对象层**、**图像图层**等。不过Cocos2d对其的支持有很多限制条件，比如<font color='red'>每个图层只能使用来自同一个瓦片素材组的图块；不载入不可见的图层；不支持图块动画、图块碰撞和图像图层</font>。
+瓦片素材组除了下载网上的资源外，也可以自己绘制后导入编辑器。
+
+Tiled Map Editor用**键值对**存储所有属性是一个非常实用的功能，比如我可以将每个关卡的初始天气、主角的初始位置作为属性存储在TMX地图文件中，编程时直接读值生成即可，将关卡细节与代码分割开来。
+<img src="/img/in-post/portfolio/sunnydoll/map.png" alt="地图" width="100%" />
+
+由于TMXTiledMap内的坐标和实际坐标有不一致的地方，因此我在自定义属性中保存坐标时都是用的**瓦片坐标**，如“左数第三块瓦片，下数第四块瓦片”的(3,4)。在程序中，先设置好scale因子，然后计算每块瓦片占多少像素，最后乘以瓦片坐标得出实际坐标。
+{% highlight c++ %}
+// 将地图拉伸到和屏幕一样宽度，保持长宽比
+
+tileMap->setScale(visibleSize.width/(tileMap->getContentSize().width)); 
+// 瓦片设置的是正方形，因此用width即可
+
+float pixelPerTile = tileMap->getContentSize().width/tileMap->getMapSize().width; 
+{% endhighlight %}
+
+# 主角与地图元素的互动
+<img src="/img/in-post/portfolio/sunnydoll/sign.png" alt="对话框" width="20%" />
+目的是当玩家点击木板时，若主角离得很远，在主角头上显示思考气泡表示需要走近；若主角离的近，木板上显示对话气泡。其实设置个木板并非是游戏需要，只是想试验下如何实现互动。
+在Tiled Map Editor中，新建一个图层放置对话气泡（如果cocos2d支持图像图层可以简化一点工作）。然后在木板位置建对象，自定义属性设置要显示的图层名称。
+
+在编程时设置触摸事件时出了点问题，点击屏幕任何一处都会弹出对话框同时主角在原地不再响应触摸事件进行走动。后来发现是**因为触摸屏幕会按图层顺序顺序触发所有触摸回调函数，即使注册事件时的对象图层不是同一个**。<font color='red'>于是通过控制返回true或false还有setSwallowTouches来判断主角是否需要走动</font>。
+setSwallowTouches的目的是吞噬下层图层的触摸回调函数，<font color='red'>“true不向下触摸，简单点来说，比如有两个sprite，A和B，A在上B在下（位置重叠），触摸A的时候，B不会受到影响；反之false，向下传递触摸，触摸A也等于触摸了B”</font>。
+
+{% highlight C++ %}
+auto touchLayerListener = EventListenerTouchOneByOne::create();
+touchLayerListener->setSwallowTouches(true);
+
+touchLayerListener->onTouchBegan = [=](Touch* touch, Event* event){
+    Vec2 locationInNode = touchLayer->convertToNodeSpace(touch->getLocation());
+    Size s = touchLayer->getContentSize();
+    Rect rect = Rect(0, 0, s.width, s.height);
+    //判断触摸区域是否在目标上
+
+    if (rect.containsPoint(locationInNode)){
+
+        // 判断交互对象和主角的距离
+
+        auto doll = static_cast<GameRole*>(getChildByName("doll"));
+        auto dist = doll->getPosition().distance(touchLayer->getPosition());
+        if (dist <= INTERACTION_RANGE){
+            targetLayer->stopAllActions();
+            targetLayer->runAction(Sequence::create(Show::create(),
+                                                    DelayTime::create(5),
+                                                    Hide::create(),
+                                                    NULL));
+        }else{
+            log("doll think walk");
+        }
+
+        return true;    // return true 会使其他listener失效
+
+    }
+    return false;       // return false 会继续执行其他listener
+
+};
+_eventDispatcher->addEventListenerWithSceneGraphPriority(touchLayerListener, touchLayer);
+{% endhighlight %}
+
+# 物理系统和碰撞
+
+### 刚体类型
+Cocos2d封装的物理系统是基于chipmunk编写的，其中刚体分为两种，一种是**实体**，另一种是**边框(Edge)**，根据需要使用。主角在碰到边框时可以越过边框，尝试了一些方法但没能成功使主角被挡在边框之内。边框的主要作用可能是**触发事件**，看到有人模仿flappy bird时利用边框触发加分。我也不例外，将其用作关卡切换的触发。
+
+### 多边形刚体
+这种刚体理论上应该很符合使用者的需求，生成不规则的障碍物等，但是有一个致命的弱点，<font color='red'>生成的形状不能是凹形状</font>。据说是硬伤，很困惑为什么会存在这样的硬伤。一般处理方法是手动或算法分割凹形状为凸形状、三角形等。
+
+### 刚体移动
+最初人物的移动我是通过Action里的MoveTo来实现，但是当主角有上下的移动（例如上下坡），MoveTo显得不太适合，于是给Scene加上物理系统。此时，<font color='red'>MoveTo会导致主角会穿进刚体里然后被弹出来</font>，这显然不是想要的效果，尝试使用contact监听事件来处理这种穿越，但是没有什么效果，于是修改为<font color='red'>控制主角刚体的速度来控制移动而非MoveTo</font>。
+
+但即使控制刚体速度依然有不完美的地方，譬如上下坡时应当沿坡运动，然而瞬间加上的速度是**水平**的，于是导致点击移动时主角呈**抛物线下降**。如何实现速度方向随坡度的变化而变化呢？
+退一步讲，忽略这个问题不看，主角也无法站立在坡道上，因为会受重力影响下滑。若给坡道设置摩擦为1（取值范围为0～1），则主角可以站立在坡道上，但是上坡时基本不能动弹。<font color='red'>考虑给上下坡设置不同的摩擦系数</font>。
+
+### 碰撞受bitmask影响
+刚体在**static状态(不受物理系统影响)下可以互相重叠**，dynamic状态（受物理系统影响）下希望实现重叠的话得靠三种bitmask的设置：
+
+- **CategoryBitmask**: 类别 位掩码，默认为0xFFFFFFFF，表示该刚体属于某个类别。和其他刚体的CollisionBitmask作与运算。
+- **CollisionBitmask**: 碰撞 位掩码，默认为0xFFFFFFFF，表示该刚体是否可以被其他刚体碰撞。和其他刚体的CategoryBitmask作与运算。
+- **ContactTestBitmask**: 触发监听事件 位掩码，默认为0x00000000，表示碰撞时是否触发监听事件。和其他刚体的ContactTestBitmask作与运算。
+
+当刚体A和刚体B即将发生碰撞时，系统会通过二者的CategoryBitmask和CollisionBitmask的**与（&）**来判断是否发生碰撞，与结果为0不碰撞，与结果为1发生碰撞。发生碰撞反应可以是双向的，也可以是单方面的，也就是说存在<font color='red'>A被B碰撞改变了速度和方向，但是B的速度和方向并不受碰撞影响</font>的情况。
+
+对于掩码设置成什么值可能比较迷惑，举个例子，当我希望我的两个人物互相走动时不要发生碰撞而是重叠而过，那么就设置人物A和B的CategoryBitmask为**0x00000001**，CollisionBitmask为**0xFFFFFFFE**。无论是A碰撞B或者B碰撞A，其二进制**与**结果都是0，于是A和B之间永远不会发生碰撞。而A、B几乎会被所有其他刚体（障碍物、敌人等等）碰撞，因为CollisionBitmask的二进制仅有一位不是1。
+
+[碰撞BitMask参考博文>>](http://blog.csdn.net/tonny_guan/article/details/39584055)
+
+### Restitution Bug?
+**Restitution**是指刚体的弹性，取值0～1，0代表无弹性。但即使把两个刚体的Restitution都设置为0，依然会发生下图的弹跳。
+<img src="/img/in-post/portfolio/sunnydoll/bounce.gif" alt="弹跳bug" width="20%" />
+
+# 状态机
+在设计第二关的时候，发现很难处理主角位于土坑时下雨的情况。最初希望主角会自己跑到附近的土坡上避开漫上来的水，但是如果用水作为刚体推动主角移动很不自然，效果也不理想，若是考虑写一个自动寻路的方法似乎杀鸡用牛刀，不划算。到后来甚至犹豫是否要改掉主角不会死亡的设定，但最后有了个折衷的办法——**增加一个设定：主角被水淹没不知所措，无法移动**。
+
+确定主角遇水会无法动弹后，思考要对GameRole类做的修改后突然想到Unity3D和Anylogic的<font color='red'>状态机功能</font>，顿时觉得就是它了！思考了几天怎么实现突然才发现为什么不搜索一下cocos2d支不支持状态机呢？一查果然支持……然而仔细一看，是quick-cocos2d才有而且到了3.x似乎没有了。
+看来还得自己实现。
+
+# 关卡切换
+关卡切换一般是两种方法，**切换Layer**或者**切换Scene**。切换Scene用于Scene之间关联性不大的情况，所以最初想实现切换Layer来切换关卡。
+
+结果发现<font color='red'>在回调函数中切换Layer（新建Layer和Layer中的元素）导致刚体的坐标随机偏移</font>，调试许久无果只能放弃，改用切换Scene后顿时神清气爽。
+
+只是背景音乐会从头开始播放，为了保证播放的连续性，在背景音乐的初始化中加入是否正在播放的判断。
+
+# 接下来的工作
+
+1. GameRole设置状态机，包括走路、站立、思考、被水淹没不知所措、对话 
+2. 设计关卡
+3. 人物在坡道上移动时存在的Bug
+
