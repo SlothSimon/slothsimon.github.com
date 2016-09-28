@@ -5,9 +5,71 @@
     <description>一只快如闪电（并不）的程序懒！ | SlothSimon，freshman in coding | 这里是 @SlothSimon 的栖息林。</description>
     <link>http://SlothSimon.github.com/</link>
     <atom:link href="http://SlothSimon.github.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 22 Sep 2016 16:59:32 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Sep 2016 16:59:32 +0800</lastBuildDate>
+    <pubDate>Wed, 28 Sep 2016 21:35:04 +0800</pubDate>
+    <lastBuildDate>Wed, 28 Sep 2016 21:35:04 +0800</lastBuildDate>
     <generator>Jekyll v3.0.3</generator>
+    
+      <item>
+        <title>if-else与switch的选择</title>
+        <description>&lt;h3 id=&quot;section&quot;&gt;参考资料：&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.csdn.net/jmppok/article/details/17138325?locationNum=2&quot;&gt;switch 与 if else 效率分析与总结&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/767821/is-else-if-faster-than-switch-case&quot;&gt;Is “else if” faster than “switch() case”?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/395618/is-there-any-significant-difference-between-using-if-else-and-switch-case-in-c&quot;&gt;Is there any significant difference between using if/else and switch-case in C#?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;总结：&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;code&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;适用场景&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;搜索方法&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;if-else&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;对于概率不同的条件，按从大到小的概率排列提高效率；适合条件数目&amp;lt;=5；适用于一切类型&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;顺序&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;switch&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;无法确定概率优先的条件；可读性好；适合条件数目&amp;lt;=5；仅适用于int、char、enum class等类型&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;二分法或跳转表&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;(unordered) map&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;简洁；适合条件数目&amp;gt;5；适用于一切类型&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;(hash)红黑树&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;表虽然这么列了，其实还有很多&lt;strong&gt;tricky&lt;/strong&gt;的细节，比如有的编译器对于类似switch的if-else也会优化搜索，&lt;font color=&quot;red&quot;&gt;所以99.99%（或者说100%...）情况下根本不用考虑二者的效率区别&lt;/font&gt;，哪个写起来可读性好或者维护性好就可以了。优化这二者的工作应该由编译器完成。&lt;/p&gt;
+
+&lt;p&gt;除此之外，也要考虑具体的应用场景。&lt;/p&gt;
+
+&lt;p&gt;考虑用switch还是if-else是我写游戏状态机时遇到的问题，因为if-else虽然可以满足跳转条件，但是读起来实在没有switch那么一目了然，还要重复写v == 1, v == 2, ……&lt;/p&gt;
+
+&lt;p&gt;而switch的缺点呢，则是&lt;strong&gt;不能用string作判断条件&lt;/strong&gt;，这就很蛋疼了，因为我用的是cocos2d的CustomEventName作为参数传递的。&lt;/p&gt;
+
+&lt;p&gt;对格式强迫症的我，最后还是选了switch，为此特地写了&lt;strong&gt;enum与string之间的相互转换&lt;/strong&gt;，结果还是会用到map和数组。关于 enum的话题又可以另外写一篇日志了。&lt;/p&gt;
+
+&lt;p&gt;也许将来会换成map&amp;lt;string, void*&amp;gt;吧，然后把函数指针存在里面进行调用。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 28 Sep 2016 00:00:00 +0800</pubDate>
+        <link>http://SlothSimon.github.com/notes/2016/09/28/if-else-switch/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/notes/2016/09/28/if-else-switch/</guid>
+        
+        <category>C++</category>
+        
+        
+        <category>Notes</category>
+        
+      </item>
     
       <item>
         <title>Sunny Doll 开发日志 1</title>
@@ -1721,63 +1783,6 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
         
         
         <category>lua</category>
-        
-      </item>
-    
-      <item>
-        <title>首先建立一个个人博客</title>
-        <description>&lt;p&gt;为了记录一些编程中的经验和发现，避免重复查找，开个个人博客。第一个挑战就是学习搭建环境，利用jekyll建立博客，这个总结的博文很多就不详细记录了，Github本身也有&lt;a href=&quot;https://pages.github.com/&quot;&gt;相关教程&lt;/a&gt;，官方推的一种程序猿博客搭建方式。&lt;/p&gt;
-
-&lt;p&gt;之前也有使用过&lt;a href=&quot;http://djangobook.py3k.cn/chapter04/&quot;&gt;django模板&lt;/a&gt;，类似这样的语法在jekyll中也用到了：&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-django&quot; data-lang=&quot;django&quot;&gt;&amp;lt;ul&amp;gt;
-    {% for person in people %}
-        &amp;lt;li&amp;gt;{{person.name}}:{{person.number}}&amp;lt;li&amp;gt;
-    {% endfor %}
-&amp;lt;/ul&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;django中的模板不会马上编译，所以模板中可以嵌套模板，这同jekyll相同。jekyll使用Liquid模板语言，而Liquid则是基于Ruby开发的，对于这二者我尚且不了解。Liquid模板语言和django模板类似，同样有过滤器等等功能。&lt;/p&gt;
-
-&lt;p&gt;二者的区别与联系：&lt;br /&gt;&lt;br /&gt;
-	→django基于数据库，动态，基于python搭建，需要有python基础、html基础和数据库基础&lt;br /&gt;&lt;br /&gt;
-	→jekyll无需数据库，静态，虽说要懂markdown，其实如果要求不高，直接写文字博客不去学也没关系。&lt;br /&gt;&lt;br /&gt;
-不过一般来说在github上用jekyll搭建博客的人都有相关基础了吧，没基础的人也不会选择这种博客搭建方式。&lt;br /&gt;&lt;br /&gt;
-未来希望能加入评论功能，由于jekyll本身不具备这样的功能，所以要引入第三方的评论系统&lt;a href=&quot;http://www.disqus.com&quot;&gt;Disqus&lt;/a&gt;，据说这个系统是和Facebook和Twitter整合在一起，&lt;a href=&quot;http://linbo.github.io/2013/04/19/blog/&quot;&gt;Linbo的博文&lt;/a&gt;中建议用&lt;a href=&quot;http://www.duoshuo.com&quot;&gt;多说&lt;/a&gt;，和国内的社交网站结合的比较好。&lt;br /&gt;&lt;br /&gt;
-然后还有域名，如果真的成为程序猿了拿的第一笔工资就用来买域名好了www.slothsimon.com٩( ‘ω’ )و&lt;/p&gt;
-
-&lt;p&gt;搭建blog的参考文献除了Github本身的教程和&lt;a href=&quot;http://jekyllcn.com/&quot;&gt;jekyll官网&lt;/a&gt;外，中文可以参考：&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;http://hzmook.github.io/2012/07/01/use-jekyll-build-blog-on-github.html&quot;&gt;hzmook：使用Jekyll在Github上搭建博客&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot;&gt;阮一峰：搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;http://segmentfault.com/blog/skyinlayer/1190000000406013&quot;&gt;天镶：使用Jekyll在Github上搭建个人博客（博客编写）&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;a href=&quot;http://zyzhang.github.io/blog/2012/08/31/highlight-with-Jekyll-and-Pygments/&quot;&gt;zhenyu：用Jekyll和Pygments配置代码高亮&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;section&quot;&gt;补充&lt;/h1&gt;
-&lt;p&gt;为了在本地运行jekyll，用rubyinstaller安装了ruby环境，配置devkit不小心误操作改变了devkit的路径……找了半天才发现不用卸载devkit，修改ruby中devkit的path即可，但是不知道在哪里改，干脆就直接将ruby卸了重装，然后重新安装了一遍devkit。这样下载rdiscount时就正常了。&lt;br /&gt;&lt;br /&gt;
-截至2014-10-08 00:00:00 +0800，jekyll似乎已经能很好地兼容中文博客内容，不过还是安装了rdiscount保证分类和标签的中文也能在网址里正常显示。&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 08 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://SlothSimon.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/08/%E9%A6%96%E5%85%88%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</link>
-        <guid isPermaLink="true">http://SlothSimon.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/08/%E9%A6%96%E5%85%88%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</guid>
-        
-        <category>jekyll</category>
-        
-        <category>github</category>
-        
-        <category>django</category>
-        
-        <category>disqus</category>
-        
-        <category>多说</category>
-        
-        <category>blog</category>
-        
-        <category>ruby</category>
-        
-        <category>devkit</category>
-        
-        
-        <category>网站搭建</category>
         
       </item>
     
