@@ -2,8 +2,8 @@
 layout: post
 title: skynet:simpleweb笔记
 date: 2014-10-09
-categories: [skynet, lua]
-tags: [skynet, request]
+categories: Notes
+tags: [skynet, network, lua]
 ---
 # simpleweb函数追溯 #
 simpleweb中有一个本地的response函数用以返回客户端传来的request。

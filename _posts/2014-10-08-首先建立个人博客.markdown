@@ -2,8 +2,8 @@
 layout: post
 title: 首先建立一个个人博客
 date: 2014-10-08
-category: 网站搭建
-tags: [jekyll, github, django, disqus, 多说, blog, ruby, devkit]
+category: Dev Log
+tags: [jekyll, github]
 ---
 为了记录一些编程中的经验和发现，避免重复查找，开个个人博客。第一个挑战就是学习搭建环境，利用jekyll建立博客，这个总结的博文很多就不详细记录了，Github本身也有[相关教程][1]，官方推的一种程序猿博客搭建方式。
 

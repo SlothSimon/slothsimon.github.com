@@ -2,8 +2,8 @@
 layout: post
 title: lua学习杂记
 date: 2014-10-09
-category: lua
-tags: [lua, table, coroutine]
+category: Notes
+tags: [lua, coroutine]
 ---
 ### 关于lua中table的两个常用API
 

@@ -5,8 +5,8 @@
     <description>一只快如闪电（并不）的程序懒！ | SlothSimon，freshman in coding | 这里是 @SlothSimon 的栖息林。</description>
     <link>http://SlothSimon.github.com/</link>
     <atom:link href="http://SlothSimon.github.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 28 Sep 2016 21:35:04 +0800</pubDate>
-    <lastBuildDate>Wed, 28 Sep 2016 21:35:04 +0800</lastBuildDate>
+    <pubDate>Wed, 28 Sep 2016 21:49:17 +0800</pubDate>
+    <lastBuildDate>Wed, 28 Sep 2016 21:49:17 +0800</lastBuildDate>
     <generator>Jekyll v3.0.3</generator>
     
       <item>
@@ -455,9 +455,7 @@ A：&lt;/double&gt;&lt;/p&gt;
         <link>http://SlothSimon.github.com/notes/2016/08/15/C++Primer%E7%AD%94%E7%96%91%E6%B5%81%E6%B0%B4%E8%B4%A6/</link>
         <guid isPermaLink="true">http://SlothSimon.github.com/notes/2016/08/15/C++Primer%E7%AD%94%E7%96%91%E6%B5%81%E6%B0%B4%E8%B4%A6/</guid>
         
-        <category>c++</category>
-        
-        <category>c++primer</category>
+        <category>C++</category>
         
         
         <category>Notes</category>
@@ -533,14 +531,12 @@ A：&lt;/double&gt;&lt;/p&gt;
         
         <category>portfolio</category>
         
-        <category>手游</category>
-        
         <category>lua</category>
         
         <category>php</category>
         
         
-        <category>portfolio</category>
+        <category>Portfolio</category>
         
       </item>
     
@@ -1029,8 +1025,12 @@ background.js–(被试数据)–&amp;gt;服务器–(被试关注的博主数�
         
         <category>js</category>
         
+        <category>php</category>
         
-        <category>portfolio</category>
+        <category>mysql</category>
+        
+        
+        <category>Portfolio</category>
         
       </item>
     
@@ -1499,10 +1499,8 @@ fetch：&lt;br /&gt;
         
         <category>mysql</category>
         
-        <category>决策树</category>
         
-        
-        <category>portfolio</category>
+        <category>Portfolio</category>
         
       </item>
     
@@ -1580,9 +1578,7 @@ $ ./a.out
         <link>http://SlothSimon.github.com/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/</link>
         <guid isPermaLink="true">http://SlothSimon.github.com/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/</guid>
         
-        <category>编程之美</category>
-        
-        <category>CPU</category>
+        <category>C++</category>
         
         
         <category>Notes</category>
@@ -1640,13 +1636,13 @@ end&lt;/code&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 19 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://SlothSimon.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/</link>
-        <guid isPermaLink="true">http://SlothSimon.github.com/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        <link>http://SlothSimon.github.com/dev%20log/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/dev%20log/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
         
         <category>jekyll</category>
         
         
-        <category>网站搭建</category>
+        <category>Dev Log</category>
         
       </item>
     
@@ -1692,17 +1688,17 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
 
 </description>
         <pubDate>Thu, 09 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/</guid>
+        <link>http://SlothSimon.github.com/notes/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/notes/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/</guid>
         
         <category>skynet</category>
         
-        <category>request</category>
-        
-        
-        <category>skynet</category>
+        <category>network</category>
         
         <category>lua</category>
+        
+        
+        <category>Notes</category>
         
       </item>
     
@@ -1772,17 +1768,15 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
 
 </description>
         <pubDate>Thu, 09 Oct 2014 00:00:00 +0800</pubDate>
-        <link>http://SlothSimon.github.com/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://SlothSimon.github.com/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <link>http://SlothSimon.github.com/notes/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <guid isPermaLink="true">http://SlothSimon.github.com/notes/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
         
         <category>lua</category>
-        
-        <category>table</category>
         
         <category>coroutine</category>
         
         
-        <category>lua</category>
+        <category>Notes</category>
         
       </item>
     

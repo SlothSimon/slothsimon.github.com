@@ -24,9 +24,9 @@ MathJax.Hub.Config({
     <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>lua学习杂记 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+    <title>skynet:simpleweb笔记 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
 
-    <link rel="canonical" href="http://SlothSimon.github.com/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+    <link rel="canonical" href="http://SlothSimon.github.com/notes/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -158,14 +158,14 @@ MathJax.Hub.Config({
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/#skynet" title="skynet">skynet</a>
+                        
+                        <a class="tag" href="/tags/#network" title="network">network</a>
+                        
                         <a class="tag" href="/tags/#lua" title="lua">lua</a>
                         
-                        <a class="tag" href="/tags/#table" title="table">table</a>
-                        
-                        <a class="tag" href="/tags/#coroutine" title="coroutine">coroutine</a>
-                        
                     </div>
-                    <h1>lua学习杂记</h1>
+                    <h1>skynet:simpleweb笔记</h1>
                     
                     
                     <h2 class="subheading"></h2>
@@ -188,67 +188,43 @@ MathJax.Hub.Config({
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h3 id="luatableapi">关于lua中table的两个常用API</h3>
+				<h1 id="simpleweb">simpleweb函数追溯</h1>
+<p>simpleweb中有一个本地的response函数用以返回客户端传来的request。</p>
 
-<p>1.<code class="highlighter-rouge">table.concat(table, [sep="", start=1, end=数组长度])</code></p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">response</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">ok</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">httpd</span><span class="p">.</span><span class="n">write_response</span><span class="p">(</span><span class="n">sockethelper</span><span class="p">.</span><span class="n">writefunc</span><span class="p">(</span><span class="n">id</span><span class="p">),</span> <span class="o">...</span><span class="p">)</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="k">then</span>
+		<span class="c1">-- if err == sockethelper.socket_error , that means socket closed.</span>
+		<span class="n">skynet</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="nb">string.format</span><span class="p">(</span><span class="s2">"fd = %d, %s"</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">err</span><span class="p">))</span>
+	<span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
 
-<p>类似于python中字符串的join方法，举个例子，比如在lua中</p>
+<p>该response可以在客户端的页面（比如浏览器界面）打印出request内容，也就是纯粹地镜像返回request内容。</p>
 
-<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">tb</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"The concat result:"</span><span class="o">..</span><span class="nb">table.concat</span><span class="p">(</span><span class="n">tb</span><span class="p">,</span> <span class="s2">";"</span><span class="p">))</span></code></pre></figure>
+<p><img src="/assets/image/simpleweb.png" /></p>
 
-<p>输出结果同python中这段代码是一样的，都是<code class="highlighter-rouge">a;b;c</code></p>
+<p>打印的这些内容是在simpleweb第21行的函数内组织成所要的table格式，然后传递给response。<br />
+response–&gt;httpd.write_response–&gt;(<strong>httpd</strong> local)writeall–&gt;sockethelper.writefunc（该函数返回一个由fd/id生成的未调用函数..(content)用以在某个具体socket中写入content）–&gt;writebytes–&gt;socket.write–&gt;(前缀全局名实际为socketdriver)driver.send–&gt;socketdriver.so</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">tb</span> <span class="o">=</span> <span class="p">[</span><span class="s">"a"</span><span class="p">,</span> <span class="s">"b"</span><span class="p">,</span> <span class="s">"c"</span><span class="p">]</span>
-<span class="k">print</span> <span class="s">";"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span></code></pre></figure>
+<p>关于动态链接库还不懂，具体需要阅读http://blog.sina.com.cn/s/blog_62ef2f1401014r9s.html</p>
 
-<p>2.<code class="highlighter-rouge">table.insert(table, [pos,] value)</code></p>
+<p>总之目前先认为是一个在屏幕上打印内容的函数吧。也就是所谓浏览器的”print”API<br />
+write_response函数中可以传自定义的bodyfunc()函数用以输出body，还不知道怎么具体应用。总之传过去的内容只能是string, function或者nil，否则会抛出错误。</p>
 
-<p>pos默认为数组末尾。</p>
+<p>writeall()中response的header信息和网页的html信息都是用writefunc输出，但是似乎socketdriver.so中的接口会自动判断哪些是response的header信息哪些是输出到网页页面上的信息。不过在我胡乱给了个table作为header参数时，本来应该在response header中的”content-length: 420”出现在了网页页面上，不知道这算不算bug。</p>
 
-<hr />
+<p>测试simpleweb时发现每一次刷新或打开页面都会提交两次request，第一次请求的内容是/，也就是用户需要的网页，第二次是favicon.ico。这是由于第一次请求的网页meta标签中没有设定ico，浏览器就会自动提交一个请求网站图标的request。具体见https://cnodejs.org/topic/54056647e84941a5714d65f4</p>
 
-<h3 id="lua">lua中的字符串</h3>
+<p>skynet.newservice –&gt; skynet.call(“.launcher”, ‘lua’, ‘LAUNCH’, ‘snlua’, name, …)–&gt;skynet.call(addr, typename, …)–&gt; skynet.core.send(addr, p.id, nil, p.pack(…)) 和 yield_call(service, session)</p>
 
-<p>1.<code class="highlighter-rouge">string.format(format, str)</code><br />
-类似于C中的printf，用于控制格式。<br />
-2.字符串长度<br />
-比起Python中还需要用len()函数获得字符长度，lua中意外地可以方便地使用警号来获得字符串长度。</p>
+<p>接下来找不到skynet.core这个函数库，不明 ；以及这里使用的coroutine.resume和coroutine.yield采用的是云风自己重新写的一个。</p>
 
-<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">a</span> <span class="o">=</span> <span class="s2">"123"</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1">--output: 123</span>
-<span class="nb">print</span><span class="p">(</span><span class="o">#</span><span class="n">a</span><span class="p">)</span> <span class="c1">--output: 3</span></code></pre></figure>
+<p>关于这部分函数的说明摘取<a href="https://github.com/cloudwu/skynet/wiki/LuaAPI">skynet的wiki</a><br />
+&gt; skynet.call(address, typename, …) 这条 API 则不同，它会在内部生成一个唯一 session ，并向 address 提起请求，并阻塞等待对 session 的回应（可以不由 address 回应）。当消息回应后，还会通过之前注册的 unpack 函数解包。表面上看起来，就是发起了一次 RPC ，并阻塞等待回应。</p>
 
-<hr />
-
-<h3 id="luacoroutine">lua中的coroutine</h3>
-
-<p>这篇文章<a href="http://my.oschina.net/wangxuanyihaha/blog/186401">【深入Lua】理解Lua中最强大的特性-coroutine（协程）</a>讲得已经很详尽了，而且以云风大神的代码来进行了解释。不过那段代码的运行结果他写错了，在此更正一下。</p>
-
-<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">function</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">"foo"</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
-	<span class="k">return</span> <span class="nb">coroutine.yield</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="n">co</span> <span class="o">=</span> <span class="nb">coroutine.create</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">)</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-	<span class="kd">local</span> <span class="n">r</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-	<span class="kd">local</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">coroutine.yield</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">"co-body"</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-	<span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"end"</span>
-<span class="k">end</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"main"</span><span class="p">,</span> <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"main"</span><span class="p">,</span> <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"main"</span><span class="p">,</span> <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"main"</span><span class="p">,</span> <span class="nb">coroutine.resume</span><span class="p">(</span><span class="n">co</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">))</span></code></pre></figure>
-
-<p>实际的运行结果如下：</p>
-
-<p><img src="/assets/image/coroutine.png" /></p>
-
-<p>原博文中错误的是第7行输出，应该为<code class="highlighter-rouge">main true 10 end</code></p>
+<blockquote>
+  <p>skynet.newservice(name, …) 用于启动一个新的 Lua 服务。name 是脚本的名字（不用写 .lua 后缀）。只有被启动的脚本的 start 函数返回后，这个 API 才会返回启动的服务的地址，这是一个阻塞 API 。如果被启动的脚本在初始化环节抛出异常，或在初始化完成前就调用 skynet.exit 退出，｀skynet.newservice` 都会抛出异常。如果被启动的脚本的 start 函数是一个永不结束的循环，那么 newservice 也会被永远阻塞住。</p>
+</blockquote>
 
 
 
@@ -260,12 +236,12 @@ MathJax.Hub.Config({
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/08/%E9%A6%96%E5%85%88%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-toggle="tooltip" data-placement="top" title="首先建立一个个人博客">&larr; Previous Post</a>
+                        <a href="/notes/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="lua学习杂记">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="skynet:simpleweb笔记">Next Post &rarr;</a>
+                        <a href="/dev%20log/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="jekyll使用中的问题">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -275,9 +251,9 @@ MathJax.Hub.Config({
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/lua/2014/10/09/lua学习笔记"
-                        data-title="lua学习杂记"
-                        data-url="http://SlothSimon.github.com/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" >
+                        data-thread-key="/notes/2014/10/09/skynet-simpleweb笔记"
+                        data-title="skynet:simpleweb笔记"
+                        data-url="http://SlothSimon.github.com/notes/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -299,32 +275,6 @@ MathJax.Hub.Config({
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
         				
                             
         				

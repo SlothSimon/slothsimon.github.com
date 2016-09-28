@@ -24,9 +24,9 @@ MathJax.Hub.Config({
     <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>skynet:simpleweb笔记 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+    <title>jekyll使用中的问题 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
 
-    <link rel="canonical" href="http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/">
+    <link rel="canonical" href="http://SlothSimon.github.com/dev%20log/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -158,17 +158,15 @@ MathJax.Hub.Config({
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#skynet" title="skynet">skynet</a>
-                        
-                        <a class="tag" href="/tags/#request" title="request">request</a>
+                        <a class="tag" href="/tags/#jekyll" title="jekyll">jekyll</a>
                         
                     </div>
-                    <h1>skynet:simpleweb笔记</h1>
+                    <h1>jekyll使用中的问题</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by SlothSimon's Skytree on October 9, 2014</span>
+                    <span class="meta">Posted by SlothSimon's Skytree on October 19, 2014</span>
                 </div>
             </div>
         </div>
@@ -186,43 +184,52 @@ MathJax.Hub.Config({
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h1 id="simpleweb">simpleweb函数追溯</h1>
-<p>simpleweb中有一个本地的response函数用以返回客户端传来的request。</p>
+				<p>在编辑两篇在10月9日写好的两篇笔记时，调用<code class="highlighter-rouge">jekyll server</code>，先后出现了以下问题。</p>
 
-<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="k">function</span> <span class="nf">response</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
-	<span class="kd">local</span> <span class="n">ok</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">httpd</span><span class="p">.</span><span class="n">write_response</span><span class="p">(</span><span class="n">sockethelper</span><span class="p">.</span><span class="n">writefunc</span><span class="p">(</span><span class="n">id</span><span class="p">),</span> <span class="o">...</span><span class="p">)</span>
-	<span class="k">if</span> <span class="ow">not</span> <span class="n">ok</span> <span class="k">then</span>
-		<span class="c1">-- if err == sockethelper.socket_error , that means socket closed.</span>
-		<span class="n">skynet</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="nb">string.format</span><span class="p">(</span><span class="s2">"fd = %d, %s"</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">err</span><span class="p">))</span>
-	<span class="k">end</span>
-<span class="k">end</span></code></pre></figure>
+<p>1.<code class="highlighter-rouge">undefined method 'default_proc'</code></p>
 
-<p>该response可以在客户端的页面（比如浏览器界面）打印出request内容，也就是纯粹地镜像返回request内容。</p>
+<p>Google了半天，才发现原来是博文头信息里，冒号后面必须空一格，否则就会报错，真是_(:3」∠)_</p>
 
-<p><img src="/assets/image/simpleweb.png" /></p>
+<p>错误：</p>
 
-<p>打印的这些内容是在simpleweb第21行的函数内组织成所要的table格式，然后传递给response。<br />
-response–&gt;httpd.write_response–&gt;(<strong>httpd</strong> local)writeall–&gt;sockethelper.writefunc（该函数返回一个由fd/id生成的未调用函数..(content)用以在某个具体socket中写入content）–&gt;writebytes–&gt;socket.write–&gt;(前缀全局名实际为socketdriver)driver.send–&gt;socketdriver.so</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>	---
+	title:lua学习笔记
+	--- 正确：
 
-<p>关于动态链接库还不懂，具体需要阅读http://blog.sina.com.cn/s/blog_62ef2f1401014r9s.html</p>
+	---
+	title: lua学习笔记
+	---
+</code></pre>
+</div>
 
-<p>总之目前先认为是一个在屏幕上打印内容的函数吧。也就是所谓浏览器的”print”API<br />
-write_response函数中可以传自定义的bodyfunc()函数用以输出body，还不知道怎么具体应用。总之传过去的内容只能是string, function或者nil，否则会抛出错误。</p>
+<p>2.<code class="highlighter-rouge">warning: cannot close fd before spawn 'which' 不是内部或外部命令，也不是可运行的程序或批处理文件</code></p>
 
-<p>writeall()中response的header信息和网页的html信息都是用writefunc输出，但是似乎socketdriver.so中的接口会自动判断哪些是response的header信息哪些是输出到网页页面上的信息。不过在我胡乱给了个table作为header参数时，本来应该在response header中的”content-length: 420”出现在了网页页面上，不知道这算不算bug。</p>
+<p>google了一把说是pygments的问题。我之前在<code class="highlighter-rouge">_config.yml</code>已经写明了<code class="highlighter-rouge">highlighter: pygments</code>，抱着死马当成活马的态度，改成了<code class="highlighter-rouge">highlighter: rouge/pygments</code>。结果问题就神秘消失了……但是这样会导致高亮出现问题，代码全是黑色，没有其他颜色。</p>
 
-<p>测试simpleweb时发现每一次刷新或打开页面都会提交两次request，第一次请求的内容是/，也就是用户需要的网页，第二次是favicon.ico。这是由于第一次请求的网页meta标签中没有设定ico，浏览器就会自动提交一个请求网站图标的request。具体见https://cnodejs.org/topic/54056647e84941a5714d65f4</p>
+<p>3.<code class="highlighter-rouge">Please add the following to Gemfile to avoid polling for changes:
+require 'rbconfig'
+if RbConfig::CONFIG['target_os'] =~ /mswin|mingw|cygwin/i
+	gem 'wdm', '&gt;=0.1.0'
+end</code></p>
 
-<p>skynet.newservice –&gt; skynet.call(“.launcher”, ‘lua’, ‘LAUNCH’, ‘snlua’, name, …)–&gt;skynet.call(addr, typename, …)–&gt; skynet.core.send(addr, p.id, nil, p.pack(…)) 和 yield_call(service, session)</p>
+<p>最后在stackoverflow中找到类似问题<a href="http://stackoverflow.com/questions/20459859/ruby-error-cannot-load-such-file-wdm-loaderror">Ruby error: cannot load such file — wdm (LoadError)</a>,只要安装wdm这个模块似乎就可以了。代码如下：</p>
 
-<p>接下来找不到skynet.core这个函数库，不明 ；以及这里使用的coroutine.resume和coroutine.yield采用的是云风自己重新写的一个。</p>
+<p><code class="highlighter-rouge">gem install wdm</code></p>
 
-<p>关于这部分函数的说明摘取<a href="https://github.com/cloudwu/skynet/wiki/LuaAPI">skynet的wiki</a><br />
-&gt; skynet.call(address, typename, …) 这条 API 则不同，它会在内部生成一个唯一 session ，并向 address 提起请求，并阻塞等待对 session 的回应（可以不由 address 回应）。当消息回应后，还会通过之前注册的 unpack 函数解包。表面上看起来，就是发起了一次 RPC ，并阻塞等待回应。</p>
+<p>4.中文乱码</p>
 
-<blockquote>
-  <p>skynet.newservice(name, …) 用于启动一个新的 Lua 服务。name 是脚本的名字（不用写 .lua 后缀）。只有被启动的脚本的 start 函数返回后，这个 API 才会返回启动的服务的地址，这是一个阻塞 API 。如果被启动的脚本在初始化环节抛出异常，或在初始化完成前就调用 skynet.exit 退出，｀skynet.newservice` 都会抛出异常。如果被启动的脚本的 start 函数是一个永不结束的循环，那么 newservice 也会被永远阻塞住。</p>
-</blockquote>
+<p>其实以上问题（包括当前这个）在我写第二篇博文之前都没有发生过，不知道为什么新建了博文后，出现各种各样的问题，而且打开的网页中如果有中文还是乱码。但是我的第一篇博文也是中文，却没有任何显示上的问题，我在想是不是文本编码不同，但是都是 UTF-8编码，不知道问题出在哪里。<br />
+以及发现，原来<code class="highlighter-rouge">_post</code>文件夹中的文件名也可以包含中文没问题了。</p>
+
+<p>补充：后来发现可能是format-matter中的内容写错了导致乱码，比如说只有一个分类的应写：</p>
+
+<p><code class="highlighter-rouge">category: lua</code></p>
+
+<p>有两个分类应写：</p>
+
+<p><code class="highlighter-rouge">categories: [lua, skynet]</code></p>
+
+<p>tags也是同样，不过tags不用改成tag。</p>
 
 
 
@@ -234,12 +241,12 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/lua/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="lua学习杂记">&larr; Previous Post</a>
+                        <a href="/notes/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/" data-toggle="tooltip" data-placement="top" title="skynet:simpleweb笔记">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="jekyll使用中的问题">Next Post &rarr;</a>
+                        <a href="/notes/2016/04/01/%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E7%AC%94%E8%AE%B0-1/" data-toggle="tooltip" data-placement="top" title="编程之美笔记 1">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -249,9 +256,9 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/skynet/lua/2014/10/09/skynet-simpleweb笔记"
-                        data-title="skynet:simpleweb笔记"
-                        data-url="http://SlothSimon.github.com/skynet/lua/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/" >
+                        data-thread-key="/dev%20log/2014/10/19/jekyll使用中的问题"
+                        data-title="jekyll使用中的问题"
+                        data-url="http://SlothSimon.github.com/dev%20log/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -273,32 +280,6 @@ write_response函数中可以传自定义的bodyfunc()函数用以输出body，�
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
-        				
-                            
         				
                             
         				

@@ -2,7 +2,7 @@
 layout: post
 title: jekyll使用中的问题
 date: 2014-10-19
-category: 网站搭建
+category: Dev Log
 tags: jekyll 
 ---
 在编辑两篇在10月9日写好的两篇笔记时，调用`jekyll server`，先后出现了以下问题。
