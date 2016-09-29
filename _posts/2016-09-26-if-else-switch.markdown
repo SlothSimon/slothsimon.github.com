@@ -3,7 +3,7 @@ layout: post
 title: if-else与switch的选择
 date: 2016-09-28
 category: Notes
-tags: [C++]
+tags: [c++]
 ---
 
 ### 参考资料：

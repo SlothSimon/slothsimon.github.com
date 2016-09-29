@@ -3,7 +3,7 @@ layout: post
 title: C++Primer答疑流水账
 date: 2016-08-15
 category: Notes
-tags: [C++]
+tags: [c++]
 ---
 
 推荐两个C++Primer阅读辅助资料（or社区）

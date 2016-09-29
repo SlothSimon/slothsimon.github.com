@@ -3,7 +3,7 @@ layout: post
 title: Sunny Doll 开发日志 1
 date: 2016-09-13
 category: Notes
-tags: [C++, cocos2d]
+tags: [c++, cocos2d]
 ---
 
 # Sunny Doll
