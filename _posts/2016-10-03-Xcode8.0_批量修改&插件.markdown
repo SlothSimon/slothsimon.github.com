@@ -1,0 +1,32 @@
+---
+layout: post
+title: Xcode8.0 批量修改&插件
+date: 2016-10-03
+category: Tools
+tags: [xcode, plugin]
+---
+
+### 批量修改
+以前在windows上开发时，VS有个**自动批量修改**的功能，譬如修改了类内变量或者函数的名字后，所有用刀这个变量或函数的地方都会进行同样的修改，非常方便，节省了大量重复的工作。
+
+Xcode虽然也有类似的功能（**Edit-->Refactor-->Rename**），但是<font color='red'>只适用于object-c或者C语言</font>。
+
+另外，如果只是在一个函数域内修改所有变量，可以使用**control+command+E**来选择域内所有变量。不习惯用快捷键的话，点击变量名旁边的倒三角会出现**“Edit All in Scope”**，也可以点击**Editor-->Edit All in Scope**。
+
+### Xcode8.0 不支持插件的解决方法
+
+[《Xcode 8 下使用Alcatraz的可行性》](http://www.jianshu.com/p/dc2fc2a680fc)这篇文章对于如何解决该问题提供很详细的流程，在此就不赘述了。
+
+目前开发来看没有太大问题，在使用某些插件时会崩溃，但应该是插件本身的锅。
+
+### 推荐插件
+
+1. **[Alcatraz](http://alcatraz.io/)**: 管理插件的插件，类似一个插件商店，绝大多数插件都可以在里面下载到，当然，都是免费的。
+2. **XAlign**: 按要求对齐代码，譬如多行代码均按照等号进行对齐等，强迫症必备。
+3. **HOStringSense**: 编辑string的利器，直接将你的文本转化为代码中字符串，包括回车、特殊字符等。
+4. **BBUDebuggerTuckAway**: 在写代码时自动隐藏debug栏目，让代码界面更大更简洁。
+5. **AutoHighlighSymbol**: 选中变量名或函数名时，高亮所有同名的代码。
+6. **SCXcodeMinimap**: 用过sublime的人多半都很喜欢右侧的小地图滚动条，这个插件可以提供相同的功能。（不过我在使用时出现了xcode崩溃情况）
+
+
+

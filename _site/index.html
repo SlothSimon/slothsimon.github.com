@@ -154,6 +154,7 @@ MathJax.Hub.Config({
             </div>
         </div>
     </div>
+    <meta name="baidu-site-verification" content="sQMyw1KSm6" />
 </header>
 
 <!-- Main Content -->
@@ -171,6 +172,48 @@ MathJax.Hub.Config({
                 post-container
             ">
     			
+<div class="post-preview">
+    <a href="/tools/2016/10/03/Xcode8.0_%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9&%E6%8F%92%E4%BB%B6/">
+        <h2 class="post-title">
+            Xcode8.0 批量修改&插件
+        </h2>
+        
+        <div class="post-content-preview">
+            批量修改
+以前在windows上开发时，VS有个自动批量修改的功能，譬如修改了类内变量或者函数的名字后，所有用刀这个变量或函数的地方都会进行同样的修改，非常方便，节省了大量重复的工作。
+
+Xcode虽然也有类似的功能（Edit–&gt;Refactor–&gt;Rename），但是只适用于object-c或者C语言。
+
+另外，如果只是在一个函数域内修改所有变量，可以使用control+com...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by SlothSimon's Skytree on October 3, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/tools/2016/10/03/Mac%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E5%AD%97%E5%85%B8%E6%89%A9%E5%85%85%E8%AF%8D%E5%BA%93/">
+        <h2 class="post-title">
+            Mac系统自带字典扩充词库
+        </h2>
+        
+        <div class="post-content-preview">
+            之前学习英语时，用过有道、欧陆，不过现在现在已经用惯了Mac OS自带的辞典功能，配合上spotlight搜索和三指点击非常的方便，但是Mac OS本身的词库很有限，因此一番搜索下看到有人给出了解决方案。注意：仅适用于Mac OS X 10.5及以上版本。
+
+步骤如下：
+
+
+  安装glib（这是为安装DictUnifier做准备，至于DictUnifier是啥下面会说），打开termina...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by SlothSimon's Skytree on October 3, 2016
+    </p>
+</div>
+<hr>
+
 <div class="post-preview">
     <a href="/notes/2016/09/28/if-else-switch/">
         <h2 class="post-title">
@@ -197,6 +240,33 @@ MathJax.Hub.Config({
     </a>
     <p class="post-meta">
         Posted by SlothSimon's Skytree on September 28, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/notes/2016/09/23/Sunny-Doll-%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97-2/">
+        <h2 class="post-title">
+            Sunny Doll 开发日志 2
+        </h2>
+        
+        <div class="post-content-preview">
+            完成工作
+
+进度演示
+演示下目前完成的部分：
+
+
+坡道移动的bug
+
+getforce-&gt;doesn’t work-&gt;setSurfaceVelocity-&gt;漂移（忘记设置surface velocity为0）、反向运动（摩擦力反向）、无法在坡上上坡
+
+有摩擦力才能计算表面速度
+https://chipmunk-physics.net/forum/viewtopic.php...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by SlothSimon's Skytree on September 23, 2016
     </p>
 </div>
 <hr>
@@ -380,85 +450,6 @@ Trial:
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/dev%20log/2014/10/19/jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/">
-        <h2 class="post-title">
-            jekyll使用中的问题
-        </h2>
-        
-        <div class="post-content-preview">
-            在编辑两篇在10月9日写好的两篇笔记时，调用jekyll server，先后出现了以下问题。
-
-1.undefined method 'default_proc'
-
-Google了半天，才发现原来是博文头信息里，冒号后面必须空一格，否则就会报错，真是_(:3」∠)_
-
-错误：
-
-	---
-	title:lua学习笔记
-	--- 正确：
-
-	---
-	title: lua学习笔记
-	---
-
-...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by SlothSimon's Skytree on October 19, 2014
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/notes/2014/10/09/skynet-simpleweb%E7%AC%94%E8%AE%B0/">
-        <h2 class="post-title">
-            skynet:simpleweb笔记
-        </h2>
-        
-        <div class="post-content-preview">
-            simpleweb函数追溯
-simpleweb中有一个本地的response函数用以返回客户端传来的request。
-
-local function response(id, ...)
-	local ok, err = httpd.write_response(sockethelper.writefunc(id), ...)
-	if not ok then
-		-- if err == so...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by SlothSimon's Skytree on October 9, 2014
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/notes/2014/10/09/lua%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        <h2 class="post-title">
-            lua学习杂记
-        </h2>
-        
-        <div class="post-content-preview">
-            关于lua中table的两个常用API
-
-1.table.concat(table, [sep="", start=1, end=数组长度])
-
-类似于python中字符串的join方法，举个例子，比如在lua中
-
-tb = {"a", "b", "c"}
-print("The concat result:"..table.concat(tb, ";"))
-
-输出结果同python中这段代码...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by SlothSimon's Skytree on October 9, 2014
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -536,6 +527,20 @@ print("The concat result:"..table.concat(tb, ";"))
                                 <a href="/tags/#php" title="php" rel="2">
                                     php
                                 </a>
+                            
+                        
+                            
+                                <a href="/tags/#cocos2d" title="cocos2d" rel="2">
+                                    cocos2d
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             
@@ -730,6 +735,21 @@ print("The concat result:"..table.concat(tb, ";"))
 
 
 <!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-85012711-1';
+    var _gaDomain = 'slothsimon.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
 
 
 

@@ -24,9 +24,9 @@ MathJax.Hub.Config({
     <meta name="keyword"  content="SlothSimon, 树懒Simon, Simon">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>实习参与的手游：悟空别走开 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
+    <title>Mac系统自带字典扩充词库 - 树懒Simon的天空树 | SlothSimon's Skytree</title>
 
-    <link rel="canonical" href="http://SlothSimon.github.com/portfolio/2016/07/17/%E5%AE%9E%E4%B9%A0%E5%85%AC%E5%8F%B8%E7%9A%84%E6%89%8B%E6%B8%B8/">
+    <link rel="canonical" href="http://SlothSimon.github.com/tools/2016/10/03/Mac%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E5%AD%97%E5%85%B8%E6%89%A9%E5%85%85%E8%AF%8D%E5%BA%93/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -158,17 +158,17 @@ MathJax.Hub.Config({
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#lua" title="lua">lua</a>
+                        <a class="tag" href="/tags/#mac" title="mac">mac</a>
                         
-                        <a class="tag" href="/tags/#php" title="php">php</a>
+                        <a class="tag" href="/tags/#english" title="english">english</a>
                         
                     </div>
-                    <h1>实习参与的手游：悟空别走开</h1>
+                    <h1>Mac系统自带字典扩充词库</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by SlothSimon's Skytree on July 17, 2016</span>
+                    <span class="meta">Posted by SlothSimon's Skytree on October 3, 2016</span>
                 </div>
             </div>
         </div>
@@ -186,66 +186,32 @@ MathJax.Hub.Config({
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<ul id="hello">
-  <li><a href="#section" id="hello-section">简介</a></li>
-  <li><a href="#section-1" id="hello-section-1">参与的开发</a></li>
-  <li><a href="#section-2" id="hello-section-2">总结</a></li>
-</ul>
+				<p>之前学习英语时，用过有道、欧陆，不过现在现在已经用惯了Mac OS自带的辞典功能，配合上spotlight搜索和三指点击非常的方便，但是Mac OS本身的词库很有限，因此一番搜索下看到有人给出了解决方案。<font color="red">注意：仅适用于Mac OS X 10.5及以上版本。</font></p>
 
-<h1 id="section">简介</h1>
-<p><img src="/img/in-post/portfolio/wkbzk/login.jpg" alt="pic1" /><br />
-<img src="/img/in-post/portfolio/wkbzk/main.jpg" alt="pic2" /></p>
+<h3 id="section">步骤如下：</h3>
 
-<p><a href="http://www.9game.cn/yjxz/">|悟空别走开－九游游戏专题|</a><br />
-大四（2014）开始参与了游戏的开发，从最开始连个主界面都没有，到后来有了Demo找代理，几乎就是一个从无到有的过程，打个比方的话，就是从根本不会游泳到后来狗刨几下能前进了。</p>
+<ol>
+  <li>安装glib（这是为安装DictUnifier做准备，至于DictUnifier是啥下面会说），打开terminal，然后输入：<code class="highlighter-rouge">brew install glib --with-static</code></li>
+  <li>安装DictUnifier，这是个提取词库并自动加入Mac系统词库的小软件，github地址：<a href="https://github.com/jjgod/mac-dictionary-kit">传送门»</a>；或者直接下载<a href="https://github.com/jjgod/mac-dictionary-kit/releases/download/v2.1/DictUnifier-2.1.zip">v2.1版本</a></li>
+  <li>在<a href="http://stardict.rrr.rs/">星际译王词库(StarDict Dictionaries)</a>中选择想要下载的词库，务必点击<strong>tarbal</strong>下载！</li>
+  <li>打开DictUnifier，将下载好的词典文件拖入虚框内，越大的词库转换越慢，如下图：<br />
+<img src="/img/in-post/convert_dict.gif" alt="拖入虚框" /></li>
+  <li>打开字典应用，在偏好设置里勾选词库，拖动词库可以改变优先级，如下图：<br />
+<img src="/img/in-post/dict_preferences.png" alt="偏好设置" /></li>
+</ol>
 
-<p>《悟空别走开》（原名《妖精小镇》）以《西游记》中的人物、剧情为引，构建了一个“后西游”世界。游戏模式以策略、战棋系统为主，以美食经营系统为辅。<br />
-<img src="/img/in-post/portfolio/wkbzk/fight.jpg" alt="pic3" /><br />
-安卓版本已经在各大商店上线，目前已有三个服务器。</p>
+<h3 id="section-1">推荐词典（含下载地址）：</h3>
 
 <ul>
-  <li>前端：cocos2d-x lua + 自己改引擎</li>
-  <li>后端：并没有很多需要实时交互的数据，因此主要为短连接，采用nginx+php，数据库为mongoDB，后期才摸索出需要一个靠谱的架构。</li>
+  <li><a href="http://stardict.rrr.rs/zh_CN/stardict-langdao-ec-gb-2.4.2.tar.bz2">朗道英汉字典5.0</a></li>
+  <li><a href="http://stardict.rrr.rs/zh_CN/stardict-langdao-ce-gb-2.4.2.tar.bz2">朗道汉英字典5.0</a></li>
+  <li><a href="http://stardict.rrr.rs/zh_CN/stardict-kdic-computer-gb-2.4.2.tar.bz2">计算机词汇</a></li>
 </ul>
 
-<h1 id="section-1">参与的开发</h1>
-
-<p>虽然并没有契约关系，但是出于基本的职业道德，不会太详细的从代码上说做了什么。一些已经是历史版本的框架倒可以提及。</p>
-
-<p>大boss一开始便选定了cocos2d-x作为框架，lua语言。因为学过python，对于脚本语言上手起来也比较快，加之lua的语法、函数库也格外简单，所以很快过渡到后端服务器的设计当中。</p>
-
-<p>当时的前辈选了云风大大的skynet，听介绍是类似一个服务器框架，但是这还是一个比较新的开源框架，并没有详细完备的文档，很多东西需要经验＋硬啃代码消化了自己再开发。后来查资料时有人评价说skynet的用户人群应该是敢于尝鲜并且有c/c++和lua开发经验的人，作为菜鸟程序猿深以为然。</p>
-
-<p>估计大boss也意识到了这个问题，于是和骨干们一商量，服务器拍板为nginx+php。</p>
-
-<p>而数据库，也从最开始的Redis+MySQL变为MongoDB，虽然之前写的代码作废了，但是对于创业公司来说也是比较稳妥的作法，一开始就想搞个大新闻还是比较有风险的……而且MongoDB在之后的开发中用起来也相当顺手，与关系型数据库开发起来各种条条框框截然不同。</p>
-
-<p>之后和另一个同事负责后端业务逻辑的编写，例如战斗胜利后的数据更新、人物的装备更替等等。对于php语言，也是一边用一边学。</p>
-
-<p>由于团队小、时间紧张，便没有文档，像是出现过多次的代码整合直接和同事口头知会一声即可。但其实有个简单的文档也好，因为时不时会在其它php文件中看到类似功能又实现了一遍，同时也不利于员工变动后的交接。</p>
-
-<p>除了业务逻辑外，还有服务器负载、数据传输加密的问题。前者我并未直接参与测试，只是知道是看在高并发的request和数据处理下CPU和内存的使用情况，以及服务器返回数据的速度等。后者采用xxtea和另外的密钥加密，当然除此之外还有别的加密手段就不提了。</p>
-
-<p>在开发过程中也不断遇到需求更改的情况，譬如加一个全局的成就更新，类似于“累积消费xx钻石”“累计获得xx件装备”，消费钻石、获得装备都好说，有公用的函数，在函数中添加新代码即可。但是有些成就的统计只能修改具体的业务逻辑代码文件，如果未来有新的成就，或者类似成就的全局变量更新，仍然要把具体的代码文件一个个修改，感觉在效率和维护方面不太合适。</p>
-
-<p>如果有一个统一的返回数据处理中心，集中处理成就之类的数据统计更新，想必可以优化开发，但是在毕业离职离京时这个概念也只有个草稿，后续是由同事完成。而不久后，公司招来了经验丰富的后端开发人员，后端服务器的框架又如同壮士断腕般推翻。</p>
-
-<p>除了后端的开发外，由于人手紧缺，前端只有一个工程师，加上测试后端也需要前端配合，因此也或多或少写了些前端的代码。</p>
-
-<p>前端复杂的核心部分由主程负责，因此对我来说是打打下手，没有太复杂的东西，主要是画面元素的布局和动画的重复性工作，UI交互逻辑和各图像元素坐标都由策划们设计好，再从美工那里要素材。</p>
-
-<p>为了简化代码，大boss自己动手写了函数，整合了各种元素的设置，即使不懂代码也只要照猫画虎填上坐标参数格式等即可。在此之前，用什么函数、什么参数、图层管理、坐标参考对象等等都是琐碎又头疼的存在。</p>
-
-<h1 id="section-2">总结</h1>
-
-<p>参与一个初创项目，确实可以全面地了解一个商业化手游的推进过程，策划、运营、美术、开发都要有人，美术还分场景和特效，光一个主美公司就前前后后换了三四个，真是铁打的阵营流水的兵。美术需要的人比开发要多，实在来不及或者没能力的还得外包，外包的美术风格还得和自己的美统一。</p>
-
-<p>大Boss既要做策划，还要监督进度，有了Demo之后还要到处找投资、运营代理、渠道商。而往往策划们想出来的好玩的点子在运营代理或是渠道商那里要被砍或者改，游戏改着改着就渐渐变了味。</p>
-
-<p>开发方面，没有经验也没有专业知识是硬伤，像是短连接长连接这类知识也是学着用，有些东西因为不知道它的存在，于是便不知道要用在服务器里。像是架构这种东西，或是防作弊的手段等等，现在回头看当时的处理便觉得危如累卵、粗糙不堪，就比如密钥这种东西是不好明文写在代码里最好随机生成，否则代码一被逆向破解就完全被暴露了。</p>
-
-<p>但即使再简陋，它最终还能完成到可以玩的地步，确实是从无到有很好地锻炼学习能力。纵使公司是996的作息（实际因为上课等原因并没有一周六天），也并不觉得辛苦，反而饶有兴趣。</p>
-
+<h3 id="section-2">其他</h3>
+<p>本来想推荐金山词霸的<a href="http://stardict.rrr.rs/PowerWord/2007/stardict-powerword2007_pwdnnjsj-2.4.2.tar.bz2">英汉双解计算机词典</a>，词汇量比较大，但是却显示<strong>“Format not supported”</strong>，不知道是为什么，如下图：<br />
+<img src="/img/in-post/format_not_supported.png" alt="错误" /><br />
+于是只能退而求其次选择只有几千词汇的<a href="http://stardict.rrr.rs/zh_CN/stardict-kdic-computer-gb-2.4.2.tar.bz2">计算机词汇</a>了。</p>
 
 
                 <hr>
@@ -255,22 +221,11 @@ MathJax.Hub.Config({
                 </style>
                 <div class="ds-share"
                     style="text-align: right"
-                    data-thread-key="/portfolio/2016/07/17/实习公司的手游"
-                    data-title="实习参与的手游：悟空别走开"
-                    data-url="http://SlothSimon.github.com/portfolio/2016/07/17/%E5%AE%9E%E4%B9%A0%E5%85%AC%E5%8F%B8%E7%9A%84%E6%89%8B%E6%B8%B8/"
+                    data-thread-key="/tools/2016/10/03/Mac系统自带字典扩充词库"
+                    data-title="Mac系统自带字典扩充词库"
+                    data-url="http://SlothSimon.github.com/tools/2016/10/03/Mac%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E5%AD%97%E5%85%B8%E6%89%A9%E5%85%85%E8%AF%8D%E5%BA%93/"
                     data-images="http://SlothSimon.github.com/img/home-bg.jpg"
-                    data-content="
-  简介
-  参与的开发
-  总结
-
-
-简介
-
-
-
-|悟空别走开－九游游戏专题|
-大四（2014）开始参与了游戏的开发，从最开始连个主界面都没有，到后来... | 树懒Simon的天空树 | SlothSimon's Skytree " >
+                    data-content="之前学习英语时，用过有道、欧陆，不过现在现在已经用惯了Mac OS自带的辞典功能，配合上spotlight搜索和三指点击非常的方便，但是Mac OS本身的... | 树懒Simon的天空树 | SlothSimon's Skytree " >
                     <div class="ds-share-inline">
                       <ul  class="ds-share-icons-16">
                         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -290,12 +245,12 @@ MathJax.Hub.Config({
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/portfolio/2016/07/06/%E4%BC%AA%E9%80%A0%E5%BE%AE%E5%8D%9A%E7%9A%84%E8%A1%8C%E4%B8%BA%E5%AD%A6%E5%AE%9E%E9%AA%8C/" data-toggle="tooltip" data-placement="top" title="毕业设计：模拟微博推送的行为学实验">&larr; Previous Post</a>
+                        <a href="/notes/2016/09/28/if-else-switch/" data-toggle="tooltip" data-placement="top" title="if-else与switch的选择">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/notes/2016/08/15/C++Primer%E7%AD%94%E7%96%91%E6%B5%81%E6%B0%B4%E8%B4%A6/" data-toggle="tooltip" data-placement="top" title="C++Primer答疑流水账">Next Post &rarr;</a>
+                        <a href="/tools/2016/10/03/Xcode8.0_%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9&%E6%8F%92%E4%BB%B6/" data-toggle="tooltip" data-placement="top" title="Xcode8.0 批量修改&插件">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -305,9 +260,9 @@ MathJax.Hub.Config({
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/portfolio/2016/07/17/实习公司的手游"
-                        data-title="实习参与的手游：悟空别走开"
-                        data-url="http://SlothSimon.github.com/portfolio/2016/07/17/%E5%AE%9E%E4%B9%A0%E5%85%AC%E5%8F%B8%E7%9A%84%E6%89%8B%E6%B8%B8/" >
+                        data-thread-key="/tools/2016/10/03/Mac系统自带字典扩充词库"
+                        data-title="Mac系统自带字典扩充词库"
+                        data-url="http://SlothSimon.github.com/tools/2016/10/03/Mac%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E5%AD%97%E5%85%B8%E6%89%A9%E5%85%85%E8%AF%8D%E5%BA%93/" >
                     </div>
                 </div>
                 <!-- 多说评论框 end -->

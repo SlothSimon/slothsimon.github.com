@@ -1,0 +1,31 @@
+---
+layout: post
+title: Mac系统自带字典扩充词库
+date: 2016-10-03
+category: Tools
+tags: [mac, english]
+---
+
+之前学习英语时，用过有道、欧陆，不过现在现在已经用惯了Mac OS自带的辞典功能，配合上spotlight搜索和三指点击非常的方便，但是Mac OS本身的词库很有限，因此一番搜索下看到有人给出了解决方案。<font color='red'>注意：仅适用于Mac OS X 10.5及以上版本。</font>
+
+### 步骤如下：
+
+1. 安装glib（这是为安装DictUnifier做准备，至于DictUnifier是啥下面会说），打开terminal，然后输入：`brew install glib --with-static`
+2. 安装DictUnifier，这是个提取词库并自动加入Mac系统词库的小软件，github地址：[传送门>>](https://github.com/jjgod/mac-dictionary-kit)；或者直接下载[v2.1版本](https://github.com/jjgod/mac-dictionary-kit/releases/download/v2.1/DictUnifier-2.1.zip)
+3. 在[星际译王词库(StarDict Dictionaries)](http://stardict.rrr.rs/)中选择想要下载的词库，务必点击**tarbal**下载！
+4. 打开DictUnifier，将下载好的词典文件拖入虚框内，越大的词库转换越慢，如下图：
+![拖入虚框](/img/in-post/convert_dict.gif)
+5. 打开字典应用，在偏好设置里勾选词库，拖动词库可以改变优先级，如下图：
+![偏好设置](/img/in-post/dict_preferences.png)
+
+
+### 推荐词典（含下载地址）：
+
+- [朗道英汉字典5.0](http://stardict.rrr.rs/zh_CN/stardict-langdao-ec-gb-2.4.2.tar.bz2)
+- [朗道汉英字典5.0](http://stardict.rrr.rs/zh_CN/stardict-langdao-ce-gb-2.4.2.tar.bz2)
+- [计算机词汇](http://stardict.rrr.rs/zh_CN/stardict-kdic-computer-gb-2.4.2.tar.bz2)
+
+### 其他
+本来想推荐金山词霸的[英汉双解计算机词典](http://stardict.rrr.rs/PowerWord/2007/stardict-powerword2007_pwdnnjsj-2.4.2.tar.bz2)，词汇量比较大，但是却显示**“Format not supported”**，不知道是为什么，如下图：
+![错误](/img/in-post/format_not_supported.png)
+于是只能退而求其次选择只有几千词汇的[计算机词汇](http://stardict.rrr.rs/zh_CN/stardict-kdic-computer-gb-2.4.2.tar.bz2)了。
