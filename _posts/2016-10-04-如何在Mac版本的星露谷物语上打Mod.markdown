@@ -1,0 +1,49 @@
+---
+layout: post
+title: 如何在Mac版本的星露谷物语上打Mod
+date: 2016-10-03
+category: Games
+tags: [stardewvalley, mod, mac]
+---
+
+今年夏天的时候星露谷物语(Stardew Valley)在Steam上推出了Mac版本和Linux版本。但是令人惊奇的是，这款游戏竟然没有游戏工坊，所有的Mod全靠玩家民间利用**SMAPI**来开发使用。**而SMAPI这个软件包目前却只支持Windows版本**。
+
+根据[作者的说法](https://github.com/cjsu/SMAPI/issues/126)，由于维护的精力有限，所以也不打算开发多平台。不过该issue下也有聪明机智的小伙伴（[@MacLeek](https://github.com/MacLeek)）自己搞了个**Mac版本的SMAPI**，给他／她点一万个赞！
+
+**Mac版本的SMAPI：[SMAPI](https://github.com/MacLeek/SMAPI)**
+
+**使用指南：[so_this_is_the_smapi_for_mac](https://www.reddit.com/r/StardewValley/comments/4ypp1a/so_this_is_the_smapi_for_mac/)**
+
+**亲测有效**，准备再试试能不能用联机mod。下面是我对于使用指南的翻译。
+
+### 步骤：
+
+>Usage:
+>
+>- Go into the folder like /Users/yourusername/Library/Application\ Support/Steam/SteamApps/common/Stardew\ Valley/Contents/MacOS/
+>- Make a copy of the StardewValley.bin.osx in this folder and rename it to StardewModdingAPI.bin.osx.
+>- Download [this!](https://drive.google.com/open?id=0B5iYS9gvOyrQZzBtZVY2NHZ6c0E) and unzip to the same folder. In the mods folder, I simply add DailyQuestAnywhere and GiftTasteHelper for testing.
+>- Run ./StardewModdingAPI.bin.osx under that folder directly.If you want to start it from steam, just open the file StardewValley, and find this line:./StardewValley.bin.osx $@ then replace it with ./StardewModdingAPI.bin.osx $@
+>- Enjoy
+
+使用方法：
+
+- 进入该路径的文件夹：`/Users/yourusername/Library/Application\ Support/Steam/SteamApps/common/Stardew\ Valley/Contents/MacOS/`
+- 复制文件夹里的**StardewValley.bin.osx**，然后将其重命名为**StardewModdingAPI.bin.osx**
+- 下载[这里](https://drive.google.com/open?id=0B5iYS9gvOyrQZzBtZVY2NHZ6c0E)（笔者注：此处为Google硬盘，可能需要翻墙），然后解压到上述的文件夹。 在mods这个文件夹里，我添加了几个mod用于测试。
+- 在terminal（终端）中打开上述文件夹，然后输入`./StardewModdingAPI.bin.osx`运行游戏。如果你想从steam中启动带有mod的游戏，用文本模式打开StardewValley这个文件，找到这一行`./StardewValley.bin.osx $@`，然后将其替换为`./StardewModdingAPI.bin.osx $@`
+- 享受游戏吧！
+
+### 对于Mac下Mod的开发者
+
+>Using monodevelop as your new IDE.
+>Do not use Reference of XNA stuffs.Use MonoGame.Framework.dll from the Mac Os folder.
+
+使用monodevelop来作为你新的开发工具。
+不要使用XNA那堆东西的引用，用Mac OS文件夹里的MonoGame.Framework.dll。
+
+
+
+
+
+
