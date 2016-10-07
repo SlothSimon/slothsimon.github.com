@@ -1,0 +1,57 @@
+---
+layout: post
+title: 移植星露谷物语联机Mod到Mac上
+date: 2016-10-07
+category: Games
+tags: [c#, mod, mac, mono, stardewvalley]
+---
+
+星露谷物语是由ConcernedApe一个人独立开发的游戏，毫无疑问这游戏致敬牧场物语，这也是笔者沉迷种田的原因……不仅有牧场物语，还结合了很多其他游戏的元素，不玩上几十个小时大概无法把所有要素都体验一遍。
+
+而与牧场物语最重要的区别（查资料才发现牧场物语公司还在！）是作者打算推出**联机模式**！最多支持四人联机，这无疑让这游戏更上一层。
+
+**不过由于作者精力有限所以联机模式的开发最早也要今年年底才会上线（这游戏作者开发四年才在今年上线）。**
+
+而网上已经有迫不及待的玩家[@spacechase0](https://github.com/spacechase0/StardewValleyMP)开发了临时的联机mod。
+
+星露谷暂时没有创意工坊，所有的mod都是玩家自己打包在民间流传。而游戏的官方mac也是今年夏天才推出，打mod的接口程序SMAPI都不支持mac，更不用说各种mod了。
+
+不过，有聪明机智的玩家自己把SMAPI移植到了Mac上，并且给出了mod开发建议，**用`monogame.framework`替代xna库**。具体细节可以看我的上一篇博文[《如何在Mac版本的星露谷物语上打Mod》](http://slothsimon.github.io/games/2016/10/03/%E5%A6%82%E4%BD%95%E5%9C%A8Mac%E7%89%88%E6%9C%AC%E7%9A%84%E6%98%9F%E9%9C%B2%E8%B0%B7%E7%89%A9%E8%AF%AD%E4%B8%8A%E6%89%93Mod/)。
+
+虽然用虚拟机也可以实现在Mac上和伙伴联机，但是我决定尝试一下移植Mod，说不定以后还会自己开发Mod，对不对？
+
+### 移植过程
+
+先给出fork的github项目，已经是改好的**[Mac版本联机Mod](https://github.com/SlothSimon/StardewValleyMP_MacVersion)**。
+
+1. 首先需要安装Mac下开发C#所需的程序：**[Mono和Xamarin Studio](http://www.monodevelop.com/download/)**，前者是跨平台所用的库，后者是IDE。
+
+2. 从github上fork然后下载**[联机mod的代码](https://github.com/spacechase0/StardewValleyMP)**。
+
+3. 用Xamarin打开其中的`.sln`工程文件，点开引用，可以看到很多引用呈灰色或者报错，主要是以下四个：
+    - **Microsoft.Xna.Framework及其包含的引用**
+    - **StardewModdingAPI**
+    - **StardewValley**
+    - **xTile**
+
+4. 找到游戏文件夹：`/Users/[你的用户名]/Library/Application Support/Steam/steamapps/common/Stardew Valley/Contents/MacOS`，把以下文件添加到引用中：
+    - **MonoGame.Framework.dll**
+    - **StardewValley.exe**
+    - **StardewModdingAPI.exe**
+    - **xTile.dll**
+
+5. 编译生成dll文件，然后把`bin/release`文件夹里的`StardewValleyMP.dll、StardewValleyMP.dll.mdb`以及工程文件`manifest.json`复制到一个新文件夹里，移动到游戏目录的Mods文件夹中。
+
+6. 至此，理论上不用改动代码就可以在Mac上联机了。
+
+### 问题&感想
+
+7. 虽然说理论上不用改动代码，但是谁知道会不会遇上**Mac环境下特有的问题**呢？不过目前还没有进行测试，还是个未知数。
+
+8. 作者因为游戏版本更新而对Mod进行的更新中有bug（不确定是否Mac特有），联机时客户端连上了进入了游戏，服务端却报错无法进入游戏。最后调试搞定了可以联机进入游戏了，具体可以看**[Github Issue: Connection bug while stop listening](https://github.com/spacechase0/StardewValleyMP/issues/18)**
+
+9. 调试真的很不方便，只能通过Log打印信息和变量和一次次运行游戏本体来判断哪里出了错误。不知道是不是我的打开方式有问题，有别的方便调试Mod的办法。
+
+10. 移植Mod没有我想象中那么困难，本来以为有很多需要改的接口什么的，然而`monogame.framework`解决了一切问题……本来还在引用库和网上找了半天xna在mono中对应的接口是什么，结果就放在游戏目录中。
+
+11. 官方的联机模式的话，可以看到StardewValley引用里的相关函数和类已经不少了，不过貌似没有玩家之间的互动玩法的函数什么的。好想问问，玩家之间可以送礼物刷好感结婚嘛？**玩家可以娶同一个妹子／汉子咩？**你一个雷姆我一个拉姆，嘿嘿嘿……
