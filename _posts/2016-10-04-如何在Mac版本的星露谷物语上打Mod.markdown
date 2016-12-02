@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 如何在Mac版本的星露谷物语上打Mod
-date: 2016-10-03
+date: 2016-10-04
 category: Games
 tags: [stardewvalley, mod, mac]
 ---

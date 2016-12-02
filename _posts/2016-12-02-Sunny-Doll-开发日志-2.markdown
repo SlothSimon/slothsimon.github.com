@@ -1,0 +1,90 @@
+---
+layout: post
+title: Sunny Doll 开发日志 2
+date: 2016-12-02
+category: Notes
+tags: [C++, cocos2d]
+---
+
+# 完成工作
+
+1. 人物沿坡道移动
+2. 状态机
+3. 完整的五个关卡和两个结局
+
+# 坡道移动的bug
+
+### BUG：
+- 无法沿坡运动
+- 无法停留在坡道上（受重力向下）
+- 若给坡道设置足够停留在坡道上的摩擦系数又会导致无法上坡
+
+### 解决方案：
+1. **`getForce`获取受力方向，然后加上切向加速度**
+- getForce获取的力为0，无法得到受力方向，**invalid**
+
+2. **查资料后，`setSurfaceVelocity`**
+- valid，但是会反向运动或者开始运动后无法停止发生漂移等。
+2.1. **漂移的原因**：忘记在停止运动的函数中设置surface velocity为0，仅仅设置velocity为0是无用的。
+2.2. **反向运动**：摩擦力反向
+2.3. **无法上坡**：上坡需要坡道摩擦系数>1
+
+### 参考资料：
+
+[Using surface velocity to move bodies 有摩擦力才能计算表面速度](https://chipmunk-physics.net/forum/viewtopic.php?f=1&t=457)
+[Propelling a vehicle up a slope 上坡需要坡道摩擦系数>1](http://forum.cocos2d-objc.org/t/chipmunk-propelling-a-vehicle-up-a-slope/9600/2)
+[chipmunk中文手册](https://github.com/iTyran/ChipmunkDocsCN/blob/master/Chipmunk2D.md)
+
+# 状态机
+
+好的状态机教程很多就不多提了。虽然最终通过`EventDispatcher`完成状态机，但是实际用的时候并没有感觉到状态机的必要性和便利性，也许是我的打开方式不对？
+
+### 参考资料：
+[cocos2d-x 游戏开发之有限状态机(FSM) (四)](http://blog.csdn.net/ubuntu64fan/article/details/43020757)
+[【木头Cocos2d-x 025】状态机篇(第04章) --事件驱动,你想象不到的强大(没有update的状态机)](http://m.blog.csdn.net/article/details?id=8349314)
+[cocos2dx3.2 (12)——新事件分发机制](http://shahdza.blog.51cto.com/2410787/1560222)
+[cocos2dx3.2 (21)——观察者模式NotificationCenter](http://shahdza.blog.51cto.com/2410787/1611575)
+
+# 枚举类型
+状态机本来想用枚举类型，但是尝试过后很不方便，即使在stackoverflow上查到了一些枚举和字符串互相转换的方法。
+
+### 参考资料
+[Is there a simple way to convert C++ enum to string?](http://stackoverflow.com/a/11586083/5987)
+[enum to string in modern C++ and future C++17 / C++20](http://stackoverflow.com/questions/28828957/enum-to-string-in-modern-c-and-future-c17-c20)
+[C++枚举](https://segmentfault.com/a/1190000002789928)
+[#define的用法盘点](http://bbs.csdn.net/topics/300118504)
+
+# 剧情动画
+本想在`EventDispatcher`中把回调函数作为usercontent传到状态机处理函数中，但是明明指针指向的位置没变，但是指针指向的内容已被清空，尤其是回调嵌套回调难以追溯问题到底出在哪里，直觉也不是个好的解决方案。
+最终采取了[cocos2dx 几个精灵按照顺序播放动画解决方法](http://m.blog.csdn.net/article/details?id=46741437)的做法。
+
+# 火焰粒子
+
+调试粒子系统还是用[ParticleDesigner](https://71squared.com/particledesigner)方便，版本老一点也没关系（好吧！其实是买不起最新版本！）。
+
+# 人物跟随
+人物本身也没有特别复杂的动作，设置个scheduler每秒获取被跟随人物的位置然后移动即可。
+
+# 一些报错总结
+
+1. **`exc_bad_access`**
+通常都是<font color='red'>被释放的内存又被使用</font>的缘故，比如有的Node没有`addChild`到某个父结点下，但是保存了指针，函数结束后该Node被释放，但指针仍然在之后被使用了。
+新建类或者new指针后千万不能忘了`autorelease`或者`CC_SAFE_DELETE`，**C++不好好管理指针简直是痛**。
+
+2. **`linker command failed with exit code `1**
+参考[iOS开发中Xcode编译错误 linker command failed with exit code 1 (use -v to see invocation) 的解决办法](http://blog.csdn.net/aaidong/article/details/45740017)，里面总结很多情况。
+个人情况是constants.h里包含了函数实现，且该头文件被多次包含导致，之后又去查了些[头文件包含原则](http://www.cnblogs.com/clover-toeic/p/3728026.html)。
+
+3. **`string s = null` 会报错 必须初始化为“”** 
+具体报错信息当时没有记录下来，貌似也不是直接指明原因，找了好一会才发现是string初始化的问题。
+
+4. **`Command /usr/bin/codesign failed with exit code 1`**
+这个问题似乎是在更新Xcode后才出现的问题，<font color='red'>添加新的素材文件或者替换素材文件后</font>run就会报这样的错，用terminal打开到素材目录下然后运行`xattr -c *`即可。
+参考[Xcode 8 can't archive “Command /usr/bin/codesign failed with exit code 1”](http://stackoverflow.com/questions/39449665/xcode-8-cant-archive-command-usr-bin-codesign-failed-with-exit-code-1)。
+
+5. **`Expected ';' after top level declarator`**
+又是一个更新后出现的问题……最后发现是<font color='red'>自动补全的参数是占位符</font>而不是参数列表。
+参考[Mistakes occurred when using Xcode to compile C++ program](http://stackoverflow.com/questions/38940844/mistakes-occurred-when-using-xcode-to-compile-c-program)
+
+# 其他
+上篇开发日志写到了音效、音乐渐变的代码，但是其实找图书馆借了本cocos2d的书一看，发现其实cocos2d本身提供音乐渐变的函数[`CDLongAudioSourceFader`](http://www.cocos2d-x.org/reference/native-cpp/V3.0rc1/d0/dd2/interface_c_d_long_audio_source_fader.html)。
