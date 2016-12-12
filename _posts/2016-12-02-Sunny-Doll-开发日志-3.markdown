@@ -1,0 +1,85 @@
+---
+layout: post
+title: Sunny Doll 开发日志 3
+date: 2016-12-12
+category: Notes
+tags: [C++, cocos2d]
+---
+
+# 完成工作
+1. Bug Fixed: 气球可以重复点击获取
+2. Bug Fixed: 第五关在点击气球后点击移动会造成卡死，人物无法移动
+3. Bug Fixed: 在火焰上浮时，可以不断点击升高，应当只升高一次
+4. Art Finished: 晴天娃娃入水无法移动的帧动画
+5. Art Finished: 晴天娃娃和女孩所有素材重绘
+6. Bug Fixed: 晴天娃娃出入水时帧动画播放的各种问题
+7. Bug Fixed: 晴天娃娃在空中上下规律漂浮时，若碰到其他刚体受到向上的力，且此时玩家正在操作晴天娃娃移动，则晴天娃娃会一直向斜上方移动，而非左右平移。
+
+
+# 开发中的问题&bug
+
+### 菜单的“bug”
+1. 曾有添加同一个素材会导致只显示得出一个的bug，后来发现是**忘记把按钮裁边**了，有大片透明区域导致的……
+
+2. 另外，MenuItem必须在**Menu加入父结点前**被加入Menu，否则该MenuItem就不会被显示出来。
+参考：[《cocos2dx 3.X 中 Menu, MenuItem 注意事项》](http://blog.csdn.net/ironyoung/article/details/41380297)
+
+### 精灵播放动画时切换Texture的问题
+设计时的理想状态是，精灵`onContactBegin`水时播放入水帧动画，`onContactSeparate`时播放出水帧动画。
+但由于<font color='red'>碰撞无法完全消除弹跳</font>（引擎bug），于是会多次播放入水出水帧动画，而当帧动画结束或中止时，经常<font color='red'>显示错误的Texture</font>。譬如明明已经脱离了水源，精灵依然显示的是被水浸透的texture，或者精灵的texture在宽度上被拉伸等。
+
+####问题&解决方案：
+
+1.**多次弹跳且引擎本身无法完全消除弹跳**
+**减少弹跳次数**：在触发出水帧动画时设定精灵刚体不受重力影响，然后在帧动画播放完后使精灵刚体受重力影响。
+{% highlight c++ %}
+// 此段代码在Sprite成员函数内执行
+
+physicsbody->setGravityEnable(false);
+runAction(Sequence::create(drown->reverse(),
+                            CallFunc::create([physicsbody]{
+                                physicsbody->setGravityEnable(true);
+                            }),
+                            NULL));
+{% endhighlight %}
+2.**当精灵帧动画的每帧texture长宽不一样时，播放帧动画会导致精灵刚体位置相对texture中心向左瞬移（这也是多次弹跳的原因之一）**
+3.**精灵texture在宽度上被拉伸至不合理的比例**
+对于问题2，也曾想从代码层面解决，但是无法直接设定刚体相对其所在结点的相对位置，只能设定偏移量，但偏移量的取值似乎对瞬移的情况没有改善。查了类似情况似乎也没有很好的办法，于是直接把每个texture的素材，也就是所有人物的素材宽度全部设定成一样（因为设置sprite比例时使用的是宽度），这样顺便把问题3也解决了。
+参考：[《Cocos2d v3 physics with animation》](http://forum.cocos2d-objc.org/t/cocos2d-v3-physics-with-animation/12651)
+
+4.**显示错误的Texture**
+一共有四种状态（Texture）：娃娃单独站立、娃娃单独浮在水中、娃娃背着女孩站立、娃娃背着女孩浮在水中。目前是做判定然后直接指定使用哪个素材，感觉这样的设计很丑，但先这么用着吧……
+
+### runAction的bug
+<font color='red'>有限次循环动画，第一次runAction(Animate)会毫无反应，原因不明。</font>
+{% highlight c++ %}
+// 此段代码在Sprite成员函数内执行
+
+auto drown = Animate::create(AnimationCache::getInstance()->getAnimation("doll_drown"));
+drown->getAnimation()->setLoops(1);
+// drown->getAnimation()->setLoops(3);
+
+runAction(drown);
+// runAction(drown->reverse());
+{% endhighlight %}
+这段代码里，这个有限次循环动画第一次触发时并不会播放，设置循环1次或3次都是一样的。
+但是**当执行这个动画的reverse时，就不会有这样的问题**，令人费解……
+最后是静态变量记录是否是第一次执行这个帧动画来解决这个问题。
+{% highlight c++ %}
+// 此段代码在Sprite成员函数内执行
+
+static int count = 0;
+auto drown = Animate::create(AnimationCache::getInstance()->getAnimation("doll_drown"));
+drown->getAnimation()->setLoops(1);
+
+runAction(drown);
+if (count == 0)
+    runAction(drown->clone());
+{% endhighlight %}
+
+
+# TODO
+1. 更多的结局
+2. 更多的互动要素
+3. 结局的CG绘制
+4. 写项目介绍以便求职……(ﾉД`)

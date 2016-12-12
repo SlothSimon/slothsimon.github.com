@@ -88,3 +88,9 @@ tags: [C++, cocos2d]
 
 # 其他
 上篇开发日志写到了音效、音乐渐变的代码，但是其实找图书馆借了本cocos2d的书一看，发现其实cocos2d本身提供音乐渐变的函数[`CDLongAudioSourceFader`](http://www.cocos2d-x.org/reference/native-cpp/V3.0rc1/d0/dd2/interface_c_d_long_audio_source_fader.html)。
+
+# TODO
+1. Bug: 气球可以重复点击获取
+2. Bug: 第五关在点击气球后点击移动会造成卡死，人物无法移动
+3. Art: 晴天娃娃入水无法移动的动画
+4. Art: 小女孩立绘
