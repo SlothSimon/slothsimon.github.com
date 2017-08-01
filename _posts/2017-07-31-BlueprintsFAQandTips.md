@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 虚幻4蓝图答疑和提示（Blueprints FAQ and Tips）
+title: 【翻译】虚幻4蓝图答疑和提示（Blueprints FAQ and Tips）
 date: 2017-07-31
 category: translations
 tags: [translation, unreal4, c++, blueprint]
@@ -16,6 +16,7 @@ Unreal4中用蓝图(Blueprint)全面替代了Kismet和UnrealScript，并且设�
 A: 蓝图和C++的区别主要在于蓝图运行在“虚拟机”上。这个“虚拟机”并不是真的虚拟机，而是一个抽象概念，代表了它不会直接编译为机器集成代码（注1），而是编译为一个过渡形式，然后才会被翻译为任意运行所在机器的代码。例如，无论你在PC、Mac、Linux、PS4或其他平台，我们都使用同一份生成的蓝图代码。然后这份代码就被翻译为可以运行在每台设备上的原生机器代码。
 
 这么做有几个好处：
+
 - 你不必有C++编译器
 - 每次更改后，你不必退出编辑器重载，而C++必须退出重载。
 - 你可以使脚本更能容忍错误。比如`Access None's`、`Array Out-of-Bounds`错误、死循环等错误可以被当做抛出的异常被捕捉并处理，避免程序崩溃。
