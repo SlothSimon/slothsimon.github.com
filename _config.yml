@@ -7,7 +7,7 @@ description: "一只快如闪电（并不）的程序懒！ | SlothSimon，fresh
 keyword: "SlothSimon, 树懒Simon, Simon"
 url: "http://SlothSimon.github.com"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
-
+port: 8080
 
 
 # SNS settings
@@ -32,7 +32,7 @@ anchorjs: true                          # if you want to customize anchor. check
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 
 
 
