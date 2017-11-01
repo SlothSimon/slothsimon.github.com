@@ -9,31 +9,31 @@ tags: [c++, cocos2d]
 * 目录
 {:toc #hello}
 
-# 简介
+# 简介 Introduction
 《晴天娃娃》是一款基于Cocos2d开发的iOS横版单机手游，玩家将操作晴天娃娃进行冒险，并通过改变天气来帮助晴天娃娃过关。途中，晴天娃娃遇见了一个和父亲走失的小女孩……
 
-# 人物
+# 人物 Characters
 
-#### 晴天娃娃
+#### 晴天娃娃 The Sunny Doll
 <img src="/img/in-post/portfolio/sunnydoll/doll_walk.gif" alt="晴天娃娃" width="10%" /><img src="/img/in-post/portfolio/sunnydoll/dollwithgirl.gif" alt="女孩" width="10%" /><img src="/img/in-post/portfolio/sunnydoll/doll_drown.gif" alt="晴天娃娃" width="10%" />
 <img src="/img/in-post/portfolio/sunnydoll/dollwithgirl_drown.gif" alt="女孩" width="10%" />
 
 
-#### 小女孩
+#### 小女孩 The Little Girl
 <img src="/img/in-post/portfolio/sunnydoll/girl_walk.gif" alt="女孩" width="10%" />
 
 
-# 游戏特性
+# 游戏特性 Features
 
 1. **控制天气**：每一关卡都需要合适的天气触发相应的交互才有可能过关
 2. **道具收集**：不同道具可以让晴天娃娃具有不同的功能
 3. **多种因素影响结局走向**：道具的收集、天气的选择（未完成）等会影响结局分支
 
-# 演示视频
+# 演示视频 Demo
+如果看不见可以移步去：[LINK](https://www.bilibili.com/video/av7381996/)
+<iframe src="https://www.bilibili.com/blackboard/player.html?aid=7381996&cid=12199886&as_wide=1" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-<embed height="415" width="544" quality="high" allowfullscreen="true" type="application/x-shockwave-flash" src="http://static.hdslb.com/miniloader.swf" flashvars="aid=7381996&page=1" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash">
-
-# 开发后记
+# 开发后记 Review
 1. 引擎的代码多多少少要去看或改，**万一引擎出Bug了呢**……
 2. 坐标系、缩放比例、屏幕适配有些磨人，还需改进，可想而知**安卓开发者**的辛苦。
 3. 学习了物理系统、粒子系统和帧动画，以后试试骨骼动画。
