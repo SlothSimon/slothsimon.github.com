@@ -14,7 +14,7 @@ tags: [unreal4,c++]
 
 ### Cause
 查看两个UFUNCTION的specifier
-``` C++
+``` c++
 // Allow multple links to Target
 UFUNCTION(BlueprintCallable, Category=Character)
        virtual void Jump();
@@ -26,7 +26,7 @@ UFUNCTION(BlueprintCallable, meta=(ScriptNoExport, BlueprintInternalUseOnly = "t
 看上去没有什么和Pin直接有关系的，只不过蓝图中是`AddCameraComponent`，而源代码则指向了一个通用的`AddComponent`，也就是说，蓝图中的这个函数结点是根据通用函数生成出来的，并没有实际的函数对应。
 
 于是顺着结点生成的相关代码找去，通过Debugger捕捉Link和Unlink的行为，终于发现和下面这个函数有关，大家重点关注bMultipleSelfException的赋值：
-``` C++
+``` c++
 const FPinConnectionResponse UEdGraphSchema_K2::DetermineConnectionResponseOfCompatibleTypedPins(const UEdGraphPin* PinA, const UEdGraphPin* PinB, const UEdGraphPin* InputPin, const UEdGraphPin* OutputPin) const
 {
 	// Now check to see if there are already connections and this is an 'exclusive' connection
