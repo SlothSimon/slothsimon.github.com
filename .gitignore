@@ -1,0 +1,4 @@
+*.log
+*.temp
+/_site
+/.sass-cache
